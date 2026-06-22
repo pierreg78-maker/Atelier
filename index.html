@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atelier Mémoire</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:       #F7F5F0;
+    --text:     #1A1A2E;
+    --muted:    #7A7A8C;
+    --accent:   #E8704A;
+    --surface:  #FFFFFF;
+    --border:   #E2DFD8;
+
+    /* couleurs par jeu */
+    --c-simon:   #4A7CCC;
+    --c-memory:  #7BAB5A;
+    --c-quiz:    #C8813C;
+    --c-taupe:   #CC4A72;
+    --c-intrus:  #7A5ACC;
+  }
+
+  html { font-size: 18px; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    padding: 0 0 48px;
+  }
+
+  /* ── Header ── */
+  header {
+    padding: 40px 24px 28px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+  }
+
+  .header-inner {
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  .logo-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 6px;
+  }
+
+  .logo-icon {
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+  }
+
+  h1 {
+    font-family: 'Lora', serif;
+    font-size: 1.7rem;
+    font-weight: 600;
+    color: var(--accent);
+    line-height: 1.1;
+  }
+
+  .tagline {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.5;
+    margin-top: 4px;
+  }
+
+  /* ── Section ── */
+  .section {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 28px 20px 0;
+  }
+
+  .section-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+
+  /* ── Cartes jeux ── */
+  .game-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .game-card {
+    background: var(--surface);
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 20px 20px;
+    text-decoration: none;
+    color: var(--text);
+    cursor: pointer;
+    transition: transform 0.12s ease, box-shadow 0.12s ease;
+    -webkit-tap-highlight-color: transparent;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .game-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 5px;
+    border-radius: 20px 0 0 20px;
+  }
+
+  .game-card[data-color="simon"]::before  { background: var(--c-simon); }
+  .game-card[data-color="memory"]::before { background: var(--c-memory); }
+  .game-card[data-color="quiz"]::before   { background: var(--c-quiz); }
+  .game-card[data-color="taupe"]::before  { background: var(--c-taupe); }
+  .game-card[data-color="intrus"]::before { background: var(--c-intrus); }
+
+  .game-card:active {
+    transform: scale(0.98);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  }
+
+  .game-card.coming-soon {
+    opacity: 0.55;
+    cursor: default;
+  }
+  .game-card.coming-soon:active { transform: none; box-shadow: none; }
+
+  .icon-wrap {
+    width: 58px;
+    height: 58px;
+    border-radius: 16px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .game-card[data-color="simon"]  .icon-wrap { background: #EBF0FA; }
+  .game-card[data-color="memory"] .icon-wrap { background: #EDF4E6; }
+  .game-card[data-color="quiz"]   .icon-wrap { background: #FAF0E6; }
+  .game-card[data-color="taupe"]  .icon-wrap { background: #FAEBF0; }
+  .game-card[data-color="intrus"] .icon-wrap { background: #F0EBFA; }
+
+  .icon-wrap svg {
+    width: 32px;
+    height: 32px;
+  }
+
+  .game-info { flex: 1; }
+
+  .game-name {
+    font-family: 'Lora', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    line-height: 1.2;
+    margin-bottom: 4px;
+  }
+
+  .game-desc {
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 1.4;
+  }
+
+  .game-tags {
+    display: flex;
+    gap: 6px;
+    margin-top: 8px;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    padding: 3px 9px;
+    border-radius: 100px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+  }
+
+  .badge-soon {
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 100px;
+    background: var(--border);
+    color: var(--muted);
+    flex-shrink: 0;
+    align-self: center;
+  }
+
+  .chevron {
+    color: var(--border);
+    flex-shrink: 0;
+  }
+
+  /* ── Footer ── */
+  footer {
+    max-width: 480px;
+    margin: 36px auto 0;
+    padding: 0 20px;
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo-row">
+      <!-- Icône cerveau stylisé -->
+      <svg class="logo-icon" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="44" height="44" rx="12" fill="#FFF0EA"/>
+        <path d="M14 20c0-4.4 3.6-8 8-8s8 3.6 8 8c0 2-.7 3.8-1.9 5.2L26 32H18l-1.1-6.8A8 8 0 0 1 14 20z" fill="none" stroke="#E8704A" stroke-width="2" stroke-linejoin="round"/>
+        <path d="M19 24h6M22 16v3M17 19l2 2M27 19l-2 2" stroke="#E8704A" stroke-width="1.8" stroke-linecap="round"/>
+      </svg>
+      <h1>Atelier Mémoire</h1>
+    </div>
+    <p class="tagline">Jeux de stimulation pour garder l'esprit alerte, à deux ou en groupe.</p>
+  </div>
+</header>
+
+<div class="section">
+  <div class="section-label">Choisir un jeu</div>
+  <div class="game-list">
+
+    <!-- Simon -->
+    <a class="game-card" data-color="simon" href="simon.html">
+      <div class="icon-wrap">
+        <svg viewBox="0 0 32 32" fill="none">
+          <rect x="3" y="3" width="11" height="11" rx="4" fill="#4A7CCC" opacity=".9"/>
+          <rect x="18" y="3" width="11" height="11" rx="4" fill="#CC4A72" opacity=".9"/>
+          <rect x="3" y="18" width="11" height="11" rx="4" fill="#4AB087" opacity=".9"/>
+          <rect x="18" y="18" width="11" height="11" rx="4" fill="#C89A3C" opacity=".9"/>
+        </svg>
+      </div>
+      <div class="game-info">
+        <div class="game-name">Simon</div>
+        <div class="game-desc">Répète la séquence de couleurs dans le bon ordre.</div>
+        <div class="game-tags">
+          <span class="tag">Mémoire</span>
+          <span class="tag">Attention</span>
+        </div>
+      </div>
+      <svg class="chevron" width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <path d="M7.5 5l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+
+    <!-- Memory -->
+    <div class="game-card coming-soon" data-color="memory">
+      <div class="icon-wrap">
+        <svg viewBox="0 0 32 32" fill="none">
+          <rect x="3" y="3" width="12" height="12" rx="3" fill="#7BAB5A" opacity=".85"/>
+          <rect x="17" y="3" width="12" height="12" rx="3" stroke="#7BAB5A" stroke-width="2"/>
+          <rect x="3" y="17" width="12" height="12" rx="3" stroke="#7BAB5A" stroke-width="2"/>
+          <rect x="17" y="17" width="12" height="12" rx="3" fill="#7BAB5A" opacity=".85"/>
+          <path d="M20 20l7 7M27 20l-7 7" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
+          <path d="M6 20l3 3 4-4" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="game-info">
+        <div class="game-name">Memory</div>
+        <div class="game-desc">Retrouve les paires de cartes identiques.</div>
+        <div class="game-tags">
+          <span class="tag">Mémoire visuelle</span>
+          <span class="tag">Concentration</span>
+        </div>
+      </div>
+      <span class="badge-soon">Bientôt</span>
+    </div>
+
+    <!-- Quiz -->
+    <div class="game-card coming-soon" data-color="quiz">
+      <div class="icon-wrap">
+        <svg viewBox="0 0 32 32" fill="none">
+          <circle cx="16" cy="16" r="12" stroke="#C8813C" stroke-width="2"/>
+          <path d="M13 12.5a3 3 0 1 1 3 3v2" stroke="#C8813C" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="16" cy="21.5" r="1.2" fill="#C8813C"/>
+        </svg>
+      </div>
+      <div class="game-info">
+        <div class="game-name">Quiz Souvenirs</div>
+        <div class="game-desc">Questions sur les années 50 à 80, chansons, célébrités, événements.</div>
+        <div class="game-tags">
+          <span class="tag">Culture générale</span>
+          <span class="tag">Évocation</span>
+        </div>
+      </div>
+      <span class="badge-soon">Bientôt</span>
+    </div>
+
+    <!-- Whack-a-mole -->
+    <div class="game-card coming-soon" data-color="taupe">
+      <div class="icon-wrap">
+        <svg viewBox="0 0 32 32" fill="none">
+          <ellipse cx="16" cy="24" rx="11" ry="4" fill="#CC4A72" opacity=".2"/>
+          <circle cx="16" cy="15" r="7" fill="#CC4A72" opacity=".9"/>
+          <circle cx="13.5" cy="13.5" r="1.5" fill="white"/>
+          <circle cx="18.5" cy="13.5" r="1.5" fill="white"/>
+          <path d="M13.5 17.5c.7.8 1.5 1.2 2.5 1.2s1.8-.4 2.5-1.2" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M10 8l2 3M22 8l-2 3" stroke="#CC4A72" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="game-info">
+        <div class="game-name">Attrape-taupe</div>
+        <div class="game-desc">Touche les taupes qui apparaissent avant qu'elles disparaissent.</div>
+        <div class="game-tags">
+          <span class="tag">Réflexes</span>
+          <span class="tag">Coordination</span>
+        </div>
+      </div>
+      <span class="badge-soon">Bientôt</span>
+    </div>
+
+    <!-- Intrus -->
+    <div class="game-card coming-soon" data-color="intrus">
+      <div class="icon-wrap">
+        <svg viewBox="0 0 32 32" fill="none">
+          <rect x="3" y="7" width="8" height="8" rx="2" fill="#7A5ACC" opacity=".85"/>
+          <rect x="13" y="7" width="8" height="8" rx="2" fill="#7A5ACC" opacity=".85"/>
+          <rect x="23" y="7" width="6" height="8" rx="2" fill="#CC4A72" opacity=".85"/>
+          <rect x="3" y="18" width="8" height="7" rx="2" fill="#7A5ACC" opacity=".85"/>
+          <path d="M16 21.5l4 4M20 21.5l-4 4" stroke="#CC4A72" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="game-info">
+        <div class="game-name">L'Intrus</div>
+        <div class="game-desc">Trouve le mot qui ne va pas avec les autres.</div>
+        <div class="game-tags">
+          <span class="tag">Logique</span>
+          <span class="tag">Langage</span>
+        </div>
+      </div>
+      <span class="badge-soon">Bientôt</span>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  Atelier Mémoire · Jeux de stimulation cognitive<br>
+  Conçu pour être utilisé avec un accompagnant
+</footer>
+
+</body>
+</html>
