@@ -122,8 +122,8 @@
     border-radius: 20px 0 0 20px;
   }
 
-  .game-card[data-color="simon"]::before  { background: var(--c-simon); }
   .game-card[data-color="memory"]::before { background: var(--c-memory); }
+  .game-card[data-color="simon"]::before  { background: var(--c-simon); }
   .game-card[data-color="quiz"]::before   { background: var(--c-quiz); }
   .game-card[data-color="taupe"]::before  { background: var(--c-taupe); }
   .game-card[data-color="intrus"]::before { background: var(--c-intrus); }
@@ -134,7 +134,7 @@
   }
 
   .game-card.coming-soon {
-    opacity: 0.55;
+    opacity: 0.00;
     cursor: default;
   }
   .game-card.coming-soon:active { transform: none; box-shadow: none; }
@@ -149,8 +149,8 @@
     justify-content: center;
   }
 
+  .game-card[data-color="memory"] .icon-wrap { background: #F0FAEB; }
   .game-card[data-color="simon"]  .icon-wrap { background: #EBF0FA; }
-  .game-card[data-color="memory"] .icon-wrap { background: #EDF4E6; }
   .game-card[data-color="quiz"]   .icon-wrap { background: #FAF0E6; }
   .game-card[data-color="taupe"]  .icon-wrap { background: #FAEBF0; }
   .game-card[data-color="intrus"] .icon-wrap { background: #F0EBFA; }
@@ -244,8 +244,36 @@
   <div class="section-label">Choisir un jeu</div>
   <div class="game-list">
 
+
+    <!-- Memory -->
+    <a class="game-card" data-color="memory" href="https://pierreg78-maker.github.io/Memory/">
+      <div class="icon-wrap">
+        <svg viewBox="0 0 32 32" fill="none">
+          <rect x="3" y="3" width="11" height="11" rx="3" fill="#7BAB5A" opacity=".9"/>
+          <rect x="17" y="3" width="11" height="11" rx="3" stroke="#7BAB5A" stroke-width="2"/>
+          <rect x="3" y="17" width="11" height="11" rx="3" stroke="#7BAB5A" stroke-width="2"/>
+          <rect x="17" y="17" width="11" height="11" rx="3" fill="#7BAB5A" opacity=".9"/>
+          <path d="M20 20l7 7M27 20l-7 7" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
+          <path d="M6 20l3 3 4-4" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="game-info">
+        <div class="game-name">Memory</div>
+        <div class="game-desc">Retrouvez les paires de cartes identiques.</div>
+        <div class="game-tags">
+          <span class="tag">Mémoire visuelle</span>
+          <span class="tag">Concentration</span>
+        </div>
+      </div>
+      <svg class="chevron" width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <path d="M7.5 5l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+
+
+
     <!-- Simon -->
-    <a class="game-card" data-color="simon" href="simon.html">
+    <a class="game-card" data-color="simon" href="https://pierreg78-maker.github.io/simon_says/">
       <div class="icon-wrap">
         <svg viewBox="0 0 32 32" fill="none">
           <rect x="3" y="3" width="11" height="11" rx="4" fill="#4A7CCC" opacity=".9"/>
@@ -256,7 +284,7 @@
       </div>
       <div class="game-info">
         <div class="game-name">Simon</div>
-        <div class="game-desc">Répète la séquence de couleurs dans le bon ordre.</div>
+        <div class="game-desc">Répètez la séquence de couleurs dans le bon ordre.</div>
         <div class="game-tags">
           <span class="tag">Mémoire</span>
           <span class="tag">Attention</span>
@@ -267,31 +295,10 @@
       </svg>
     </a>
 
-    <!-- Memory -->
-    <div class="game-card coming-soon" data-color="memory">
-      <div class="icon-wrap">
-        <svg viewBox="0 0 32 32" fill="none">
-          <rect x="3" y="3" width="12" height="12" rx="3" fill="#7BAB5A" opacity=".85"/>
-          <rect x="17" y="3" width="12" height="12" rx="3" stroke="#7BAB5A" stroke-width="2"/>
-          <rect x="3" y="17" width="12" height="12" rx="3" stroke="#7BAB5A" stroke-width="2"/>
-          <rect x="17" y="17" width="12" height="12" rx="3" fill="#7BAB5A" opacity=".85"/>
-          <path d="M20 20l7 7M27 20l-7 7" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
-          <path d="M6 20l3 3 4-4" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </div>
-      <div class="game-info">
-        <div class="game-name">Memory</div>
-        <div class="game-desc">Retrouve les paires de cartes identiques.</div>
-        <div class="game-tags">
-          <span class="tag">Mémoire visuelle</span>
-          <span class="tag">Concentration</span>
-        </div>
-      </div>
-      <span class="badge-soon">Bientôt</span>
-    </div>
+
 
     <!-- Quiz -->
-    <div class="game-card coming-soon" data-color="quiz">
+     <a class="game-card" data-color="quiz" href="https://pierreg78-maker.github.io/quizz/">
       <div class="icon-wrap">
         <svg viewBox="0 0 32 32" fill="none">
           <circle cx="16" cy="16" r="12" stroke="#C8813C" stroke-width="2"/>
@@ -300,18 +307,18 @@
         </svg>
       </div>
       <div class="game-info">
-        <div class="game-name">Quiz Souvenirs</div>
-        <div class="game-desc">Questions sur les années 50 à 80, chansons, célébrités, événements.</div>
+        <div class="game-name">Le Quiz</div>
+        <div class="game-desc">Questions sur la musique des années 50 à 80, le cinéma et le Périgord</div>
         <div class="game-tags">
           <span class="tag">Culture générale</span>
           <span class="tag">Évocation</span>
         </div>
       </div>
-      <span class="badge-soon">Bientôt</span>
-    </div>
+      
+    </a>
 
     <!-- Whack-a-mole -->
-    <div class="game-card coming-soon" data-color="taupe">
+    <a class="game-card" data-color="taupe" href="https://pierreg78-maker.github.io/wackamole/">
       <div class="icon-wrap">
         <svg viewBox="0 0 32 32" fill="none">
           <ellipse cx="16" cy="24" rx="11" ry="4" fill="#CC4A72" opacity=".2"/>
@@ -323,18 +330,20 @@
         </svg>
       </div>
       <div class="game-info">
-        <div class="game-name">Attrape-taupe</div>
-        <div class="game-desc">Touche les taupes qui apparaissent avant qu'elles disparaissent.</div>
+        <div class="game-name">Attrape-souris</div>
+        <div class="game-desc">Touchez les souris qui apparaissent avant qu'elles ne disparaissent.</div>
         <div class="game-tags">
           <span class="tag">Réflexes</span>
           <span class="tag">Coordination</span>
         </div>
       </div>
-      <span class="badge-soon">Bientôt</span>
-    </div>
+       <svg class="chevron" width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <path d="M7.5 5l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
 
     <!-- Intrus -->
-    <div class="game-card coming-soon" data-color="intrus">
+    <a class="game-card" data-color="intrus" href="https://pierreg78-maker.github.io/intrus/">
       <div class="icon-wrap">
         <svg viewBox="0 0 32 32" fill="none">
           <rect x="3" y="7" width="8" height="8" rx="2" fill="#7A5ACC" opacity=".85"/>
@@ -346,14 +355,17 @@
       </div>
       <div class="game-info">
         <div class="game-name">L'Intrus</div>
-        <div class="game-desc">Trouve le mot qui ne va pas avec les autres.</div>
+        <div class="game-desc">Trouvez le mot qui ne va pas avec les autres.</div>
         <div class="game-tags">
           <span class="tag">Logique</span>
           <span class="tag">Langage</span>
         </div>
       </div>
-      <span class="badge-soon">Bientôt</span>
-    </div>
+       <svg class="chevron" width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <path d="M7.5 5l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a> 
+    
 
   </div>
 </div>
