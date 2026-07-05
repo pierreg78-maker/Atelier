@@ -24,6 +24,7 @@
     --c-taupe:   #CC4A72;
     --c-intrus:  #7A5ACC;
     --c-def:     #2E9E8F;
+    --c-puzzle:  #C9A227;
   }
 
   html { font-size: 18px; }
@@ -130,6 +131,7 @@
   .game-card[data-color="taupe"]::before  { background: var(--c-taupe); }
   .game-card[data-color="intrus"]::before { background: var(--c-intrus); }
   .game-card[data-color="def"]::before    { background: var(--c-def); }
+  .game-card[data-color="puzzle"]::before { background: var(--c-puzzle); }
 
   .game-card:active {
     transform: scale(0.98);
@@ -158,6 +160,7 @@
   .game-card[data-color="taupe"]  .icon-wrap { background: #FAEBF0; }
   .game-card[data-color="intrus"] .icon-wrap { background: #F0EBFA; }
   .game-card[data-color="def"]    .icon-wrap { background: #E6F5F3; }
+  .game-card[data-color="puzzle"] .icon-wrap { background: #FAF3E0; }
 
   .icon-wrap svg {
     width: 32px;
@@ -397,6 +400,26 @@
         <div class="game-tags">
           <span class="tag">Mémoire sémantique</span>
           <span class="tag">Compréhension</span>
+        </div>
+      </div>
+       <svg class="chevron" width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <path d="M7.5 5l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+
+    <!-- Puzzle -->
+    <a class="game-card" data-color="puzzle" href="https://pierreg78-maker.github.io/puzzle_3x3/">
+      <div class="icon-wrap">
+        <svg viewBox="0 0 32 32" fill="none">
+          <path d="M6 6h8v3a2.5 2.5 0 0 0 5 0V6h7v8h-3a2.5 2.5 0 0 0 0 5h3v7h-7v-3a2.5 2.5 0 0 0-5 0v3H6v-7h3a2.5 2.5 0 0 0 0-5H6z" fill="#C9A227" opacity=".85"/>
+        </svg>
+      </div>
+      <div class="game-info">
+        <div class="game-name">Puzzle</div>
+        <div class="game-desc">Assemblez les pièces pour reconstituer l'image.</div>
+        <div class="game-tags">
+          <span class="tag">Motricité fine</span>
+          <span class="tag">Repérage visuel</span>
         </div>
       </div>
        <svg class="chevron" width="20" height="20" viewBox="0 0 20 20" fill="none">
