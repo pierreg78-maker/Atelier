@@ -23,6 +23,7 @@
     --c-quiz:    #C8813C;
     --c-taupe:   #CC4A72;
     --c-intrus:  #7A5ACC;
+    --c-def:     #2E9E8F;
   }
 
   html { font-size: 18px; }
@@ -128,6 +129,7 @@
   .game-card[data-color="quiz"]::before   { background: var(--c-quiz); }
   .game-card[data-color="taupe"]::before  { background: var(--c-taupe); }
   .game-card[data-color="intrus"]::before { background: var(--c-intrus); }
+  .game-card[data-color="def"]::before    { background: var(--c-def); }
 
   .game-card:active {
     transform: scale(0.98);
@@ -155,6 +157,7 @@
   .game-card[data-color="quiz"]   .icon-wrap { background: #FAF0E6; }
   .game-card[data-color="taupe"]  .icon-wrap { background: #FAEBF0; }
   .game-card[data-color="intrus"] .icon-wrap { background: #F0EBFA; }
+  .game-card[data-color="def"]    .icon-wrap { background: #E6F5F3; }
 
   .icon-wrap svg {
     width: 32px;
@@ -222,6 +225,19 @@
     color: var(--muted);
     line-height: 1.6;
   }
+
+  footer a {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    opacity: 0.75;
+    border-bottom: 1px dotted var(--border);
+    padding-bottom: 1px;
+  }
+
+  footer a:active { opacity: 1; }
 </style>
 </head>
 <body>
@@ -363,7 +379,30 @@
         <path d="M7.5 5l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </a> 
-    
+
+    <!-- Définitions -->
+    <a class="game-card" data-color="def" href="https://pierreg78-maker.github.io/Definitions/">
+      <div class="icon-wrap">
+        <svg viewBox="0 0 32 32" fill="none">
+          <path d="M7 5h13l5 5v17a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z" stroke="#2E9E8F" stroke-width="2" stroke-linejoin="round"/>
+          <path d="M20 5v5h5" stroke="#2E9E8F" stroke-width="2" stroke-linejoin="round"/>
+          <circle cx="15.5" cy="18.5" r="5" stroke="#2E9E8F" stroke-width="2"/>
+          <path d="M13.7 16.7a2 2 0 1 1 2.6 2.7c-.5.4-.8.7-.8 1.3" stroke="#2E9E8F" stroke-width="1.8" stroke-linecap="round"/>
+          <circle cx="15.5" cy="23.2" r=".9" fill="#2E9E8F"/>
+        </svg>
+      </div>
+      <div class="game-info">
+        <div class="game-name">Le Mot Juste</div>
+        <div class="game-desc">Retrouvez un mot à partir de sa définition.</div>
+        <div class="game-tags">
+          <span class="tag">Mémoire sémantique</span>
+          <span class="tag">Compréhension</span>
+        </div>
+      </div>
+       <svg class="chevron" width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <path d="M7.5 5l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
 
   </div>
 </div>
