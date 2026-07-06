@@ -25,6 +25,7 @@
     --c-intrus:  #7A5ACC;
     --c-def:     #2E9E8F;
     --c-puzzle:  #C9A227;
+    --c-anagramme: #C0453D;
   }
 
   html { font-size: 18px; }
@@ -132,6 +133,7 @@
   .game-card[data-color="intrus"]::before { background: var(--c-intrus); }
   .game-card[data-color="def"]::before    { background: var(--c-def); }
   .game-card[data-color="puzzle"]::before { background: var(--c-puzzle); }
+  .game-card[data-color="anagramme"]::before { background: var(--c-anagramme); }
 
   .game-card:active {
     transform: scale(0.98);
@@ -161,6 +163,7 @@
   .game-card[data-color="intrus"] .icon-wrap { background: #F0EBFA; }
   .game-card[data-color="def"]    .icon-wrap { background: #E6F5F3; }
   .game-card[data-color="puzzle"] .icon-wrap { background: #FAF3E0; }
+  .game-card[data-color="anagramme"] .icon-wrap { background: #FBEAE8; }
 
   .icon-wrap svg {
     width: 32px;
@@ -400,6 +403,28 @@
         <div class="game-tags">
           <span class="tag">Mémoire sémantique</span>
           <span class="tag">Compréhension</span>
+        </div>
+      </div>
+       <svg class="chevron" width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <path d="M7.5 5l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+
+    <!-- Anagrammes -->
+    <a class="game-card" data-color="anagramme" href="https://pierreg78-maker.github.io/anagrammes/">
+      <div class="icon-wrap">
+        <svg viewBox="0 0 32 32" fill="none">
+          <rect x="3" y="10" width="10" height="10" rx="3" fill="#C0453D" opacity=".9"/>
+          <rect x="19" y="12" width="10" height="10" rx="3" stroke="#C0453D" stroke-width="2"/>
+          <path d="M14 12.5l4-1.5M14 19.5l4 1.5" stroke="#C0453D" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="game-info">
+        <div class="game-name">Anagrammes</div>
+        <div class="game-desc">Remettez les lettres dans le bon ordre pour former un mot.</div>
+        <div class="game-tags">
+          <span class="tag">Vocabulaire</span>
+          <span class="tag">Réflexion</span>
         </div>
       </div>
        <svg class="chevron" width="20" height="20" viewBox="0 0 20 20" fill="none">
