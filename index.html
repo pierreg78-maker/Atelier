@@ -27,6 +27,7 @@
     --c-puzzle:  #C9A227;
     --c-anagramme: #C0453D;
     --c-rummikub: #A6763E;
+    --c-casse:   #3D5A80;
   }
 
   html { font-size: 18px; }
@@ -136,6 +137,7 @@
   .game-card[data-color="puzzle"]::before { background: var(--c-puzzle); }
   .game-card[data-color="anagramme"]::before { background: var(--c-anagramme); }
   .game-card[data-color="rummikub"]::before { background: var(--c-rummikub); }
+  .game-card[data-color="casse"]::before { background: var(--c-casse); }
 
   .game-card:active {
     transform: scale(0.98);
@@ -167,6 +169,7 @@
   .game-card[data-color="puzzle"] .icon-wrap { background: #FAF3E0; }
   .game-card[data-color="anagramme"] .icon-wrap { background: #FBEAE8; }
   .game-card[data-color="rummikub"] .icon-wrap { background: #F6EEE2; }
+  .game-card[data-color="casse"] .icon-wrap { background: #E8EEF5; }
 
   .icon-wrap svg {
     width: 32px;
@@ -340,6 +343,32 @@
       </svg>
     </a>
 
+<!-- Casse-briques Alz -->
+    <a class="game-card" data-color="casse" href="https://pierreg78-maker.github.io/casse-briques_Alz/">
+      <div class="icon-wrap">
+        <svg viewBox="0 0 32 32" fill="none">
+          <rect x="4" y="5" width="6" height="4" rx="1" fill="#3D5A80" opacity=".9"/>
+          <rect x="13" y="5" width="6" height="4" rx="1" fill="#3D5A80" opacity=".9"/>
+          <rect x="22" y="5" width="6" height="4" rx="1" fill="#3D5A80" opacity=".9"/>
+          <rect x="8.5" y="11" width="6" height="4" rx="1" stroke="#3D5A80" stroke-width="1.6"/>
+          <rect x="17.5" y="11" width="6" height="4" rx="1" stroke="#3D5A80" stroke-width="1.6"/>
+          <circle cx="16" cy="20" r="2.2" fill="#3D5A80"/>
+          <rect x="10" y="25" width="12" height="3" rx="1.5" fill="#3D5A80" opacity=".9"/>
+        </svg>
+      </div>
+      <div class="game-info">
+        <div class="game-name">Casse-briques version Alz.</div>
+        <div class="game-desc">Guidez la balle avec la raquette pour nettoyer les neurones.</div>
+        <div class="game-tags">
+          <span class="tag">Motricité fine</span>
+          <span class="tag">Motivation</span>
+        </div>
+      </div>
+      <svg class="chevron" width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <path d="M7.5 5l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+   
     <!-- Whack-a-mole -->
     <a class="game-card" data-color="taupe" href="https://pierreg78-maker.github.io/wackamole/">
       <div class="icon-wrap">
