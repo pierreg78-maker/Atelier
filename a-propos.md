@@ -43,3 +43,4 @@ La création de ces contenus repose sur le partage de ressources libres. Un gran
 
 ---
 > *Note : Si vous êtes l'auteur d'une ressource présente sur ce site et que vous souhaitez une modification dans les crédits, n'hésitez pas à ouvrir une issue sur le dépôt GitHub correspondant.*
+> Merci de votre visite ! Pierre G. https://github.com/pierreg78-maker
