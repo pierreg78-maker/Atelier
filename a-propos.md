@@ -5,7 +5,7 @@ permalink: /a-propos/
 ---
 #  À propos de l'Atelier
 
-Bienvenue sur [L'Atelier](https://pierreg78-maker.github.io/Atelier/). 
+Bienvenue sur [L'Atelier Mémo](https://pierreg78-maker.github.io/Atelier/). 
 
 Ce site est un espace de création personnelle et de partage. Tous les outils et jeux présents ici sont mis à disposition gratuitement, **sans aucune publicité, sans suivi marketing et sans collecte de données personnelles**. 
 
