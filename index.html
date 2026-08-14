@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Accueil - Atelier Mémoire</title>
+<title>Accueil - Atelier Mémo</title>
 <link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <style>
@@ -28,6 +28,7 @@
     --c-anagramme: #C0453D;
     --c-rummikub: #A6763E;
     --c-casse:   #3D5A80;
+   --c-lettres: #2E86AB;
   }
 
   html { font-size: 18px; }
@@ -138,6 +139,15 @@
   .game-card[data-color="anagramme"]::before { background: var(--c-anagramme); }
   .game-card[data-color="rummikub"]::before { background: var(--c-rummikub); }
   .game-card[data-color="casse"]::before { background: var(--c-casse); }
+ .game-card[data-color="lettres"]::before { background: var(--c-lettres); }
+
+.tag-link {
+  cursor: pointer;
+  text-decoration: none;
+  border-color: var(--c-lettres);
+  color: var(--c-lettres);
+  font-weight: 600;
+}
 
   .game-card:active {
     transform: scale(0.98);
@@ -170,6 +180,8 @@
   .game-card[data-color="anagramme"] .icon-wrap { background: #FBEAE8; }
   .game-card[data-color="rummikub"] .icon-wrap { background: #F6EEE2; }
   .game-card[data-color="casse"] .icon-wrap { background: #E8EEF5; }
+ .game-card[data-color="lettres"] .icon-wrap { background: #E6F2F7; }
+
 
   .icon-wrap svg {
     width: 32px;
@@ -258,9 +270,9 @@
   <div class="header-inner">
     <div class="-row">
       <!-- Icône cerveau stylisé à recopier ci-dessous au besoin-->
-      <h1>&#127807 Atelier Mémoire</h1>
+      <h1>&#127807 Atelier Mémo</h1>
     </div>
-    <p class="tagline">Jeux de stimulation pour garder l'esprit alerte, à deux ou en groupe.</p>
+    <p class="tagline">Jeux de stimulation pour garder l'esprit alerte, seul, à deux ou en groupe.</p>
   </div>
 </header>
 
@@ -413,6 +425,32 @@
       </svg>
     </a>
 
+
+<!-- Autres jeux de lettres -->
+<div class="game-card" data-color="lettres">
+  <div class="icon-wrap">
+    <svg viewBox="0 0 32 32" fill="none">
+      <rect x="4" y="4" width="10" height="10" rx="2.5" fill="#2E86AB" opacity=".9"/>
+      <rect x="18" y="4" width="10" height="10" rx="2.5" stroke="#2E86AB" stroke-width="2"/>
+      <rect x="4" y="18" width="10" height="10" rx="2.5" stroke="#2E86AB" stroke-width="2"/>
+      <rect x="18" y="18" width="10" height="10" rx="2.5" fill="#2E86AB" opacity=".9"/>
+      <text x="9" y="12.5" font-family="Inter, sans-serif" font-size="7" font-weight="700" fill="white" text-anchor="middle">B</text>
+      <text x="23" y="12.5" font-family="Inter, sans-serif" font-size="7" font-weight="700" fill="#2E86AB" text-anchor="middle">O</text>
+      <text x="9" y="26.5" font-family="Inter, sans-serif" font-size="7" font-weight="700" fill="#2E86AB" text-anchor="middle">G</text>
+      <text x="23" y="26.5" font-family="Inter, sans-serif" font-size="7" font-weight="700" fill="white" text-anchor="middle">M</text>
+    </svg>
+  </div>
+  <div class="game-info">
+    <div class="game-name">Autres jeux de lettres</div>
+    <div class="game-desc">Gratuits, sans inscription et sans pub. En cliquant, vous quittez l'Atelier Mémo.</div>
+    <div class="game-tags">
+      <a class="tag tag-link" href="https://www.boggle.fr/" target="_blank" rel="noopener">Boggle</a>
+      <a class="tag tag-link" href="https://sutom.nocle.fr/" target="_blank" rel="noopener">Motus</a>
+    </div>
+  </div>
+</div>
+
+   
     <!-- Mini-Rummikub -->
     <a class="game-card" data-color="rummikub" href="https://pierreg78-maker.github.io/Mini-Rummikub-Access/">
       <div class="icon-wrap">
@@ -502,7 +540,7 @@
       </div>
       <div class="game-info">
         <div class="game-name">Puzzle(s)</div>
-        <div class="game-desc">Assemblez les pièces pour reconstituer l'image.</div>
+        <div class="game-desc">Assemblez les pièces pour reconstituer l'image. Plus de 50 puzzles au choix.</div>
         <div class="game-tags">
           <span class="tag">Repérage visuo-spatial</span>
         </div>
@@ -516,7 +554,7 @@
 </div>
 
 <footer>
-Il est conseillé de jouer avec un accompagnant.<br>
+Il est conseillé de jouer avec un accompagnant. <a href="https://raw.githubusercontent.com/pierreg78-maker/Atelier/main/a-propos.md">Mentions légales et crédits.</a><br>
 &#127913 <a href="https://pierreg78-maker.github.io/atelier_crea/">Entrée des artistes</a> &#129668
 </footer>
 
