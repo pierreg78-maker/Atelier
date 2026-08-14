@@ -12,7 +12,7 @@ Ce site est un espace de création personnelle et de partage. Tous les outils et
 ---
 
 ##  Philosophie du projet
-L'Atelier est né de l'envie de concevoir des outils numériques interactifs et ludiques pour la stimulation cognitive de personnes âgées ou handicapées. Chaque jeu est développé avec passion et est accessible en **open source** sous licence MIT sur [GitHub](https://github.com/), propriété de GitHub, Inc. (88 Colin P. Kelly Jr. St, San Francisco, CA 94107, USA)
+L'Atelier est né de l'envie de concevoir des outils numériques interactifs et ludiques pour la stimulation cognitive de personnes âgées ou handicapées. Chaque jeu est développé avec passion et est accessible en **open source** sous licence MIT ou, exceptionnellement sous licence AGPLv3, sur [GitHub](https://github.com/), propriété de GitHub, Inc. (88 Colin P. Kelly Jr. St, San Francisco, CA 94107, USA)
 
 ---
 
@@ -39,7 +39,7 @@ La création de ces contenus repose sur le partage de ressources libres. Un gran
     *   Sons générés par [Chiptone](https://sfbgames.itch.io/chiptone) (Licence CC0). 
     *   Musique : *Cheerful Ukulele* par HolFix, fournie par [Lalason](https://www.lalason.com) (YouTube : [@lamusiquelibre](https://www.youtube.com/@lamusiquelibre)).
 *   **Ma carte postale** : 
-    *   Inspiré de *Digicard* par [LaDigitale.dev](https://ladigitale.dev/) (Licence AGPLv3). Version adaptée pour l'Atelier Mémoire.
+    *   Basée sur *Digicard* par [LaDigitale.dev](https://ladigitale.dev/) (Licence AGPLv3). Version adaptée pour l'Atelier Mémoire : ajout d'emojis. Je n'ai pas directement forké le [code source]([https://codeberg.org/ladigitale/digicard](https://codeberg.org/ladigitale/digicard.git) mais je m'en suis inspiré.
 
 ---
 > *Note : Si vous êtes l'auteur d'une ressource présente sur ce site et que vous souhaitez une modification dans les crédits, n'hésitez pas à ouvrir une issue sur le dépôt GitHub correspondant.*
