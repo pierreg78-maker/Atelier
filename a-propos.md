@@ -5,8 +5,8 @@ permalink: /a-propos/
 ---
 
 ### Menu
-* [Hébergement](#hebergement)
-* [Crédits](#credits)
+* [Origine du projet et hébergement](#origine-du-projet-et-hébergement)
+* [Crédits et ressources](#crédits-et-ressources)
 * [Contact](#contact)
 
 # À propos de l'Atelier
@@ -17,12 +17,12 @@ Philosophie du site: ce site est un espace de création personnelle et de partag
 
 ---
 
-## Origine du projet et hébergement {#hebergement}
+## Origine du projet et hébergement
 L'Atelier est né de l'envie de concevoir des outils numériques interactifs et ludiques pour la stimulation cognitive de personnes âgées ou handicapées. Chaque jeu est développé avec passion et est accessible en **open source** sous licence MIT ou, exceptionnellement sous licence AGPLv3, sur [GitHub](https://github.com/), propriété de GitHub, Inc. (88 Colin P. Kelly Jr. St, San Francisco, CA 94107, USA)
 
 ---
 
-## Crédits et ressources {#credits}
+## Crédits et ressources
 La création de ces contenus repose sur le partage de ressources libres. Un grand merci aux auteurs suivants pour leur contribution :
 
 ### Effets sonores
@@ -54,7 +54,7 @@ La création de ces contenus repose sur le partage de ressources libres. Un gran
 
 ---
 
-## Contact {#contact}
-On peut utiliser ce [mur collaboratif](https://digipad.app/p/1783392/c98981dd63d5b8) pour partager son expérience avec les bénéficiaires, suggérer des améliorations, envoyer des screenshots etc.
-Email: pierreg78@gmail.com
+## Contact
+On peut utiliser ce [mur collaboratif](https://digipad.app/p/1783392/c98981dd63d5b8) pour partager son expérience avec les bénéficiaires, suggérer des améliorations, envoyer des screenshots etc.<br>
+Email: pierreg78@gmail.com <br>
 Merci de votre visite ! Pierre Garrigue 
