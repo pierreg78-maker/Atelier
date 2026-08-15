@@ -5,9 +5,9 @@ permalink: /a-propos/
 ---
 
 Menu
-[hébergement](#hebergement)
-[Crédits](#credits)
-[Contact](#contact)
+*[hébergement](#hebergement)
+*[Crédits](#credits)
+*[Contact](#contact)
 
 #  À propos de l'Atelier
 
@@ -17,7 +17,7 @@ Philosophie du site: ce site est un espace de création personnelle et de partag
 
 ---
 
-##  Origine du projet et hébergement {#hebergememt}
+##  Origine du projet et hébergement {#hebergement}
 L'Atelier est né de l'envie de concevoir des outils numériques interactifs et ludiques pour la stimulation cognitive de personnes âgées ou handicapées. Chaque jeu est développé avec passion et est accessible en **open source** sous licence MIT ou, exceptionnellement sous licence AGPLv3, sur [GitHub](https://github.com/), propriété de GitHub, Inc. (88 Colin P. Kelly Jr. St, San Francisco, CA 94107, USA)
 
 ---
