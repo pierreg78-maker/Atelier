@@ -41,13 +41,13 @@ La création de ces contenus repose sur le partage de ressources libres. Un gran
 *   **celtic_loop.mp3** : Création assistée par IA (Manus).
 
 ### Morceaux de musique
-*   **Casse-brique santé** : 
+*   jeu **Casse-brique santé** : 
     *   Sons générés par [Chiptone](https://sfbgames.itch.io/chiptone) (Licence CC0). 
     *   Musique : *Cheerful Ukulele* par HolFix, fournie par [Lalason](https://www.lalason.com) (YouTube : [@lamusiquelibre](https://www.youtube.com/@lamusiquelibre)).
  
 ### Sites internet, applis et logiciels 
-*   **Ma carte postale** : 
-    *   Basée sur *Digicard* par [LaDigitale.dev](https://ladigitale.dev/) (Licence AGPLv3). Version adaptée pour l'Atelier Mémoire : ajout d'emojis et partage natif via email ou whapsapp. Je n'ai pas directement forké le [code source](https://codeberg.org/ladigitale/digicard) mais je m'en suis inspiré.
+*   jeu **Ma carte postale** : 
+    *   Basé sur *Digicard* par [LaDigitale.dev](https://ladigitale.dev/) (Licence AGPLv3). Version adaptée pour l'Atelier Mémoire : ajout d'emojis et partage natif via email ou whatsapp. Je n'ai pas directement forké le [code source](https://codeberg.org/ladigitale/digicard) mais je m'en suis largement inspiré.
 
 ---
 > *Note : Si vous êtes l'auteur d'une ressource présente sur ce site et que vous souhaitez une modification dans les crédits, n'hésitez pas à ouvrir une issue sur le dépôt GitHub correspondant ou me contacter par email ( voir ci-dessous)*
