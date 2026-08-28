@@ -13,7 +13,7 @@ permalink: /a-propos/
 
 Bienvenue sur [L'Atelier Mémo](https://pierreg78-maker.github.io/Atelier/). 
 
-Philosophie du site: Tous les jeux de l'Atelier sont mis à disposition gratuitement et bénévolement, **sans aucune publicité, sans suivi marketing et sans collecte de données personnelles**. 
+Philosophie du site: tous les jeux de l'Atelier sont mis à disposition gratuitement et bénévolement, **sans aucune publicité, sans suivi marketing et sans collecte de données personnelles**. 
 
 ---
 
