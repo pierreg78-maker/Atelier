@@ -1,1 +1,1 @@
-Homepage de jeux de stimulation cognitive à l'attention des personnes âgées.
+Homepage de jeux de stimulation cognitive à l'attention des personnes âgées. [En savoir plus](/a-propos/)
