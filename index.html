@@ -26,6 +26,8 @@
     --c-def:     #2E9E8F;
     --c-puzzle:  #C9A227;
     --c-anagramme: #C0453D;
+    --c-mots:    #6B8E23;
+    --c-puissance4: #8C1F3B;
     --c-rummikub: #A6763E;
     --c-casse:   #3D5A80;
    --c-lettres: #2E86AB;
@@ -137,6 +139,8 @@
   .game-card[data-color="def"]::before    { background: var(--c-def); }
   .game-card[data-color="puzzle"]::before { background: var(--c-puzzle); }
   .game-card[data-color="anagramme"]::before { background: var(--c-anagramme); }
+  .game-card[data-color="mots"]::before { background: var(--c-mots); }
+  .game-card[data-color="puissance4"]::before { background: var(--c-puissance4); }
   .game-card[data-color="rummikub"]::before { background: var(--c-rummikub); }
   .game-card[data-color="casse"]::before { background: var(--c-casse); }
  .game-card[data-color="lettres"]::before { background: var(--c-lettres); }
@@ -178,6 +182,8 @@
   .game-card[data-color="def"]    .icon-wrap { background: #E6F5F3; }
   .game-card[data-color="puzzle"] .icon-wrap { background: #FAF3E0; }
   .game-card[data-color="anagramme"] .icon-wrap { background: #FBEAE8; }
+  .game-card[data-color="mots"] .icon-wrap { background: #EEF3E3; }
+  .game-card[data-color="puissance4"] .icon-wrap { background: #F5E6EA; }
   .game-card[data-color="rummikub"] .icon-wrap { background: #F6EEE2; }
   .game-card[data-color="casse"] .icon-wrap { background: #E8EEF5; }
  .game-card[data-color="lettres"] .icon-wrap { background: #E6F2F7; }
@@ -425,6 +431,31 @@
       </svg>
     </a>
 
+    <!-- Mots mêlés -->
+    <a class="game-card" data-color="mots" href="https://pierreg78-maker.github.io/mots_meles_2/">
+      <div class="icon-wrap">
+        <svg viewBox="0 0 32 32" fill="none">
+          <rect x="4" y="4" width="24" height="24" rx="4" fill="#6B8E23" opacity=".12"/>
+          <rect x="4" y="4" width="24" height="24" rx="4" stroke="#6B8E23" stroke-width="1.8"/>
+          <circle cx="9.5" cy="9.5" r="2.6" fill="#6B8E23"/>
+          <circle cx="16" cy="16" r="2.6" fill="#6B8E23"/>
+          <circle cx="22.5" cy="22.5" r="2.6" fill="#6B8E23"/>
+          <path d="M9.5 9.5L22.5 22.5" stroke="#6B8E23" stroke-width="1.6" stroke-linecap="round" opacity=".5"/>
+        </svg>
+      </div>
+      <div class="game-info">
+        <div class="game-name">Mots mêlés</div>
+        <div class="game-desc">Repérez les mots cachés dans une grille de lettres.</div>
+        <div class="game-tags">
+          <span class="tag">Attention visuelle</span>
+          <span class="tag">Repérage spatial</span>
+        </div>
+      </div>
+       <svg class="chevron" width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <path d="M7.5 5l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+
 
 <!-- Autres jeux de lettres -->
 <div class="game-card" data-color="lettres">
@@ -451,6 +482,31 @@
 </div>
 
    
+    <!-- Puissance 4 -->
+    <a class="game-card" data-color="puissance4" href="https://puissance4-bhpnwetp.manus.space/">
+      <div class="icon-wrap">
+        <svg viewBox="0 0 32 32" fill="none">
+          <rect x="4" y="4" width="24" height="24" rx="4" fill="#8C1F3B" opacity=".12"/>
+          <rect x="4" y="4" width="24" height="24" rx="4" stroke="#8C1F3B" stroke-width="1.8"/>
+          <circle cx="10.5" cy="10.5" r="3" fill="#D64550"/>
+          <circle cx="21.5" cy="10.5" r="3" fill="#E8B923"/>
+          <circle cx="10.5" cy="21.5" r="3" fill="#E8B923"/>
+          <circle cx="21.5" cy="21.5" r="3" fill="#D64550"/>
+        </svg>
+      </div>
+      <div class="game-info">
+        <div class="game-name">Puissance 4</div>
+        <div class="game-desc">Alignez quatre jetons avant votre adversaire, seul contre l'ordinateur ou à deux.</div>
+        <div class="game-tags">
+          <span class="tag">Stratégie</span>
+          <span class="tag">Anticipation</span>
+        </div>
+      </div>
+       <svg class="chevron" width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <path d="M7.5 5l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+
     <!-- Mini-Rummikub -->
     <a class="game-card" data-color="rummikub" href="https://pierreg78-maker.github.io/Mini-Rummikub-Access/">
       <div class="icon-wrap">
