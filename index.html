@@ -248,26 +248,59 @@
   /* ── Footer ── */
   footer {
     max-width: 480px;
-    margin: 36px auto 0;
+    margin: 40px auto 0;
     padding: 0 20px;
     text-align: center;
-    font-size: 0.75rem;
-    color: var(--muted);
-    line-height: 1.6;
   }
 
-  footer a {
+  .footer-note {
     font-family: 'Lora', serif;
-    font-style: normal;
+    font-style: italic;
+    font-size: 0.78rem;
+    color: var(--muted);
+    opacity: 0.85;
+    margin-bottom: 18px;
+  }
+
+  .creative-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 22px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #F4A9C6, #EFC9DA);
+    color: #7A2E4E;
+    font-family: 'Lora', serif;
+    font-weight: 600;
+    font-size: 0.88rem;
+    text-decoration: none;
+    box-shadow: 0 4px 12px rgba(122, 46, 78, 0.22);
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+
+  .creative-pill:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(122, 46, 78, 0.28);
+  }
+
+  .creative-pill:active { transform: translateY(0); }
+
+  .footer-legal {
+    margin-top: 18px;
+    font-size: 0.7rem;
+  }
+
+  .footer-legal a {
+    font-family: 'Lora', serif;
     color: var(--muted);
     text-decoration: none;
     letter-spacing: 0.02em;
-    opacity: 0.75;
+    opacity: 0.65;
     border-bottom: 1px dotted var(--border);
     padding-bottom: 1px;
   }
 
-  footer a:active { opacity: 1; }
+  .footer-legal a:active { opacity: 1; }
 </style>
 </head>
 <body>
@@ -350,7 +383,7 @@
       </div>
       <div class="game-info">
         <div class="game-name">Le Quiz</div>
-        <div class="game-desc">Thèmes : musique, cinéma, Périgord... ou créer son propre quiz</div>
+        <div class="game-desc">Thèmes : musique des années 50 à 80, le cinéma, le Périgord... ou créer son propre quiz</div>
         <div class="game-tags">
           <span class="tag">Culture générale</span>
           <span class="tag">Évocation</span>
@@ -447,8 +480,8 @@
         <div class="game-name">Mots mêlés</div>
         <div class="game-desc">Repérez les mots cachés dans une grille de lettres.</div>
         <div class="game-tags">
-          <span class="tag">Attention</span>
-          <span class="tag">Repérage</span>
+          <span class="tag">Attention visuelle</span>
+          <span class="tag">Repérage spatial</span>
         </div>
       </div>
        <svg class="chevron" width="20" height="20" viewBox="0 0 20 20" fill="none">
@@ -610,9 +643,9 @@
 </div>
 
 <footer>
-Il est conseillé de jouer avec un(e) accompagnant(e).<br>
-&#127913 <a href="https://pierreg78-maker.github.io/atelier_crea/">Entrée des artistes</a> &#129668 <br>
-<a href="https://github.com/pierreg78-maker/Atelier/blob/main/a-propos.md">Mentions légales - Crédits - Contact</a>
+  <p class="footer-note">Il est conseillé de jouer avec un(e) accompagnant(e).</p>
+  <a class="creative-pill" href="https://pierreg78-maker.github.io/atelier_crea/">🎨 Découvrir l'espace créatif</a>
+  <p class="footer-legal"><a href="https://github.com/pierreg78-maker/Atelier/blob/main/a-propos.md">Mentions légales</a></p>
 </footer>
 
 </body>
