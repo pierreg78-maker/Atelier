@@ -1,29 +1,35 @@
 ---
 layout: page
-title: À propos de l'Atelier
+title: Mentions légales
 permalink: /a-propos/
 ---
 
-### Menu
-* [Origine du projet et hébergement](#origine-du-projet-et-hébergement)
-* [Crédits et ressources](#crédits-et-ressources)
-* [Contact](#contact)
-
 # À propos de l'Atelier
 
-Bienvenue sur [L'Atelier Mémo](https://pierreg78-maker.github.io/Atelier/). 
-
-Philosophie du site: tous les jeux de l'Atelier sont mis à disposition gratuitement et bénévolement, **sans aucune publicité, sans suivi marketing et sans collecte de données personnelles**. 
+Bienvenue sur [l'Atelier Mémo](https://pierreg78-maker.github.io/Atelier/) ! 
+L'Atelier est né de l'envie de concevoir des outils numériques interactifs et ludiques pour la stimulation cognitive de personnes âgées ou handicapées. <br>Tous les jeux de l'Atelier sont mis à disposition **gratuitement et bénévolement**, **sans aucune publicité, sans suivi marketing via pixels, traceurs ou autres, et sans collecte de données personnelles** hors besoins strictement techniques de l'hébergeur. <br>Chaque jeu est accessible en **open source** sous licence MIT ou, exceptionnellement sous licence AGPLv3, sur GitHub. <br>On peut utiliser ce [mur collaboratif](https://digipad.app/p/1783392/c98981dd63d5b8) pour partager son expérience, suggérer des améliorations, envoyer des screenshots etc.
 
 ---
 
-## Origine du projet et hébergement
-L'Atelier est né de l'envie de concevoir des outils numériques interactifs et ludiques pour la stimulation cognitive de personnes âgées ou handicapées. Chaque jeu est développé avec passion et est accessible en **open source** sous licence MIT ou, exceptionnellement sous licence AGPLv3, sur [GitHub](https://github.com/), propriété de GitHub, Inc. (88 Colin P. Kelly Jr. St, San Francisco, CA 94107, USA)
+# Mentions légales
+Conformément aux dispositions de l'article 6, III de la loi n° 2004-575 du 21 juin 2004 pour la confiance dans l'économie numérique (LCEN).
 
+   ### Editeur du site
+   Editeur du site et des jeux de l'"Atelier Mémo" (hors Motus/Sutom et Boggle), de l'"Atelier (ré)créatif" et du "Village du Hasard": Pierre Garrigue. <br>Statut: particulier <br>Adresse: 6 impasse des Falots 24660 Sanilhac, FRANCE
+    
+   ### Directeur de la publication
+   Pierre Garrigue <br>Email: pierreg78@gmail.com.
+   
+   ### Hébergement
+   Hébergeur : GitHub, Inc.<br>
+   Adresse : 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis<br>
+   Site web : https://pages.github.com<br>
+   Contact : https://support.github.com<br>
+   
 ---
 
 ## Crédits et ressources
-Un grand merci aux auteurs suivants pour leur contribution :
+Un grand merci aux auteurs et créateurs suivants:
 
 ### Effets sonores
 | Fichier | Source | Licence |
@@ -38,7 +44,6 @@ Un grand merci aux auteurs suivants pour leur contribution :
 | *Applaudissements* | [kwahmah_02](https://freesound.org/s/324323/) | CC-BY 3.0 |
 | *Spinning wheel* | [laspaziale](https://freesound.org/s/380788/) | CC-BY 4.0 |
 
-*   **celtic_loop.mp3** : Création assistée par IA (Manus).
 
 ### Morceaux de musique
 *   jeu **Casse-brique santé** : 
@@ -47,14 +52,12 @@ Un grand merci aux auteurs suivants pour leur contribution :
  
 ### Sites internet, applis et logiciels 
 *   jeu **Ma carte postale** : 
-    *   Basé sur *Digicard* par [LaDigitale.dev](https://ladigitale.dev/) (Licence AGPLv3). Version adaptée pour l'Atelier Mémoire : ajout d'emojis et partage natif via email ou whatsapp. Je n'ai pas directement forké le [code source](https://codeberg.org/ladigitale/digicard) mais je m'en suis largement inspiré.
+    *   Basé sur *Digicard* par [LaDigitale.dev](https://ladigitale.dev/) (Licence AGPLv3). Version adaptée pour l'Atelier Mémo: ajout d'emojis et partage natif via email ou whatsapp. Je n'ai pas directement forké le [code source](https://codeberg.org/ladigitale/digicard) mais je m'en suis largement inspiré.
 
 ---
-> *Note : Si vous êtes l'auteur d'une ressource présente sur ce site et que vous souhaitez une modification dans les crédits, n'hésitez pas à ouvrir une issue sur le dépôt GitHub correspondant ou me contacter par email ( voir ci-dessous)*
+> *Note : Si vous êtes l'auteur d'une ressource présente sur ce site et que vous souhaitez une modification dans les crédits, n'hésitez pas à ouvrir une issue sur le dépôt GitHub correspondant ou me contacter par email (pierreg78@gmail.com)*
 
 ---
 
-## Contact
-On peut utiliser ce [mur collaboratif](https://digipad.app/p/1783392/c98981dd63d5b8) pour partager son expérience avec les bénéficiaires, suggérer des améliorations, envoyer des screenshots etc.<br>
-Email: pierreg78@gmail.com <br>
-Merci de votre visite ! Pierre Garrigue 
+Merci de votre visite !  
+Retour à [L'Atelier Mémo](https://pierreg78-maker.github.io/Atelier/).
