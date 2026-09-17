@@ -43,61 +43,49 @@
     padding: 0 0 48px;
   }
 
-  /* ── Header ── */
-  header {
-    padding: 28px 50px 28px;
-    border-bottom: 1px solid var(--border);
-    background: var(--surface);
-  }
+ /* ── Header ── */
+header {
+  padding: 28px 50px 28px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
 
-  .header-inner {
-    max-width: 480px;
-    margin: 0 auto;
-  }
+.header-inner {
+  max-width: 480px;
+  margin: 0 auto;
+  text-align: center;
+}
 
-  .logo-row {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 6px;
-  }
+.logo-row {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* centre logo + titre */
+  gap: 12px;
+  margin-bottom: 6px;
+}
 
-  .logo-icon {
-    width: 44px;
-    height: 44px;
-    flex-shrink: 0;
-  }
+.logo-icon {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+}
 
-  h1 {
-    font-family: 'Lora', serif;
-    font-size: 1.7rem;
-    font-weight: 600;
-    color: var(--accent);
-    line-height: 1.1;
-  }
+h1 {
+  font-family: 'Lora', serif;
+  font-size: 1.7rem;
+  font-weight: 600;
+  color: var(--accent);
+  line-height: 1.1;
+  margin: 0;
+}
 
-  .tagline {
-    font-size: 0.9rem;
-    color: var(--muted);
-    line-height: 1.5;
-    margin-top: 4px;
-  }
-
-  /* ── Section ── */
-  .section {
-    max-width: 480px;
-    margin: 0 auto;
-    padding: 28px 20px 0;
-  }
-
-  .section-label {
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 16px;
-  }
+.tagline {
+  font-size: 0.9rem;
+  color: var(--muted);
+  line-height: 1.5;
+  margin-top: 4px;
+  text-align: center;
+}
 
   /* ── Cartes jeux ── */
   .game-list {
