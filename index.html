@@ -267,9 +267,9 @@ h1 {
   .creative-pill {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
+    gap: 4px;
     padding: 11px 22px;
-    border-radius: 999px;
+    border-radius: 999px 0 0 999px;
     background: linear-gradient(135deg, #F4A9C6, #EFC9DA);
     color: #7A2E4E;
     font-family: 'Lora', serif;
@@ -286,6 +286,31 @@ h1 {
   }
 
   .creative-pill:active { transform: translateY(0); }
+
+	.creative-pill2 {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 11px 22px;
+    border-radius: 0 999px 999px 0;
+    background: linear-gradient(135deg, #a9e4f4, #c9efdf);
+    color: #612e7a;
+    font-family: 'Lora', serif;
+    font-weight: 600;
+    font-size: 0.88rem;
+    text-decoration: none;
+    box-shadow: 0 4px 12px rgba(98, 46, 122, 0.22);
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+
+  .creative-pill2:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(98, 46, 122, 0.28);
+  }
+
+  .creative-pill2:active { transform: translateY(0); }
+
+	
 
   .footer-legal {
     margin-top: 18px;
@@ -652,7 +677,7 @@ h1 {
 
 <footer>
   <p class="footer-note">Il est conseillé de jouer avec un(e) accompagnant(e).</p>
-  <a class="creative-pill" href="https://pierreg78-maker.github.io/atelier_crea/">Découvrir l'espace créatif</a>
+  <a class="creative-pill" href="https://pierreg78-maker.github.io/atelier_crea/">Espace créatif</a><a class="creative-pill2" href="https://pierreg78-maker.github.io/jeux_de_hasard/">Jeux de hasard</a>
   <p class="footer-legal"><a href="https://github.com/pierreg78-maker/Atelier/blob/main/a-propos.md">Mentions légales</a></p>
 </footer>
 
