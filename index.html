@@ -312,7 +312,29 @@ h1 {
 
   .creative-pill2:active { transform: translateY(0); }
 
-	
+		.creative-pill3 {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 15px;
+		border: 1px solid var(--border);
+    border-radius: 0;
+    background: linear-gradient(135deg, #ffffff, #f2f0ef);
+    color: #b5b5b3;
+    font-family: 'Lora', serif;
+    font-weight: 600;
+    font-size: 0.88rem;
+    text-decoration: none;
+    box-shadow: 0 4px 12px rgba(245, 245, 245, 1);
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+
+  .creative-pill3:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(245, 245, 245, 1);
+  }
+
+  .creative-pill3:active { transform: translateY(0); }
 
   .footer-legal {
     margin-top: 18px;
