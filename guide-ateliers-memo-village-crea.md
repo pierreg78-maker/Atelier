@@ -2,7 +2,7 @@
 
 Document de référence pour **l’Atelier Mémo**, le **Village du hasard** et l’**Atelier (ré)Créatif**.
 
-Pour chaque fiche : titre, nombre de joueurs, but et règles (ou mode d’emploi), intérêt pour une personne âgée, puis deux liens.
+Pour chaque fiche : titre, nombre de joueurs, but et règles (ou mode d’emploi), intérêt  , puis deux liens.
 
 - [Atelier Mémo](https://pierreg78-maker.github.io/Atelier/)
 - [Village du hasard](https://pierreg78-maker.github.io/village/)
@@ -77,7 +77,7 @@ Règles **simplifiées et non officielles**, telles qu’affichées dans le jeu 
 
 On peut miser **0** (partie gratuite), **10**, **20** ou **50** pièces d’or virtuelles (profil de la Vitrine enchantée).
 
-### Intérêt pour une personne âgée
+### Intérêt  
 Classique de bistrot, très parlant. Travaille le calcul simple, la comparaison de figures et la prise de décision (« je relance ou je m’arrête »), dans un cadre ludique et social.
 
 <p><a href="https://pierreg78-maker.github.io/421/">Retour au jeu</a> · <a href="https://pierreg78-maker.github.io/Atelier/">Vers l’atelier Mémo</a></p>
@@ -96,7 +96,7 @@ Jouer d’un **thérémine électronique** : produire des sons en touchant une g
 - Vers le **haut** : volume plus fort ; vers le **bas** : plus doux.
 - Réglages : formes d’onde (sinus, triangle, scie, carré) et réverbération.
 
-### Intérêt pour une personne âgée
+### Intérêt  
 Activité sensorielle sans « bonne » ou « mauvaise » réponse. Stimule l’écoute, le geste et la curiosité, utile en détente ou en atelier musique.
 
 <p><a href="https://aether3000.grok.me/">Retour au jeu</a> · <a href="https://pierreg78-maker.github.io/Atelier/">Vers l’atelier Mémo</a></p>
@@ -116,7 +116,7 @@ Remettre les lettres dans le bon ordre pour former un mot.
 2. Observer les lettres mélangées.
 3. Reconstituer le mot (à l’écran et/ou à voix haute).
 
-### Intérêt pour une personne âgée
+### Intérêt  
 Travaille le **lexique mental**, la flexibilité et l’orthographe, sans contrainte de temps agressive. Bon support de discussion (« ça me fait penser à… »).
 
 <p><a href="https://pierreg78-maker.github.io/anagrammes/">Retour au jeu</a> · <a href="https://pierreg78-maker.github.io/Atelier/">Vers l’atelier Mémo</a></p>
@@ -137,7 +137,7 @@ Marquer le plus de points possible en 30 secondes.
 - Trois niveaux : **Facile**, **Moyen**, **Difficile**.
 - Bouton **Commencer** ; le meilleur score est mémorisé.
 
-### Intérêt pour une personne âgée
+### Intérêt  
 Entraîne les **réflexes**, l’attention sélective et la coordination œil–main. Les niveaux permettent d’adapter la vitesse. À utiliser en séances courtes.
 
 <p><a href="https://pierreg78-maker.github.io/wackamole/">Retour au jeu</a> · <a href="https://pierreg78-maker.github.io/Atelier/">Vers l’atelier Mémo</a></p>
@@ -157,7 +157,7 @@ Transformer un **croquis simple** en dessin plus abouti, automatiquement, sur le
 3. Choisir parmi les propositions reconnues par l’IA.
 4. Compléter et décorer.
 
-### Intérêt pour une personne âgée
+### Intérêt  
 Permet de « réussir » un dessin même avec un trait hésitant. Valorisant, peu anxiogène, bon pont vers le langage (« qu’est-ce que ça représente ? »).
 
 <p><a href="https://www.autodraw.com/">Retour au jeu</a> · <a href="https://pierreg78-maker.github.io/Atelier/">Vers l’atelier Mémo</a></p>
@@ -180,7 +180,7 @@ S’approcher de **21** sans dépasser.
 - Le croupier joue ensuite selon les règles habituelles.
 - Dépasser 21 = perdu.
 
-### Intérêt pour une personne âgée
+### Intérêt  
 Jeu de cartes très connu. Fait travailler le calcul mental (as = 1 ou 11), l’inhibition (« je m’arrête ») et le plaisir du hasard encadré, sans enjeu réel d’argent.
 
 <p><a href="https://pierreg78-maker.github.io/blackjack/">Retour au jeu</a> · <a href="https://pierreg78-maker.github.io/Atelier/">Vers l’atelier Mémo</a></p>
@@ -201,7 +201,7 @@ Créer des **séquences rythmiques** (rock, électro, exploration).
 - Commandes : Play, Rec, Copy, Paste, Dupliquer, Clear, Save, Load.
 - Astuce affichée : « Tape un pad · grille = notes · bandeau mesures = barre · COPY colle la barre, DUPLIQUER recopie la 1 sur les suivantes ».
 
-### Intérêt pour une personne âgée
+### Intérêt  
 Stimule le rythme, l’attention et la motricité fine. On peut rester très simple (un kick régulier) : pas de « faute ». Agréable en binôme (l’un pose le rythme, l’autre écoute).
 
 <p><a href="https://pierreg78-maker.github.io/boite_a_rythme/">Retour au jeu</a> · <a href="https://pierreg78-maker.github.io/Atelier/">Vers l’atelier Mémo</a></p>
@@ -219,7 +219,7 @@ Former le plus de mots possible à partir d’une grille de lettres adjacentes.
 ### Règles
 Règles classiques du Boggle : enchaîner des lettres voisines, sans réutiliser la même case dans un mot. Le lien quitte l’Atelier Mémo (gratuit, sans inscription ni pub selon la fiche d’accueil).
 
-### Intérêt pour une personne âgée
+### Intérêt  
 Excellent pour le vocabulaire et la recherche lexicale. Peut fatiguer : privilégier des manches courtes et l’aide d’un accompagnant.
 
 <p><a href="https://www.boggle.fr/">Retour au jeu</a> · <a href="https://pierreg78-maker.github.io/Atelier/">Vers l’atelier Mémo</a></p>
@@ -241,7 +241,7 @@ Casser les amas « toxiques » avec la balle, comme un casse-briques.
 - Compteurs : score, niveau, vies.
 - Pause et son disponibles.
 
-### Intérêt pour une personne âgée
+### Intérêt  
 Travaille la **motricité fine**, le suivi visuel et la persévérance. Le thème « santé » donne un sens symbolique (nettoyer, protéger) qui peut motiver.
 
 <p><a href="https://pierreg78-maker.github.io/casse-briques_sante/">Retour au jeu</a> · <a href="https://pierreg78-maker.github.io/Atelier/">Vers l’atelier Mémo</a></p>
@@ -261,7 +261,7 @@ Laisser une IA **réinterpréter une esquisse** (réaliste ou artistique).
 3. Envoyer (flèche en bas à droite).
 4. Un [exemple partagé](https://chatgpt.com/share/6ab15a7b-25e8-83eb-99b3-12286388c699) est proposé sur la page de l’atelier.
 
-### Intérêt pour une personne âgée
+### Intérêt  
 Effet « magique » : un trait imparfait devient une image. Favorise l’estime de soi et la conversation autour de souvenirs ou d’envies. Prévoir un accompagnant pour le compte / l’interface.
 
 <p><a href="https://chatgpt.com/?q=%40sketch">Retour au jeu</a> · <a href="https://pierreg78-maker.github.io/Atelier/">Vers l’atelier Mémo</a></p>
@@ -284,7 +284,7 @@ Trouver le mot qui **ne va pas** avec les autres.
 5. Score, nombre de questions et taux de réussite sont affichés.
 6. Fonctionne **sans connexion internet** une fois la page chargée.
 
-### Intérêt pour une personne âgée
+### Intérêt  
 Travaille la **catégorisation**, le langage et le raisonnement. Les listes courtes (4 mots) conviennent très bien en début de séance ou en cas de fatigue.
 
 <p><a href="https://pierreg78-maker.github.io/intrus/">Retour au jeu</a> · <a href="https://pierreg78-maker.github.io/Atelier/">Vers l’atelier Mémo</a></p>
@@ -306,7 +306,7 @@ Compléter une ligne (**quine**) puis le carton, selon les numéros tirés.
 - Boutons : **Nouveau tirage**, **Nouvelle grille**.
 - Compteur de boules tirées (sur 99).
 
-### Intérêt pour une personne âgée
+### Intérêt  
 Rituel très familier (loto / bingo). Entretient l’attention visuelle, la reconnaissance des nombres et le plaisir collectif. Idéal en duo.
 
 <p><a href="https://pierreg78-maker.github.io/loto/">Retour au jeu</a> · <a href="https://pierreg78-maker.github.io/Atelier/">Vers l’atelier Mémo</a></p>
@@ -325,7 +325,7 @@ Choisir des couleurs et **remplir un mandala**.
 - Bouton **Effacer** pour recommencer.
 - Retour vers l’accueil depuis la page.
 
-### Intérêt pour une personne âgée
+### Intérêt  
 Activité apaisante, peu verbale, utile en cas d’anxiété ou de troubles du langage. Travaille le choix, le respect des contours et la concentration douce.
 
 <p><a href="https://pierreg78-maker.github.io/Mandala/">Retour au jeu</a> · <a href="https://pierreg78-maker.github.io/Atelier/">Vers l’atelier Mémo</a></p>
@@ -350,7 +350,7 @@ Retrouver toutes les **paires** de cartes identiques.
 
 Les cartes portent des motifs / symboles (notes, fleurs, étoiles, etc.).
 
-### Intérêt pour une personne âgée
+### Intérêt  
 Exercice de **mémoire visuelle** et d’attention, très lisible. Le niveau facile (peu de paires) évite la surcharge. Excellent jeu d’entrée de séance.
 
 <p><a href="https://pierreg78-maker.github.io/Memory/">Retour au jeu</a> · <a href="https://pierreg78-maker.github.io/Atelier/">Vers l’atelier Mémo</a></p>
@@ -374,7 +374,7 @@ Version allégée inspirée du Rummikub :
 - **Piocher** si l’on ne peut pas jouer.
 - Un score s’accumule au fil des manches.
 
-### Intérêt pour une personne âgée
+### Intérêt  
 Travaille la logique, le tri (couleur / nombre) et la planification, sans la complexité du Rummikub complet. Très bon jeu de table « version tactile ».
 
 <p><a href="https://pierreg78-maker.github.io/Mini-Rummikub-Access/">Retour au jeu</a> · <a href="https://pierreg78-maker.github.io/Atelier/">Vers l’atelier Mémo</a></p>
@@ -398,7 +398,7 @@ Retrouver un mot à partir de sa **définition** (et d’un indice).
 
 Exemple vu sur le jeu : « Lieu où l’on habite » + indice jardin → **MAISON**.
 
-### Intérêt pour une personne âgée
+### Intérêt  
 Stimule la **mémoire sémantique** et la compréhension. Format « carte » rassurant, sans chrono. Idéal en dialogue avec un accompagnant.
 
 <p><a href="https://pierreg78-maker.github.io/Definitions/">Retour au jeu</a> · <a href="https://pierreg78-maker.github.io/Atelier/">Vers l’atelier Mémo</a></p>
@@ -420,7 +420,7 @@ Repérer les mots cachés dans une grille de lettres.
 - Liste des mots à trouver affichée à côté.
 - Bouton **Nouvelle grille**.
 
-### Intérêt pour une personne âgée
+### Intérêt  
 Travaille l’observation et le **repérage visuo-spatial**, à un rythme libre. Le niveau 1 est particulièrement adapté (pas de mots à l’envers ni en diagonale).
 
 <p><a href="https://pierreg78-maker.github.io/mots_meles_2/">Retour au jeu</a> · <a href="https://pierreg78-maker.github.io/Atelier/">Vers l’atelier Mémo</a></p>
@@ -442,7 +442,7 @@ Même principe que les mots mêlés de l’Atelier, avec un habillage « Village
 - Compteur du type « page 194 — 0 / 5 mots trouvés ».
 - Profil et pièces d’or en haut d’écran.
 
-### Intérêt pour une personne âgée
+### Intérêt  
 Même bénéfices cognitifs que l’autre mots mêlés, plus une **motivation de collection** (or, vitrine). Varier les deux versions évite la lassitude.
 
 <p><a href="https://pierreg78-maker.github.io/mots-meles/">Retour au jeu</a> · <a href="https://pierreg78-maker.github.io/Atelier/">Vers l’atelier Mémo</a></p>
@@ -460,7 +460,7 @@ Deviner un mot du jour (ou d’une partie) à la manière de Motus / Wordle : pr
 ### Règles
 Règles du site Sutom (on quitte l’Atelier Mémo). En général : un mot à trouver, codes de couleur sur les lettres après chaque essai.
 
-### Intérêt pour une personne âgée
+### Intérêt  
 Jeu de lettres très populaire, bon pour le vocabulaire. Peut être exigeant (un seul mot, logique d’élimination) : mieux avec un accompagnant qui note les lettres.
 
 <p><a href="https://sutom.nocle.fr/">Retour au jeu</a> · <a href="https://pierreg78-maker.github.io/Atelier/">Vers l’atelier Mémo</a></p>
@@ -483,7 +483,7 @@ Onglets / outils observés :
 
 On assemble, on ajuste, puis on peut photographier / exporter selon les possibilités du navigateur.
 
-### Intérêt pour une personne âgée
+### Intérêt  
 Activité de **réminiscence** (photo de famille, de vacances) et de communication. Le résultat est concret et partageable. Peu de « performance » cognitive, beaucoup de sens.
 
 <p><a href="https://pierreg78-maker.github.io/ma_carte_postale/">Retour au jeu</a> · <a href="https://pierreg78-maker.github.io/Atelier/">Vers l’atelier Mémo</a></p>
@@ -498,7 +498,7 @@ Activité de **réminiscence** (photo de famille, de vacances) et de communicati
 ### But / mode d’emploi
 Ensemble d’outils ludiques Google : **lanceur de dés**, **bruits d’animaux**, **Emoji Kitchen**, etc. Ouvrir le lien puis explorer.
 
-### Intérêt pour une personne âgée
+### Intérêt  
 Supports très simples pour briser la glace, faire un choix, rire (bruits d’animaux) ou lancer un dé « pour de vrai » pendant un autre jeu. Idéal en médiation.
 
 <p><a href="https://share.google/nx7kT0hvLxNunAyzf">Retour au jeu</a> · <a href="https://pierreg78-maker.github.io/Atelier/">Vers l’atelier Mémo</a></p>
@@ -521,7 +521,7 @@ Outils :
 - Modèles prêts : cœur, fleur, initiales, « Game over », etc.
 - Annuler / refaire, afficher la grille et les numéros, exporter en PNG.
 
-### Intérêt pour une personne âgée
+### Intérêt  
 Relie le numérique à un savoir-faire connu (tricot, tapisserie). Travaille la planification spatiale et le choix des couleurs, avec un résultat exportable.
 
 <p><a href="https://pierreg78-maker.github.io/pixel_art/">Retour au jeu</a> · <a href="https://pierreg78-maker.github.io/Atelier/">Vers l’atelier Mémo</a></p>
@@ -544,7 +544,7 @@ Ambiance forestière : glands / chêne ambré contre feuilles d’érable.
 3. Premier alignement de quatre gagne la manche.
 4. On peut lancer une **nouvelle manche** ; les scores s’affichent.
 
-### Intérêt pour une personne âgée
+### Intérêt  
 Jeu de stratégie accessible. Travaille l’**anticipation** et l’attention visuo-spatiale. Le mode duo favorise l’échange ; l’IA permet de jouer seul.
 
 <p><a href="https://puissance4-bhpnwetp.manus.space/">Retour au jeu</a> · <a href="https://pierreg78-maker.github.io/Atelier/">Vers l’atelier Mémo</a></p>
@@ -567,7 +567,7 @@ Deux interfaces complémentaires :
 
 On enchaîne les images après un « Bravo ».
 
-### Intérêt pour une personne âgée
+### Intérêt  
 Travaille le **repérage visuo-spatial** avec une difficulté contenue (seulement 9 pièces). Les photos / motifs donnent matière à commenter.
 
 <p><a href="https://pierreg78-maker.github.io/puzzle_3x3/">Retour au jeu</a> · <a href="https://pierreg78-maker.github.io/Atelier/">Vers l’atelier Mémo</a></p>
@@ -593,7 +593,7 @@ Choisir un thème :
 
 Répondre aux questions proposées, thème par thème. On peut revenir à la liste des thèmes.
 
-### Intérêt pour une personne âgée
+### Intérêt  
 Sollicite la **culture générale** et l’évocation de souvenirs (chansons, films, région). Le thème Périgord est particulièrement parlant localement. Le quiz maison permet d’adapter aux goûts de la personne.
 
 <p><a href="https://pierreg78-maker.github.io/quizz/">Retour au jeu</a> · <a href="https://pierreg78-maker.github.io/Atelier/">Vers l’atelier Mémo</a></p>
@@ -619,7 +619,7 @@ Mention sur l’accueil Village : **version test, gains non comptabilisés**.
 
 Le détail exact du barème lettres / bankrupts n’est pas entièrement explicité à l’écran d’accueil : le déroulé suit l’esprit du jeu télévisé (roue + lettres / mot).
 
-### Intérêt pour une personne âgée
+### Intérêt  
 Les expressions courantes réactivent le langage et la mémoire sémantique. Format spectacle, très motivant à deux.
 
 <p><a href="https://pierreg78-maker.github.io/la_roue_de_la_fortune/">Retour au jeu</a> · <a href="https://pierreg78-maker.github.io/Atelier/">Vers l’atelier Mémo</a></p>
@@ -642,7 +642,7 @@ Répéter une **séquence de couleurs** de plus en plus longue.
 5. Chaque réussite allonge la séquence.
 6. Score et records (4T / 6T / 8T) sont affichés. **Rejouer** pour une nouvelle partie.
 
-### Intérêt pour une personne âgée
+### Intérêt  
 Entraîne la **mémoire de travail** et la concentration. Commencer à 4 touches. Arrêter dès que la frustration monte : le score n’est qu’un repère.
 
 <p><a href="https://pierreg78-maker.github.io/Simon2/">Retour au jeu</a> · <a href="https://pierreg78-maker.github.io/Atelier/">Vers l’atelier Mémo</a></p>
@@ -659,7 +659,7 @@ Explorer une toile interactive : **appuyer sur l’écran** pour faire apparaît
 
 Pas de score. On écoute, on touche, on recommence.
 
-### Intérêt pour une personne âgée
+### Intérêt  
 Relaxation sensorielle, utile en fin de séance ou quand les jeux de performance fatiguent. Favorise le geste et l’attention sans enjeu.
 
 <p><a href="https://pierreg78-maker.github.io/Toile_musicale/">Retour au jeu</a> · <a href="https://pierreg78-maker.github.io/Atelier/">Vers l’atelier Mémo</a></p>
@@ -683,7 +683,7 @@ Faire des **fouilles** chez le professeur Archibald, découvrir des objets à tr
 
 Le hasard détermine ce que l’on trouve ; l’intérêt est autant la collection que le mini-jeu de fouille.
 
-### Intérêt pour une personne âgée
+### Intérêt  
 Cadre narratif (archéologie, époques) qui donne envie de parler d’histoire et d’objets anciens. La collection dans le musée crée un fil conducteur d’une séance à l’autre.
 
 <p><a href="https://pierreg78-maker.github.io/tresor_des_ages/">Retour au jeu</a> · <a href="https://pierreg78-maker.github.io/Atelier/">Vers l’atelier Mémo</a></p>
@@ -705,7 +705,7 @@ S’inscrire pour jouer aux jeux du Village avec des **pièces d’or** et achet
 
 Sans profil, on peut **admirer** les objets mais les achats sont désactivés.
 
-### Intérêt pour une personne âgée
+### Intérêt  
 La vitrine est un **fil rouge motivationnel** : les objets évoquent fortement le vécu (années 50–70). L’inscription minimale (un prénom) reste accessible. Excellent support de réminiscence.
 
 <p><a href="https://pierreg78-maker.github.io/vitrine-enchantee/">Retour au jeu</a> · <a href="https://pierreg78-maker.github.io/Atelier/">Vers l’atelier Mémo</a></p>
