@@ -251,7 +251,7 @@ h1 {
   footer {
     max-width: 480px;
     margin: 40px auto 0;
-    padding: 0 10px;
+    padding: 0 16px;
     text-align: center;
   }
 
@@ -264,77 +264,60 @@ h1 {
     margin-bottom: 18px;
   }
 
-  .creative-pill {
-    display: inline-flex;
+  .footer-links {
+    display: flex;
+    width: 100%;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    background: var(--surface);
+    box-shadow: 0 2px 10px rgba(26, 26, 46, 0.06);
+  }
+
+  .footer-links a {
+    flex: 1 1 0;
+    min-width: 0;
+    display: flex;
     align-items: center;
-    gap: 4px;
-    padding: 8px 8px;
-	  border: 1px solid var(--border);
-    border-radius: 999px 0 0 999px;
-    background: linear-gradient(135deg, #F4A9C6, #EFC9DA);
-    color: #7A2E4E;
+    justify-content: center;
+    text-align: center;
+    padding: 10px 3px;
     font-family: 'Lora', serif;
     font-weight: 600;
-    font-size: 0.88rem;
+    font-size: clamp(0.58rem, 2.7vw, 0.78rem);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
     text-decoration: none;
-    box-shadow: 0 4px 12px rgba(122, 46, 78, 0.32);
-    transition: transform .15s ease, box-shadow .15s ease;
+    white-space: nowrap;
+    border-right: 1px solid var(--border);
+    -webkit-tap-highlight-color: transparent;
+    transition: filter .15s ease, transform .12s ease;
   }
 
-  .creative-pill:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 6px 16px rgba(122, 46, 78, 0.32);
+  .footer-links a:last-child { border-right: none; }
+
+  .footer-links a:hover { filter: brightness(0.97); }
+  .footer-links a:active { transform: scale(0.98); }
+
+  .footer-links .link-crea {
+    background: #FDECE6;
+    color: #C45332;
   }
 
-  .creative-pill:active { transform: translateY(0); }
-
-	.creative-pill2 {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    padding: 8px 8px;
-		border: 1px solid var(--border);
-    border-radius: 0 999px 999px 0;
-    background: linear-gradient(135deg, #a9e4f4, #c9efdf);
-    color: #612e7a;
-    font-family: 'Lora', serif;
-    font-weight: 600;
-    font-size: 0.88rem;
-    text-decoration: none;
-    box-shadow: 0 4px 12px rgba(98, 46, 122, 0.32);
-    transition: transform .15s ease, box-shadow .15s ease;
+  .footer-links .link-regles {
+    background: #F7F5F0;
+    color: #3D4A6B;
   }
 
-  .creative-pill2:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 6px 16px rgba(98, 46, 122, 0.32);
+  .footer-links .link-feedback {
+    background: #EEF2FA;
+    color: #3359CD;
   }
 
-  .creative-pill2:active { transform: translateY(0); }
-
-		.creative-pill3 {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    padding: 8px 8px;
-		border: 1px solid var(--border);
-    border-radius: 0;
-    background: #ffffff;
-    color: #b5b5b3;
-    font-family: 'Lora', serif;
-    font-weight: 600;
-    font-size: 0.81rem;
-    text-decoration: none;
-    box-shadow: 0 4px 12px rgba(211, 211, 211, 1);
-    transition: transform .15s ease, box-shadow .15s ease;
+  .footer-links .link-hasard {
+    background: #F3F6EA;
+    color: #5C7828;
   }
-
-  .creative-pill3:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 6px 16px rgba(211, 211, 211, 1);
-  }
-
-  .creative-pill3:active { transform: translateY(0); }
 
   .footer-legal {
     margin-top: 18px;
@@ -701,7 +684,12 @@ h1 {
 
 <footer>
   <p class="footer-note">Il est conseillé de jouer avec un(e) accompagnant(e).</p>
-  <a class="creative-pill" href="https://pierreg78-maker.github.io/atelier_crea/">Espace créa.</a><a class="creative-pill3" href="https://github.com/pierreg78-maker/Atelier/blob/main/guide-ateliers-memo-village-crea.md">Règles</a><a class="creative-pill3" href="https://digipad.app/p/1783392/c98981dd63d5b8">Feedback</a><a class="creative-pill2" href="https://pierreg78-maker.github.io/jeux_de_hasard/">Jeux de hasard</a>
+  <nav class="footer-links" aria-label="Autres espaces">
+    <a class="link-crea" href="https://pierreg78-maker.github.io/atelier_crea/">Espace créa</a>
+    <a class="link-regles" href="https://github.com/pierreg78-maker/Atelier/blob/main/guide-ateliers-memo-village-crea.md">Règles</a>
+    <a class="link-feedback" href="https://digipad.app/p/1783392/c98981dd63d5b8">Feedback</a>
+    <a class="link-hasard" href="https://pierreg78-maker.github.io/jeux_de_hasard/">Jeux de hasard</a>
+  </nav>
   <p class="footer-legal"><a href="https://github.com/pierreg78-maker/Atelier/blob/main/a-propos.md">Mentions légales</a></p>
 </footer>
 
