@@ -27,20 +27,20 @@ Pour chaque fiche : titre, nombre de joueurs, but et règles (ou mode d’emploi
 - [L’Intrus](#lintrus)
 - [Loto](#loto)
 - [Mandalas colorés](#mandalas-colorés)
-- [Memory](#memory)
-- [Mini-Rummikub](#mini-rummikub)
 - [Le Mot juste](#le-mot-juste)
 - [Mots mêlés (Atelier Mémo)](#mots-mêlés-atelier-mémo)
 - [Mots mêlés (Village du hasard)](#mots-mêlés-village-du-hasard)
 - [Motus / Sutom (hors-atelier)](#motus--sutom-hors-atelier)
 - [La nouvelle carte postale](#la-nouvelle-carte-postale)
+- [Objectif quatre (Puissance 4)](#objectif-quatre-puissance-4)
 - [Outils Google (hors-atelier)](#outils-google-hors-atelier)
 - [Pixels et tricot](#pixels-et-tricot)
-- [Puissance 4](#puissance-4)
 - [Puzzle(s)](#puzzles)
 - [Le Quiz](#le-quiz)
 - [La Roue de la Fortune](#la-roue-de-la-fortune)
-- [Simon](#simon)
+- [La Séquence (Simon)](#la-séquence-simon)
+- [Les Sosies (Memory)](#les-sosies-memory)
+- [Suites et Séries (Mini-Rummikub)](#suites-et-séries-mini-rummikub)
 - [Toile musicale](#toile-musicale)
 - [Trésor des âges](#trésor-des-âges)
 - [Vitrine enchantée](#vitrine-enchantée)
@@ -332,7 +332,7 @@ Activité apaisante, peu verbale, utile en cas d’anxiété ou de troubles du l
 
 ---
 
-## Memory
+## Les Sosies (Memory)
 
 **Atelier :** Atelier Mémo  
 **Joueurs :** 1 (on peut alterner les coups à deux).
@@ -353,11 +353,11 @@ Les cartes portent des motifs / symboles (notes, fleurs, étoiles, etc.).
 ### Intérêt  
 Exercice de **mémoire visuelle** et d’attention, très lisible. Le niveau facile (peu de paires) évite la surcharge. Excellent jeu d’entrée de séance.
 
-<p><a href="https://pierreg78-maker.github.io/Memory/">Retour au jeu</a> · <a href="https://pierreg78-maker.github.io/Atelier/">Vers l’atelier Mémo</a></p>
+<p><a href="https://pierreg78-maker.github.io/les-sosies/">Retour au jeu</a> · <a href="https://pierreg78-maker.github.io/Atelier/">Vers l’atelier Mémo</a></p>
 
 ---
 
-## Mini-Rummikub
+## Suites et Séries (Mini-Rummikub)
 
 **Atelier :** Atelier Mémo  
 **Joueurs :** 1 (manche guidée à l’écran ; un accompagnant peut conseiller).
@@ -366,7 +366,7 @@ Exercice de **mémoire visuelle** et d’attention, très lisible. Le niveau fac
 Former des **groupes** de tuiles de même valeur, ou des **suites** de même couleur, puis les valider.
 
 ### Règles
-Version allégée inspirée du Rummikub :
+Version allégée d’un jeu de tuiles classique :
 
 - Les tuiles ont une valeur et une couleur.
 - On peut viser des combinaisons de **2** ou **3** tuiles (sélecteurs `[2]` / `[3]` avant de jouer).
@@ -375,9 +375,9 @@ Version allégée inspirée du Rummikub :
 - Un score s’accumule au fil des manches.
 
 ### Intérêt  
-Travaille la logique, le tri (couleur / nombre) et la planification, sans la complexité du Rummikub complet. Très bon jeu de table « version tactile ».
+Travaille la logique, le tri (couleur / nombre) et la planification, sans la complexité d’un jeu de tuiles complet. Très bon jeu de table « version tactile ».
 
-<p><a href="https://pierreg78-maker.github.io/Mini-Rummikub-Access/">Retour au jeu</a> · <a href="https://pierreg78-maker.github.io/Atelier/">Vers l’atelier Mémo</a></p>
+<p><a href="https://pierreg78-maker.github.io/suites-et-series/">Retour au jeu</a> · <a href="https://pierreg78-maker.github.io/Atelier/">Vers l’atelier Mémo</a></p>
 
 ---
 
@@ -528,7 +528,7 @@ Relie le numérique à un savoir-faire connu (tricot, tapisserie). Travaille la 
 
 ---
 
-## Puissance 4
+## Objectif quatre (Puissance 4)
 
 **Atelier :** Atelier Mémo  
 **Joueurs :** 1 contre l’IA, ou 2 joueurs (1 contre 1) sur le même écran.
@@ -626,7 +626,7 @@ Les expressions courantes réactivent le langage et la mémoire sémantique. For
 
 ---
 
-## Simon
+## La Séquence (Simon)
 
 **Atelier :** Atelier Mémo  
 **Joueurs :** 1.
@@ -645,7 +645,7 @@ Répéter une **séquence de couleurs** de plus en plus longue.
 ### Intérêt  
 Entraîne la **mémoire de travail** et la concentration. Commencer à 4 touches. Arrêter dès que la frustration monte : le score n’est qu’un repère.
 
-<p><a href="https://pierreg78-maker.github.io/Simon2/">Retour au jeu</a> · <a href="https://pierreg78-maker.github.io/Atelier/">Vers l’atelier Mémo</a></p>
+<p><a href="https://pierreg78-maker.github.io/la-sequence/">Retour au jeu</a> · <a href="https://pierreg78-maker.github.io/Atelier/">Vers l’atelier Mémo</a></p>
 
 ---
 
