@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>La Séquence</title>
+<link href="../../polices/482e5863.css" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #2A2A35;
+    --surface: #16161C;
+    --surface-2: #1F1F28;
+    --border: #E8B923;
+    --gold: #FFD873;
+    --text: #E8E8F0;
+    --muted: #77778A;
+    --danger: #ff7397;
+    --shadow: rgba(0, 0, 0, 0.34);
+    --max-w: 460px;
+    --radius: 16px;
+  }
+
+  html {
+    height: 100%;
+    height: 100dvh;
+  }
+
+  body {
+    min-height: 100vh;
+    min-height: 100dvh;
+    height: 100dvh;
+    max-height: 100dvh;
+    background: radial-gradient(circle at top, #343443 0%, var(--bg) 45%, #23232d 100%);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: max(10px, env(safe-area-inset-top)) 14px max(12px, env(safe-area-inset-bottom));
+    user-select: none;
+    overflow: hidden;
+    overscroll-behavior: none;
+  }
+
+  header,
+  .dashboard,
+  .mode-selector,
+  .controls {
+    flex-shrink: 0;
+  }
+
+  .card {
+    background: var(--surface-2);
+    border: 1px solid rgba(255, 255, 255, .06);
+    border-radius: var(--radius);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, .18);
+  }
+
+  header {
+    width: min(var(--max-w), 100%);
+    position: relative;
+    text-align: center;
+  }
+
+  .banner {
+    background: var(--surface-2);
+    width: 100%;
+    padding: 14px 72px 13px;
+    border-radius: var(--radius);
+    box-shadow: 0 5px 16px var(--shadow);
+  }
+
+  .banner h1 {
+    font-family: 'DM Mono', monospace;
+    font-size: clamp(31px, 8vw, 42px);
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text);
+    text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+  }
+
+  .back-link {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    z-index: 10;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 58px;
+    height: 58px;
+    background: #4A7CCC;
+    color: white;
+    text-decoration: none;
+    border-radius: 50%;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1.05;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.35);
+    transition: transform .15s ease, filter .15s ease;
+  }
+
+  .back-link:hover { filter: brightness(1.08); }
+  .back-link:active { transform: scale(.95); }
+
+  /* Dashboard compact : records à gauche, score à droite. */
+  .dashboard {
+    width: min(var(--max-w), 100%);
+    padding: 12px 18px;
+  }
+
+  .dash-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .dash-block {
+    min-width: 0;
+  }
+
+  .dash-block--right {
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  .dash-label {
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+  }
+
+  .dash-value {
+    font-family: 'DM Mono', monospace;
+    font-size: clamp(28px, 8vw, 36px);
+    line-height: 1.15;
+    font-weight: 500;
+  }
+
+  .records {
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: .04em;
+    white-space: nowrap;
+    overflow-x: auto;
+    text-align: left;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .records-label {
+    margin-right: 6px;
+  }
+
+  /* Le mode reste dans le DOM pour ne pas perturber le JavaScript, mais n'est plus affiché. */
+  #mode-readout {
+    display: none;
+  }
+
+  .mode-selector {
+    width: min(var(--max-w), 100%);
+    padding: 8px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 7px;
+  }
+
+  .mode-btn {
+    border: 1px solid rgba(255,255,255,.09);
+    background: #252530;
+    color: #bdbdcc;
+    border-radius: 10px;
+    padding: 9px 6px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    cursor: pointer;
+    transition: transform .12s ease, background .15s ease, color .15s ease, border-color .15s ease;
+  }
+
+  .mode-btn:hover:not(:disabled) { background: #30303d; }
+  .mode-btn:active:not(:disabled) { transform: scale(.97); }
+
+  .mode-btn.active {
+    background: var(--text);
+    color: var(--bg);
+    border-color: var(--text);
+  }
+
+  .mode-btn:disabled {
+    cursor: default;
+    opacity: .55;
+  }
+
+  .grid {
+    flex: 1 1 auto;
+    min-height: 0;
+    width: min(var(--max-w), 100%);
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 9px;
+  }
+
+  .grid[data-count="4"] { grid-template-rows: repeat(2, minmax(0, 1fr)); }
+  .grid[data-count="6"] { grid-template-rows: repeat(3, minmax(0, 1fr)); }
+  .grid[data-count="8"] { grid-template-rows: repeat(4, minmax(0, 1fr)); }
+
+  .tile {
+    position: relative;
+    min-width: 0;
+    min-height: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border: 3px solid var(--border);
+    border-radius: 15px;
+    background: #111116;
+    cursor: pointer;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,.02), 0 5px 13px rgba(0,0,0,.24);
+    transition: transform .08s ease, border-color .12s ease;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+
+  .tile::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    opacity: .09;
+    background: var(--tile-color);
+    transition: opacity .12s ease, filter .12s ease;
+  }
+
+  .tile::after {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--tile-color);
+    box-shadow: 0 0 11px var(--tile-color);
+    opacity: .68;
+  }
+
+  .tile.lit {
+    transform: scale(.965);
+    border-color: #fff4b8;
+  }
+
+  .tile.lit::before {
+    opacity: 1;
+    filter: brightness(1.16) saturate(1.12);
+    box-shadow: inset 0 0 18px rgba(255,255,255,.18), 0 0 30px var(--tile-glow);
+  }
+
+  .tile:active:not(:disabled) { transform: scale(.95); }
+  .tile:disabled { cursor: default; }
+
+  .controls {
+    width: min(var(--max-w), 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 9px;
+  }
+
+  #status {
+    min-height: 18px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+    letter-spacing: .04em;
+    transition: color .2s ease;
+  }
+
+  #status.fail { color: var(--danger); }
+
+  .btn-primary {
+    border: 0;
+    border-radius: 999px;
+    background: var(--text);
+    color: var(--bg);
+    padding: 12px 34px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: .02em;
+    cursor: pointer;
+    box-shadow: 0 5px 14px rgba(0,0,0,.28);
+    transition: opacity .15s ease, transform .1s ease;
+  }
+
+  .btn-primary:hover { opacity: .9; }
+  .btn-primary:active { transform: scale(.97); }
+
+  .end-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(10, 10, 14, .72);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .25s ease;
+  }
+
+  .end-screen.show {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .end-card {
+    width: min(340px, 100%);
+    background: var(--surface-2);
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 20px;
+    padding: 30px 26px 26px;
+    text-align: center;
+    box-shadow: 0 24px 60px rgba(0,0,0,.5);
+    transform: scale(.92) translateY(10px);
+    transition: transform .25s ease;
+  }
+
+  .end-screen.show .end-card {
+    transform: scale(1) translateY(0);
+  }
+
+  .end-stars {
+    color: var(--border);
+    font-size: 18px;
+    letter-spacing: 5px;
+    opacity: .85;
+    margin-bottom: 12px;
+  }
+
+  .end-medal {
+    font-size: 46px;
+    line-height: 1;
+    min-height: 52px;
+    margin-bottom: 4px;
+  }
+
+  .end-score {
+    font-family: 'DM Mono', monospace;
+    font-size: 32px;
+    font-weight: 500;
+    margin-bottom: 6px;
+  }
+
+  .end-message {
+    color: var(--muted);
+    font-size: 14px;
+    letter-spacing: .02em;
+    margin-bottom: 24px;
+  }
+
+  .end-message.end-record {
+    color: var(--gold);
+    font-weight: 700;
+  }
+
+  .end-card .btn-primary { width: 100%; }
+
+  @media (max-width: 430px) {
+    body { gap: 8px; padding-inline: 10px; }
+    .banner { padding-block: 10px; }
+    .back-link { width: 54px; height: 54px; font-size: 9.5px; }
+    .dashboard { padding: 10px 14px; }
+    .grid { gap: 7px; }
+    .tile { border-width: 3px; border-radius: 13px; }
+    .tile::after { top: 8px; left: 8px; width: 5px; height: 5px; }
+    .mode-selector { padding: 7px; gap: 6px; }
+    .mode-btn { padding: 8px 4px; font-size: 12px; }
+  }
+
+  @media (max-height: 690px) and (orientation: portrait) {
+    body { gap: 6px; padding-top: 6px; }
+    .banner { padding-block: 8px; }
+    .banner h1 { font-size: 28px; }
+    .back-link { width: 48px; height: 48px; font-size: 8.5px; }
+    .dashboard { padding: 8px 14px; }
+    .dash-value { font-size: 27px; }
+    .records { font-size: 10px; }
+    .mode-selector { padding: 6px; }
+    .mode-btn { padding-block: 7px; }
+    .grid { gap: 6px; }
+    .controls { gap: 6px; }
+    .btn-primary { padding: 10px 30px; }
+    .end-card { padding: 22px 22px 20px; }
+    .end-medal { font-size: 36px; min-height: 40px; }
+    .end-score { font-size: 26px; }
+    .end-message { margin-bottom: 16px; }
+  }
+
+  @media (max-height: 540px) {
+    body { gap: 5px; }
+    .banner { padding-block: 6px; }
+    .banner h1 { font-size: 24px; }
+    .dashboard { padding: 6px 12px; }
+    .dash-value { font-size: 22px; }
+    .mode-btn { padding-block: 5px; font-size: 12px; }
+    .grid { gap: 5px; }
+    .btn-primary { padding: 8px 24px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition: none !important; }
+  }
+</style>
+<script src="../../hors-connexion.js"></script>
+</head>
+<body>
+
+<header>
+  <div class="banner"><h1>La Séquence</h1></div>
+  <a class="back-link" href="../../">Retour<br>à<br>l'accueil</a>
+</header>
+
+<section class="dashboard card" aria-label="Informations de partie">
+  <div class="dash-row">
+    <div class="dash-block records">
+      <span class="dash-label records-label">Records :</span>
+      <span id="records">4T 0 · 6T 0 · 8T 0</span>
+    </div>
+    <div class="dash-block dash-block--right">
+      <span class="dash-label">Score :</span>
+      <span id="score" class="dash-value">0</span>
+    </div>
+  </div>
+  <!-- Conservé pour le JavaScript, mais masqué visuellement. -->
+  <span id="mode-readout" aria-hidden="true">4 touches</span>
+</section>
+
+<section class="mode-selector card" aria-label="Nombre de touches">
+  <button class="mode-btn active" data-count="4" type="button">4 touches</button>
+  <button class="mode-btn" data-count="6" type="button">6 touches</button>
+  <button class="mode-btn" data-count="8" type="button">8 touches</button>
+</section>
+
+<main class="grid" id="grid" data-count="4" aria-label="Plateau de jeu La Séquence"></main>
+
+<div class="controls">
+  <div id="status" aria-live="polite">Prêt à jouer</div>
+  <button id="btn-start" class="btn-primary" type="button">Commencer</button>
+</div>
+
+<div class="end-screen" id="end-screen" role="dialog" aria-modal="true" aria-labelledby="end-message">
+  <div class="end-card">
+    <div class="end-stars">★★★★★★★★</div>
+    <div class="end-medal" id="end-medal"></div>
+    <div class="end-score" id="end-score">Score : 0</div>
+    <div class="end-message" id="end-message"></div>
+    <button id="btn-replay" class="btn-primary" type="button">Rejouer</button>
+  </div>
+</div>
+
+<script>
+(() => {
+  'use strict';
+
+  const TILE_DEFINITIONS = [
+    { color: '#4A7CCC', glow: 'rgba(74,124,204,.55)', frequency: 261.63 },
+    { color: '#CC4A72', glow: 'rgba(204,74,114,.55)', frequency: 329.63 },
+    { color: '#4AB087', glow: 'rgba(74,176,135,.55)', frequency: 392.00 },
+    { color: '#C89A3C', glow: 'rgba(200,154,60,.55)', frequency: 523.25 },
+    { color: '#8B63D9', glow: 'rgba(139,99,217,.55)', frequency: 293.66 },
+    { color: '#35B9C7', glow: 'rgba(53,185,199,.55)', frequency: 349.23 },
+    { color: '#E96A52', glow: 'rgba(233,106,82,.55)', frequency: 440.00 },
+    { color: '#D7E6F5', glow: 'rgba(215,230,245,.6)', frequency: 587.33 }
+  ];
+
+  const grid = document.getElementById('grid');
+  const scoreEl = document.getElementById('score');
+  const statusEl = document.getElementById('status');
+  const btnStart = document.getElementById('btn-start');
+  const recordsEl = document.getElementById('records');
+  const endScreenEl = document.getElementById('end-screen');
+  const endMedalEl = document.getElementById('end-medal');
+  const endScoreEl = document.getElementById('end-score');
+  const endMessageEl = document.getElementById('end-message');
+  const btnReplay = document.getElementById('btn-replay');
+  const modeReadout = document.getElementById('mode-readout');
+  const modeButtons = Array.from(document.querySelectorAll('.mode-btn'));
+
+  const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+  const audioCtx = AudioContextClass ? new AudioContextClass() : null;
+
+  let tileCount = 4;
+  let tiles = [];
+  let sequence = [];
+  let playerIndex = 0;
+  let score = 0;
+  let acceptingInput = false;
+  let gameActive = false;
+  let runId = 0;
+  let records = loadRecords();
+
+  function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  function loadRecords() {
+    const defaults = { 4: 0, 6: 0, 8: 0 };
+    try {
+      const saved = JSON.parse(localStorage.getItem('simon-records-2') || '{}');
+      return {
+        4: Number(saved[4]) || 0,
+        6: Number(saved[6]) || 0,
+        8: Number(saved[8]) || 0
+      };
+    } catch (_) {
+      return defaults;
+    }
+  }
+
+  function saveRecords() {
+    try { localStorage.setItem('simon-records-2', JSON.stringify(records)); } catch (_) {}
+  }
+
+  function updateRecordsDisplay() {
+    recordsEl.textContent = `4T ${records[4]} · 6T ${records[6]} · 8T ${records[8]}`;
+  }
+
+  function medalForScore(value) {
+    if (value >= 50) return '👑';
+    if (value >= 30) return '🥇';
+    if (value >= 20) return '🥈';
+    if (value >= 10) return '🥉';
+    return '';
+  }
+
+  async function ensureAudio() {
+    if (audioCtx && audioCtx.state === 'suspended') {
+      try { await audioCtx.resume(); } catch (_) {}
+    }
+  }
+
+  function playTone(index, duration = 220) {
+    if (!audioCtx) return;
+
+    const definition = TILE_DEFINITIONS[index];
+    const start = audioCtx.currentTime;
+    const end = start + duration / 1000;
+    const oscillator = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+
+    oscillator.type = 'sine';
+    oscillator.frequency.setValueAtTime(definition.frequency, start);
+
+    gain.gain.setValueAtTime(0.0001, start);
+    gain.gain.exponentialRampToValueAtTime(0.2, start + 0.018);
+    gain.gain.exponentialRampToValueAtTime(0.0001, end);
+
+    oscillator.connect(gain);
+    gain.connect(audioCtx.destination);
+    oscillator.start(start);
+    oscillator.stop(end + 0.03);
+  }
+
+  function playVictory() {
+    if (!audioCtx) return;
+    const notes = [523.25, 659.25, 783.99];
+    const start = audioCtx.currentTime;
+    notes.forEach((frequency, index) => {
+      const oscillator = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      const noteStart = start + index * 0.11;
+      oscillator.type = 'sine';
+      oscillator.frequency.setValueAtTime(frequency, noteStart);
+      gain.gain.setValueAtTime(0.0001, noteStart);
+      gain.gain.exponentialRampToValueAtTime(0.14, noteStart + 0.015);
+      gain.gain.exponentialRampToValueAtTime(0.0001, noteStart + 0.22);
+      oscillator.connect(gain);
+      gain.connect(audioCtx.destination);
+      oscillator.start(noteStart);
+      oscillator.stop(noteStart + 0.24);
+    });
+  }
+
+  function playFail() {
+    if (!audioCtx) return;
+
+    const start = audioCtx.currentTime;
+    const oscillator = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+
+    oscillator.type = 'sawtooth';
+    oscillator.frequency.setValueAtTime(135, start);
+    oscillator.frequency.exponentialRampToValueAtTime(72, start + 0.48);
+
+    gain.gain.setValueAtTime(0.14, start);
+    gain.gain.exponentialRampToValueAtTime(0.0001, start + 0.5);
+
+    oscillator.connect(gain);
+    gain.connect(audioCtx.destination);
+    oscillator.start(start);
+    oscillator.stop(start + 0.52);
+  }
+
+  function setStatus(message, isFailure = false) {
+    statusEl.textContent = message;
+    statusEl.classList.toggle('fail', isFailure);
+  }
+
+  function setScore(value) {
+    score = value;
+    scoreEl.textContent = String(value);
+  }
+
+  function setModeButtonsDisabled(disabled) {
+    modeButtons.forEach(button => { button.disabled = disabled; });
+  }
+
+  function disableTiles(disabled) {
+    tiles.forEach(tile => { tile.disabled = disabled; });
+    acceptingInput = !disabled;
+  }
+
+  function createTiles() {
+    grid.innerHTML = '';
+    grid.dataset.count = String(tileCount);
+
+    const fragment = document.createDocumentFragment();
+
+    for (let index = 0; index < tileCount; index++) {
+      const definition = TILE_DEFINITIONS[index];
+      const tile = document.createElement('button');
+      tile.type = 'button';
+      tile.className = 'tile';
+      tile.dataset.index = String(index);
+      tile.setAttribute('aria-label', `Touche ${index + 1}`);
+      tile.style.setProperty('--tile-color', definition.color);
+      tile.style.setProperty('--tile-glow', definition.glow);
+      tile.addEventListener('click', () => handleTileClick(index));
+      fragment.appendChild(tile);
+    }
+
+    grid.appendChild(fragment);
+    tiles = Array.from(grid.querySelectorAll('.tile'));
+    disableTiles(true);
+  }
+
+  async function lightTile(index, duration = 390, expectedRunId = runId) {
+    const tile = tiles[index];
+    if (!tile || expectedRunId !== runId) return;
+
+    playTone(index, Math.max(100, duration - 60));
+    tile.classList.add('lit');
+    await delay(duration);
+    tile.classList.remove('lit');
+    await delay(65);
+  }
+
+  function sequenceSpeed() {
+    return Math.max(230, 500 - sequence.length * 15);
+  }
+
+  async function animateEndTiles(expectedRunId) {
+    disableTiles(true);
+    for (let index = 0; index < tiles.length; index++) {
+      if (expectedRunId !== runId) return;
+      tiles[index].classList.add('lit');
+      await delay(70);
+    }
+    await delay(220);
+    tiles.forEach(tile => tile.classList.remove('lit'));
+  }
+
+  function showEndScreen(isNewRecord) {
+    endMedalEl.textContent = medalForScore(score);
+    endScoreEl.textContent = `Score : ${score}`;
+    endMessageEl.textContent = isNewRecord ? 'Nouveau record !' : `Record : ${records[tileCount]}`;
+    endMessageEl.classList.toggle('end-record', isNewRecord);
+    endScreenEl.classList.add('show');
+    btnReplay.focus();
+  }
+
+  function hideEndScreen() {
+    endScreenEl.classList.remove('show');
+  }
+
+  async function playSequence(expectedRunId) {
+    disableTiles(true);
+    setStatus('Observez…');
+    await delay(500);
+    if (expectedRunId !== runId) return;
+
+    const speed = sequenceSpeed();
+    for (const index of sequence) {
+      if (expectedRunId !== runId) return;
+      await lightTile(index, speed, expectedRunId);
+      await delay(45);
+    }
+
+    if (expectedRunId !== runId) return;
+    playerIndex = 0;
+    setStatus('À vous !');
+    disableTiles(false);
+  }
+
+  async function nextRound(expectedRunId) {
+    if (expectedRunId !== runId) return;
+    sequence.push(Math.floor(Math.random() * tileCount));
+    await playSequence(expectedRunId);
+  }
+
+  async function startGame() {
+    await ensureAudio();
+    runId += 1;
+    const currentRunId = runId;
+
+    gameActive = true;
+    acceptingInput = false;
+    sequence = [];
+    playerIndex = 0;
+    setScore(0);
+    setStatus('Préparez-vous…');
+    hideEndScreen();
+    btnStart.style.display = 'none';
+    setModeButtonsDisabled(true);
+    disableTiles(true);
+
+    await delay(350);
+    await nextRound(currentRunId);
+  }
+
+  async function handleFailure(expectedRunId) {
+    acceptingInput = false;
+    disableTiles(true);
+    playFail();
+    setStatus('Raté !', true);
+    await delay(520);
+
+    if (expectedRunId !== runId) return;
+    await animateEndTiles(expectedRunId);
+    if (expectedRunId !== runId) return;
+
+    const isNewRecord = score > records[tileCount];
+    if (isNewRecord) {
+      records[tileCount] = score;
+      saveRecords();
+      updateRecordsDisplay();
+      playVictory();
+    }
+
+    gameActive = false;
+    setStatus('Partie terminée');
+    btnStart.textContent = 'Rejouer';
+    btnStart.style.display = 'none';
+    setModeButtonsDisabled(false);
+    showEndScreen(isNewRecord);
+  }
+
+  async function handleTileClick(index) {
+    if (!acceptingInput || !gameActive) return;
+
+    const currentRunId = runId;
+    acceptingInput = false;
+    await ensureAudio();
+    await lightTile(index, 170, currentRunId);
+
+    if (currentRunId !== runId) return;
+
+    if (index !== sequence[playerIndex]) {
+      await handleFailure(currentRunId);
+      return;
+    }
+
+    playerIndex += 1;
+    setScore(score + 1);
+
+    if (playerIndex === sequence.length) {
+      setStatus('Bien joué !');
+      await delay(520);
+      if (currentRunId === runId) await nextRound(currentRunId);
+    } else {
+      acceptingInput = true;
+    }
+  }
+
+  function selectMode(count) {
+    if (gameActive) return;
+
+    tileCount = count;
+    runId += 1;
+    sequence = [];
+    playerIndex = 0;
+    setScore(0);
+    setStatus('Prêt à jouer');
+    hideEndScreen();
+    btnStart.textContent = 'Commencer';
+    btnStart.style.display = '';
+    modeReadout.textContent = `${count} touches`;
+
+    modeButtons.forEach(button => {
+      button.classList.toggle('active', Number(button.dataset.count) === count);
+    });
+
+    createTiles();
+  }
+
+  modeButtons.forEach(button => {
+    button.addEventListener('click', () => selectMode(Number(button.dataset.count)));
+  });
+
+  btnStart.addEventListener('click', startGame);
+  btnReplay.addEventListener('click', startGame);
+
+  updateRecordsDisplay();
+  createTiles();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le Quiz</title>
+    <style>
+        :root {
+            --primary-color: #4a6fa5;
+            --secondary-color: #166088;
+            --accent-color: #4fc3f7;
+            --background-color: #f8f9fa;
+            --text-color: #333;
+            --light-text: #ffffff;
+            --success-color: #4caf50;
+            --error-color: #f44336;
+            --border-radius: 12px;
+            --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            width: 100%;
+            margin: 0 auto;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--light-text);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        .theme-selector {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        .theme-card {
+            background: var(--light-text);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            width: 200px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: var(--box-shadow);
+            border: 3px solid transparent;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .theme-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        .theme-card.selected {
+            border-color: var(--accent-color);
+            background: #f0f8ff;
+        }
+        .theme-card h3 {
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+        .theme-card p {
+            color: var(--text-color);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+        .card-action-btn {
+            background: var(--primary-color);
+            color: var(--light-text);
+            border: none;
+            border-radius: var(--border-radius);
+            padding: 8px 12px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-top: auto;
+        }
+        .card-action-btn:hover {
+            background: var(--secondary-color);
+        }
+        /* Modal pour la saisie du thème personnalisé */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .modal-content {
+            background: var(--light-text);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+        }
+        .modal-content h3 {
+            margin-bottom: 15px;
+            color: var(--secondary-color);
+        }
+        .modal-content input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 2px solid var(--primary-color);
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+        }
+        .modal-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+        .quiz-container {
+            background: var(--light-text);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--box-shadow);
+            margin-bottom: 20px;
+        }
+        .question-container {
+            margin-bottom: 30px;
+        }
+        .question {
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: var(--secondary-color);
+            text-align: center;
+            line-height: 1.5;
+        }
+        .options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .option {
+            background: var(--background-color);
+            border: 2px solid var(--primary-color);
+            border-radius: var(--border-radius);
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+        .option:hover {
+            background: #e3f2fd;
+            border-color: var(--secondary-color);
+        }
+        .option.selected {
+            background: var(--accent-color);
+            color: var(--light-text);
+            border-color: var(--accent-color);
+        }
+        .option.correct {
+            background: var(--success-color);
+            color: var(--light-text);
+            border-color: var(--success-color);
+        }
+        .option.incorrect {
+            background: var(--error-color);
+            color: var(--light-text);
+            border-color: var(--error-color);
+        }
+        .feedback {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            display: none;
+        }
+        .feedback.correct {
+            background: rgba(76, 175, 80, 0.2);
+            color: var(--success-color);
+            display: block;
+        }
+        .feedback.incorrect {
+            background: rgba(244, 67, 54, 0.2);
+            color: var(--error-color);
+            display: block;
+        }
+        .score-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+        .progress-bar {
+            height: 10px;
+            background: var(--background-color);
+            border-radius: 5px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            border-radius: 5px;
+            transition: width 0.3s ease;
+        }
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        button {
+            background: var(--primary-color);
+            color: var(--light-text);
+            border: none;
+            border-radius: var(--border-radius);
+            padding: 12px 25px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: var(--box-shadow);
+        }
+        button:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+        button:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .result-container {
+            text-align: center;
+            display: none;
+        }
+        .result-title {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--secondary-color);
+        }
+        .result-score {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        .result-feedback {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: var(--text-color);
+        }
+        .result-actions {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .image-question {
+            max-width: 100%;
+            height: auto;
+            border-radius: var(--border-radius);
+            margin: 20px auto;
+            display: block;
+            box-shadow: var(--box-shadow);
+        }
+        .back-button {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: var(--secondary-color);
+            padding: 10px 20px;
+            border-radius: var(--border-radius);
+            color: var(--light-text);
+            text-decoration: none;
+            font-size: 1rem;
+            box-shadow: var(--box-shadow);
+            transition: all 0.2s ease;
+            z-index: 100;
+        }
+        .back-button:hover {
+            background: var(--primary-color);
+        }
+        /* Modale d'information personnalisée */
+        .custom-alert-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+        .custom-alert-box {
+            background: #3d2b1f;
+            color: #f5e6d3;
+            padding: 24px 28px;
+            border-radius: 12px;
+            max-width: 360px;
+            width: 90%;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+            font-family: system-ui, sans-serif;
+        }
+        .custom-alert-title {
+            font-weight: 600;
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+        }
+        .custom-alert-message {
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+        .custom-alert-ok {
+            background: none;
+            border: none;
+            color: #e8b88a;
+            font-size: 1rem;
+            cursor: pointer;
+            padding: 4px 8px;
+            float: right;
+        }
+        .custom-alert-ok:hover {
+            color: #f5d4a8;
+        }
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2rem;
+            }
+            .theme-card {
+                width: 150px;
+                padding: 15px;
+            }
+            .theme-card h3 {
+                font-size: 1.1rem;
+            }
+            .options {
+                grid-template-columns: 1fr;
+            }
+            .question {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+<script src="../../hors-connexion.js"></script>
+</head>
+<body>
+    <div style="position: absolute; top: 20px; left: 20px">
+      <a href="../../" style="display: inline-block; padding: 6px 10px; background-color: #6BA3FF; color: white; text-decoration: none; border-radius: 50px; font-family: Arial, sans-serif; font-size: 10px; font-weight: normal; text-align: center;">
+        Retour à l'accueil
+      </a>
+    </div>
+    <header>
+        <h1>🎤 Le Quiz </h1>
+        <p class="subtitle">Testez vos connaissances : Histoire, animaux, records... et bien plus !</p>
+    </header>
+    <div class="container">
+        <div class="theme-selector" id="themeSelector">
+            <div class="theme-card" onclick="selectTheme('histoire_france_1')">
+                <h3>🏰 Histoire de France 1</h3>
+                <p>Des Gaulois à Napoléon</p>
+            </div>
+            <div class="theme-card" onclick="selectTheme('histoire_france_2')">
+                <h3>📜 Histoire de France 2</h3>
+                <p>Révolutions et République</p>
+            </div>
+            <div class="theme-card" onclick="selectTheme('histoire_europe')">
+                <h3>🇪🇺 Histoire de l'Europe</h3>
+                <p>Empires et unions</p>
+            </div>
+            <div class="theme-card" onclick="selectTheme('villes_francaises')">
+                <h3>🏙️ Villes françaises</h3>
+                <p>Capitale et régions</p>
+            </div>
+            <div class="theme-card" onclick="selectTheme('geographie')">
+                <h3>🌍 Géographie</h3>
+                <p>Fleuves, montagnes, mers</p>
+            </div>
+            <div class="theme-card" onclick="selectTheme('animaux_1')">
+                <h3>🦁 Animaux 1</h3>
+                <p>Les plus connus</p>
+            </div>
+            <div class="theme-card" onclick="selectTheme('animaux_2')">
+                <h3>🐘 Animaux 2</h3>
+                <p>Curiosités du règne animal</p>
+            </div>
+            <div class="theme-card" onclick="selectTheme('plantes')">
+                <h3>🌿 Plantes</h3>
+                <p>Arbres, fleurs et cultures</p>
+            </div>
+            <div class="theme-card" onclick="selectTheme('records')">
+                <h3>🏆 Records</h3>
+                <p>Records du monde</p>
+            </div>
+            <div class="theme-card" onclick="selectTheme('capitales')">
+                <h3>🏛️ Capitales</h3>
+                <p>Du monde entier</p>
+            </div>
+            <div class="theme-card" onclick="selectTheme('musique')">
+                <h3>🎵 Musique</h3>
+                <p>Années 60-70-80</p>
+            </div>
+            <div class="theme-card" onclick="selectTheme('perigord')">
+                <h3>🏞️ Périgord</h3>
+                <p>Histoire & Culture</p>
+            </div>
+            <div class="theme-card" onclick="selectTheme('cinema')">
+                <h3>🎬 Cinéma</h3>
+                <p>Films populaires</p>
+            </div>
+            <div class="theme-card" onclick="selectTheme('pas_si_evident')">
+                <h3>🤯 Pas si évident</h3>
+                <p>Attention aux pièges</p>
+            </div>
+            <!-- Nouvelle carte Créer un quiz -->
+            <div class="theme-card" onclick="ouvrirModalQuiz()">
+                <h3>✨ Créer un quiz</h3>
+                <p>Générez votre propre quiz avec une IA</p>
+                <button class="card-action-btn">Générer 🚀</button>
+            </div>
+        </div>
+        <div class="quiz-container" id="quizContainer" style="display: none;">
+            <div class="score-container">
+                <span>Question <span id="questionNumber">1</span>/<span id="totalQuestions">10</span></span>
+                <span>Score: <span id="currentScore">0</span>/<span id="maxScore">10</span></span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress" id="progressBar" style="width: 0%"></div>
+            </div>
+            <div class="question-container">
+                <h2 class="question" id="questionText"></h2>
+                <div style="text-align: center; margin: 10px 0;">
+                    <button id="hintButton" onclick="showHint()" style="background: #ff9800; display: none;">💡 Voir l'indice</button>
+                    <div id="hintDisplay" style="display: none; margin-top: 10px; padding: 10px; background: #fff3e0; border-radius: 8px; font-style: italic;"></div>
+                </div>
+                <img class="image-question" id="questionImage" style="display: none;">
+                <div class="options" id="optionsContainer"></div>
+            </div>
+            <div class="feedback" id="feedback"></div>
+            <div class="controls">
+                <button id="nextButton" onclick="nextQuestion()" disabled>Suivant →</button>
+            </div>
+        </div>
+        <div class="result-container" id="resultContainer">
+            <h2 class="result-title">Félicitations !</h2>
+            <div class="result-score" id="finalScore">0/10</div>
+            <div class="result-feedback" id="resultFeedback"></div>
+            <div class="result-actions">
+                <button onclick="restartQuiz()">Recommencer</button>
+                <button onclick="backToThemes()">Changer de thème</button>
+            </div>
+        </div>
+        <a href="#" class="back-button" id="backButton" onclick="backToThemes(); return false;" style="display: none;">← Retour aux thèmes</a>
+    </div>
+    <!-- Modale pour demander le thème -->
+    <div class="modal-overlay" id="quizModal">
+        <div class="modal-content">
+            <h3>Créer un quiz personnalisé (2 min.)</h3>
+            <input type="text" id="customThemeInput" placeholder="Entrez un thème (ex: l'astronomie)">
+            <div class="modal-buttons">
+                <button onclick="fermerModalQuiz()" style="background: #ccc;">Annuler</button>
+                <button onclick="lancerCreationQuiz()">Lancer</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modale d'information personnalisée -->
+    <div class="custom-alert-overlay" id="customAlert">
+        <div class="custom-alert-box">
+            <div class="custom-alert-title">l'Atelier Mémo</div>
+            <div class="custom-alert-message" id="customAlertMessage"></div>
+            <button class="custom-alert-ok" onclick="fermerCustomAlert()">OK</button>
+        </div>
+    </div>
+
+    <script>
+        const quizzes = {
+            histoire_france_1: [
+                { question: "Quel roi est associé à la formule « L’État, c’est moi » ?", options: ["Louis XV", "Henri IV", "Louis XIV", "François Ier"], correct: 2, explanation: "Louis XIV, le Roi-Soleil, symbolise l'absolutisme monarchique avec cette formule.", hint: "C'est le Roi-Soleil." },
+                { question: "En quelle année débute la Révolution française ?", options: ["1788", "1792", "1789", "1815"], correct: 2, explanation: "La prise de la Bastille le 14 juillet 1789 marque le début de la Révolution française.", hint: "L'année de la prise de la Bastille." },
+                { question: "Qui était le principal ministre de Louis XIII ?", options: ["Colbert", "Mazarin", "Richelieu", "Sully"], correct: 2, explanation: "Le cardinal de Richelieu fut le principal ministre de Louis XIII et renforça le pouvoir royal.", hint: "Un cardinal célèbre." },
+                { question: "Quel événement a lieu le 18 juin 1940 ?", options: ["Signature de l’armistice", "Libération de Paris", "Appel du général de Gaulle", "Débarquement de Normandie"], correct: 2, explanation: "Le 18 juin 1940, le général de Gaulle lance son appel depuis Londres pour continuer le combat.", hint: "Un appel radiophonique depuis Londres." },
+                { question: "Qui est le premier empereur des Français ?", options: ["Napoléon Bonaparte", "Napoléon III", "Louis-Philippe", "Charlemagne"], correct: 0, explanation: "Napoléon Bonaparte se fait sacrer empereur des Français en 1804.", hint: "Il s'est couronné lui-même en 1804." },
+                { question: "Quelle bataille marque la défaite définitive de Napoléon en 1815 ?", options: ["Austerlitz", "Waterloo", "Leipzig", "Wagram"], correct: 1, explanation: "La bataille de Waterloo le 18 juin 1815 met fin à l'épopée napoléonienne.", hint: "Elle a eu lieu en Belgique." },
+                { question: "De quel peuple gaulois Vercingétorix était-il le chef ?", options: ["Arvernes", "Éduens", "Parisii", "Bituriges"], correct: 0, explanation: "Vercingétorix était le chef des Arvernes et a mené la résistance contre Jules César.", hint: "Un peuple de l'Auvergne actuelle." },
+                { question: "En quelle année Charlemagne est-il sacré empereur ?", options: ["750", "800", "843", "987"], correct: 1, explanation: "Charlemagne est sacré empereur le 25 décembre 800 par le pape Léon III.", hint: "C'est une année ronde." },
+                { question: "Quel traité met fin à la Première Guerre mondiale ?", options: ["Traité de Tordesillas", "Traité d'Utrecht", "Traité de Versailles", "Traité de Westphalie"], correct: 2, explanation: "Le traité de Versailles de 1919 officialise la fin de la Première Guerre mondiale.", hint: "Signé dans un château près de Paris." },
+                { question: "Qui a dit « Paris vaut bien une messe » ?", options: ["Louis XIV", "Henri IV", "Louis XVI", "François Ier"], correct: 1, explanation: "Henri IV se convertit au catholicisme pour devenir roi de France.", hint: "Il a mis fin aux guerres de Religion." }
+            ],
+            histoire_france_2: [
+                { question: "Quelle dynastie succède aux Mérovingiens ?", options: ["Capétiens", "Carolingiens", "Valois", "Bourbons"], correct: 1, explanation: "Les Carolingiens succèdent aux Mérovingiens à partir de Pépin le Bref.", hint: "La dynastie de Charlemagne." },
+                { question: "En quelle année la France passe-t-elle à la Cinquième République ?", options: ["1946", "1958", "1968", "1981"], correct: 1, explanation: "La Constitution de la Ve République est adoptée en 1958 sous Charles de Gaulle.", hint: "Sous de Gaulle, après la crise algérienne." },
+                { question: "Qui a promulgué les lois sur l'école gratuite, laïque et obligatoire ?", options: ["Jules Ferry", "Jean Jaurès", "Léon Gambetta", "Adolphe Thiers"], correct: 0, explanation: "Les lois Ferry de 1881-1882 rendent l'école primaire gratuite, laïque et obligatoire.", hint: "Un ministre de l'Instruction publique sous la IIIe République." },
+                { question: "Quel est le nom de code du débarquement en Normandie ?", options: ["Overlord", "Neptune", "Market Garden", "Anvil"], correct: 0, explanation: "L'opération Overlord est le nom de code du débarquement allié en Normandie le 6 juin 1944.", hint: "Un nom anglais signifiant 'suzerain'." },
+                { question: "Qui a été le premier président de la Ve République ?", options: ["Charles de Gaulle", "Georges Pompidou", "François Mitterrand", "René Coty"], correct: 0, explanation: "Charles de Gaulle est élu premier président de la Ve République en 1958.", hint: "L'homme du 18 juin." },
+                { question: "En quelle année a eu lieu la bataille de Verdun ?", options: ["1914", "1916", "1918", "1940"], correct: 1, explanation: "La bataille de Verdun se déroule de février à décembre 1916, l'une des plus meurtrières de la Première Guerre mondiale.", hint: "Une des plus longues batailles de la Grande Guerre." },
+                { question: "Quel roi a fait construire principalement le château de Versailles ?", options: ["Louis XIII", "Louis XIV", "Louis XV", "François Ier"], correct: 1, explanation: "Louis XIV transforme le pavillon de chasse de Versailles en résidence royale grandiose.", hint: "Le Roi-Soleil." },
+                { question: "Quel événement a lieu le 4 août 1789 ?", options: ["Prise de la Bastille", "Abolition des privilèges", "Exécution de Louis XVI", "Serment du Jeu de Paume"], correct: 1, explanation: "Dans la nuit du 4 août 1789, l'Assemblée constituante abolit les privilèges féodaux.", hint: "Une nuit fameuse pendant la Révolution." },
+                { question: "Qui a dirigé les Forces françaises libres pendant la Seconde Guerre mondiale ?", options: ["Philippe Leclerc", "Jean de Lattre de Tassigny", "Charles de Gaulle", "Henri Giraud"], correct: 2, explanation: "Charles de Gaulle dirige les Forces françaises libres depuis Londres.", hint: "Le général qui a lancé l'appel du 18 juin." },
+                { question: "En quelle année Napoléon devient-il empereur ?", options: ["1799", "1802", "1804", "1812"], correct: 2, explanation: "Napoléon se fait couronner empereur le 2 décembre 1804.", hint: "Quelques années après le coup d'État du 18 Brumaire." }
+            ],
+            histoire_europe: [
+                { question: "Quel traité a créé la Communauté économique européenne (CEE) ?", options: ["Traité de Rome", "Traité de Maastricht", "Traité de Lisbonne", "Accords de Schengen"], correct: 0, explanation: "Le traité de Rome de 1957 crée la CEE, ancêtre de l'Union européenne.", hint: "Signé dans la capitale italienne." },
+                { question: "Qui a été le premier empereur romain ?", options: ["Jules César", "Auguste", "Néron", "Trajan"], correct: 1, explanation: "Octave, sous le nom d'Auguste, devient le premier empereur romain en 27 av. J.-C.", hint: "Le neveu de Jules César." },
+                { question: "En quelle année a eu lieu la chute du mur de Berlin ?", options: ["1985", "1989", "1991", "1993"], correct: 1, explanation: "Le mur de Berlin tombe le 9 novembre 1989, symbole de la fin de la Guerre froide.", hint: "À la fin des années 80." },
+                { question: "Quel pays n'a pas fait partie des six fondateurs de la CEE ?", options: ["France", "Allemagne", "Royaume-Uni", "Italie"], correct: 2, explanation: "Les fondateurs sont France, Allemagne, Italie, Belgique, Pays-Bas et Luxembourg. Le Royaume-Uni rejoint plus tard.", hint: "Il a rejoint en 1973 et quitté en 2020." },
+                { question: "Qui a écrit « De l'esprit des lois » ?", options: ["Montesquieu", "Rousseau", "Voltaire", "Diderot"], correct: 0, explanation: "Montesquieu publie De l'esprit des lois en 1748, œuvre fondatrice de la séparation des pouvoirs.", hint: "Un philosophe des Lumières français." },
+                { question: "Quel est le nom de l'opération allemande contre l'URSS en 1941 ?", options: ["Barbarossa", "Overlord", "Fall Gelb", "Sea Lion"], correct: 0, explanation: "L'opération Barbarossa est l'invasion de l'Union soviétique par l'Allemagne nazie le 22 juin 1941.", hint: "Nom d'un empereur allemand du Moyen Âge." },
+                { question: "Quel fleuve traverse Vienne, Budapest et Belgrade ?", options: ["Danube", "Rhin", "Elbe", "Volga"], correct: 0, explanation: "Le Danube est le deuxième plus long fleuve d'Europe et traverse plusieurs capitales.", hint: "Le plus long fleuve d'Europe après la Volga." },
+                { question: "En quelle année a eu lieu la Révolution russe ?", options: ["1905", "1917", "1921", "1939"], correct: 1, explanation: "Les révolutions de février et octobre 1917 renversent le régime tsariste et mènent aux bolcheviks.", hint: "Pendant la Première Guerre mondiale." },
+                { question: "Quel pays a quitté l'Union européenne en 2020 ?", options: ["Norvège", "Suisse", "Royaume-Uni", "Islande"], correct: 2, explanation: "Le Brexit entre en vigueur le 31 janvier 2020.", hint: "C'est le Brexit." },
+                { question: "Qui a peint « La Joconde » ?", options: ["Michel-Ange", "Raphaël", "Léonard de Vinci", "Botticelli"], correct: 2, explanation: "Léonard de Vinci peint la Joconde (Mona Lisa) au début du XVIe siècle.", hint: "Un génie de la Renaissance italienne." }
+            ],
+            villes_francaises: [
+                { question: "Quelle est la capitale de la région Occitanie ?", options: ["Montpellier", "Toulouse", "Bordeaux", "Marseille"], correct: 1, explanation: "Toulouse est la préfecture de la région Occitanie.", hint: "La ville rose." },
+                { question: "Dans quelle ville se trouve la basilique Notre-Dame de Fourvière ?", options: ["Lyon", "Marseille", "Bordeaux", "Nice"], correct: 0, explanation: "La basilique de Fourvière domine Lyon et offre une vue panoramique sur la ville.", hint: "La capitale des Gaules." },
+                { question: "Quelle ville est surnommée « la cité des Ducs » ?", options: ["Dijon", "Nantes", "Lille", "Strasbourg"], correct: 0, explanation: "Dijon, ancienne capitale du duché de Bourgogne, est connue comme la cité des Ducs.", hint: "Capitale de la Bourgogne." },
+                { question: "Quel est le plus grand port de France ?", options: ["Marseille", "Le Havre", "Dunkerque", "Bordeaux"], correct: 0, explanation: "Le Grand Port Maritime de Marseille est le premier port français.", hint: "Sur la Méditerranée." },
+                { question: "Dans quelle ville a lieu le Festival de Cannes ?", options: ["Nice", "Cannes", "Monaco", "Saint-Tropez"], correct: 1, explanation: "Le Festival international du film se tient chaque année à Cannes.", hint: "Sur la Côte d'Azur." },
+                { question: "Quelle ville française est célèbre pour son carnaval ?", options: ["Nice", "Toulouse", "Lyon", "Bordeaux"], correct: 0, explanation: "Le Carnaval de Nice est l'un des plus grands et des plus anciens de France.", hint: "Sur la Côte d'Azur aussi." },
+                { question: "Dans quelle région se trouve le Mont-Saint-Michel ?", options: ["Normandie", "Bretagne", "Pays de la Loire", "Centre-Val de Loire"], correct: 0, explanation: "Le Mont-Saint-Michel est situé en Normandie, à la frontière avec la Bretagne.", hint: "À la frontière de la Bretagne." },
+                { question: "Quelle est la deuxième ville de France par population ?", options: ["Lyon", "Marseille", "Toulouse", "Lille"], correct: 1, explanation: "Marseille est la deuxième ville la plus peuplée de France après Paris.", hint: "Le plus grand port de France." },
+                { question: "Dans quelle ville se trouve le siège du Parlement européen ?", options: ["Strasbourg", "Bruxelles", "Luxembourg", "Paris"], correct: 0, explanation: "Le Parlement européen siège à Strasbourg (sessions plénières), Bruxelles et Luxembourg.", hint: "En Alsace." },
+                { question: "Quelle est la capitale de la Corse ?", options: ["Ajaccio", "Bastia", "Corte", "Calvi"], correct: 0, explanation: "Ajaccio est la préfecture de la Corse et la ville natale de Napoléon.", hint: "Ville natale de Napoléon." }
+            ],
+            geographie: [
+                { question: "Quel est le plus long fleuve de France ?", options: ["Loire", "Seine", "Rhône", "Garonne"], correct: 0, explanation: "La Loire est le plus long fleuve de France avec environ 1 006 km.", hint: "Il traverse le Val de Loire." },
+                { question: "Quelle est la plus haute montagne de France ?", options: ["Mont Blanc", "Mont Ventoux", "Pic du Midi", "Aiguille du Midi"], correct: 0, explanation: "Le Mont Blanc culmine à 4 808 m et est le plus haut sommet d'Europe occidentale.", hint: "Dans les Alpes, à la frontière italienne." },
+                { question: "Quel océan borde la côte ouest de la France métropolitaine ?", options: ["Atlantique", "Méditerranée", "Manche", "Mer du Nord"], correct: 0, explanation: "L'océan Atlantique borde toute la côte ouest de la France.", hint: "Entre l'Europe et l'Amérique." },
+                { question: "Quel est le plus grand département français ?", options: ["Guyane", "Finistère", "Gironde", "Dordogne"], correct: 0, explanation: "La Guyane, en Amérique du Sud, est le plus grand département français.", hint: "Un territoire d'outre-mer en Amérique du Sud." },
+                { question: "Dans quel océan se trouve l'île de la Réunion ?", options: ["Atlantique", "Indien", "Pacifique", "Arctique"], correct: 1, explanation: "La Réunion est une île de l'océan Indien, département français d'outre-mer.", hint: "À l'est de Madagascar." },
+                { question: "Quel fleuve se jette dans la mer Méditerranée ?", options: ["Rhône", "Loire", "Seine", "Garonne"], correct: 0, explanation: "Le Rhône se jette dans la Méditerranée près de Marseille.", hint: "Il passe par Lyon." },
+                { question: "Quelle est la capitale de la région Nouvelle-Aquitaine ?", options: ["Bordeaux", "Toulouse", "Limoges", "Poitiers"], correct: 0, explanation: "Bordeaux est la préfecture de la région Nouvelle-Aquitaine.", hint: "Célèbre pour ses vins." },
+                { question: "Quel massif montagneux sépare la France de l'Espagne ?", options: ["Alpes", "Pyrénées", "Jura", "Vosges"], correct: 1, explanation: "Les Pyrénées forment une frontière naturelle entre la France et l'Espagne.", hint: "Une chaîne qui va de l'Atlantique à la Méditerranée." },
+                { question: "Quelle est la plus grande île de France métropolitaine ?", options: ["Corse", "Belle-Île", "Oléron", "Ré"], correct: 0, explanation: "La Corse est la plus grande île de France métropolitaine.", hint: "L'île de Beauté." },
+                { question: "Dans quelle mer se jette la Seine ?", options: ["Manche", "Méditerranée", "Atlantique", "Mer du Nord"], correct: 0, explanation: "La Seine se jette dans la Manche au Havre.", hint: "Elle traverse Paris." }
+            ],
+            animaux_1: [
+                { question: "Quel animal est le plus rapide sur terre ?", options: ["Guépard", "Lion", "Gazelle", "Lièvre"], correct: 0, explanation: "Le guépard peut atteindre des vitesses de plus de 100 km/h sur de courtes distances.", hint: "Un grand félin d'Afrique." },
+                { question: "Quel mammifère pond des œufs ?", options: ["Ornithorynque", "Chauve-souris", "Dauphin", "Éléphant"], correct: 0, explanation: "L'ornithorynque est un monotrème, l'un des rares mammifères ovipares.", hint: "Un animal australien au bec de canard." },
+                { question: "Combien de cœurs possède un poulpe ?", options: ["1", "2", "3", "4"], correct: 2, explanation: "Le poulpe a trois cœurs : deux pour les branchies et un pour le corps.", hint: "Plus que les humains." },
+                { question: "Quel animal est le plus grand du monde ?", options: ["Éléphant d'Afrique", "Baleine bleue", "Girafe", "Requin-baleine"], correct: 1, explanation: "La baleine bleue est le plus grand animal ayant jamais existé sur Terre.", hint: "Un mammifère marin." },
+                { question: "Quel oiseau est incapable de voler ?", options: ["Autruche", "Aigle", "Manchot", "Colibri"], correct: 0, explanation: "L'autruche est le plus grand oiseau et ne vole pas, comme le manchot.", hint: "Le plus grand oiseau du monde." },
+                { question: "Quel animal change de couleur pour se camoufler ?", options: ["Caméléon", "Lézard", "Serpent", "Crocodile"], correct: 0, explanation: "Le caméléon change de couleur grâce à des cellules spécialisées appelées chromatophores.", hint: "Un lézard célèbre pour cela." },
+                { question: "Quel est l'animal emblématique de l'Australie ?", options: ["Kangourou", "Koala", "Émeu", "Wombat"], correct: 0, explanation: "Le kangourou est l'un des symboles les plus connus de l'Australie.", hint: "Il porte ses petits dans une poche." },
+                { question: "Quel mammifère marin est réputé pour son intelligence ?", options: ["Dauphin", "Baleine", "Phoque", "Morse"], correct: 0, explanation: "Les dauphins sont parmi les animaux les plus intelligents, avec un cerveau complexe.", hint: "Il est souvent dressé dans les parcs aquatiques." },
+                { question: "Quel animal a la plus longue durée de gestation ?", options: ["Éléphant", "Baleine", "Girafe", "Rhinocéros"], correct: 0, explanation: "La gestation de l'éléphant dure environ 22 mois.", hint: "Le plus grand animal terrestre." },
+                { question: "Quel insecte produit le miel ?", options: ["Abeille", "Guêpe", "Fourmi", "Termite"], correct: 0, explanation: "Les abeilles domestiques fabriquent le miel à partir du nectar des fleurs.", hint: "Elle vit dans une ruche." }
+            ],
+            animaux_2: [
+                { question: "Quel animal est capable de régénérer ses bras ?", options: ["Étoile de mer", "Méduse", "Ver de terre", "Escargot"], correct: 0, explanation: "L'étoile de mer peut régénérer un bras perdu, voire un corps entier à partir d'un bras.", hint: "Un animal marin à cinq bras." },
+                { question: "Quel est le plus grand félin ?", options: ["Lion", "Tigre", "Léopard", "Jaguar"], correct: 1, explanation: "Le tigre de Sibérie est le plus grand félin, pouvant dépasser 300 kg.", hint: "Rayé et vivant en Asie." },
+                { question: "Quel animal peut dormir debout ?", options: ["Cheval", "Vache", "Éléphant", "Girafe"], correct: 0, explanation: "Les chevaux peuvent dormir debout grâce à un système de verrouillage des articulations.", hint: "Un animal domestique utilisé pour le transport." },
+                { question: "Quel poisson est considéré comme le plus venimeux ?", options: ["Poisson-pierre", "Poisson-globe", "Requin", "Murène"], correct: 0, explanation: "Le poisson-pierre possède des épines dorsales extrêmement venimeuses.", hint: "Il se camoufle sur les fonds marins." },
+                { question: "Quel oiseau a la plus grande envergure ?", options: ["Albatros", "Condor", "Aigle royal", "Pélican"], correct: 0, explanation: "L'albatros hurleur a la plus grande envergure, pouvant dépasser 3,5 mètres.", hint: "Un grand oiseau marin." },
+                { question: "Quel mammifère a la plus longue langue ?", options: ["Fourmilier", "Éléphant", "Girafe", "Okapi"], correct: 0, explanation: "Le fourmilier géant a une langue pouvant mesurer jusqu'à 60 cm.", hint: "Il se nourrit de fourmis et de termites." },
+                { question: "Quel animal est traditionnellement associé à la sagesse ?", options: ["Chouette", "Hibou", "Aigle", "Corbeau"], correct: 0, explanation: "La chouette est un symbole de sagesse dans de nombreuses cultures, notamment grecque.", hint: "Un oiseau nocturne." },
+                { question: "Quel reptile peut courir sur l'eau ?", options: ["Basilic", "Crocodile", "Iguane", "Gecko"], correct: 0, explanation: "Le basilic (lézard Jésus-Christ) peut courir sur l'eau grâce à ses pattes palmées.", hint: "Surnommé le lézard Jésus-Christ." },
+                { question: "Quel animal a le sang bleu ?", options: ["Araignée", "Homard", "Ver de terre", "Méduse"], correct: 1, explanation: "Le sang des homards et de nombreux crustacés est bleu grâce à l'hémocyanine.", hint: "Un crustacé marin comestible." },
+                { question: "Quel est le plus petit mammifère ?", options: ["Musaraigne étrusque", "Chauve-souris", "Souris", "Hamster"], correct: 0, explanation: "La musaraigne étrusque pèse environ 2 grammes et mesure 4 cm.", hint: "Un petit insectivore." }
+            ],
+            plantes: [
+                { question: "Quelle plante produit le coton ?", options: ["Cotonier", "Lin", "Chanvre", "Jute"], correct: 0, explanation: "Le cotonnier produit des fibres utilisées pour le textile.", hint: "Utilisée pour fabriquer des vêtements." },
+                { question: "Quel arbre produit les glands ?", options: ["Chêne", "Hêtre", "Châtaignier", "Noyer"], correct: 0, explanation: "Les glands sont les fruits du chêne.", hint: "Un arbre majestueux des forêts françaises." },
+                { question: "Quelle plante est carnivore ?", options: ["Drosera", "Tournesol", "Orchidée", "Rose"], correct: 0, explanation: "Le drosera capture des insectes avec ses feuilles collantes.", hint: "Elle attrape les insectes." },
+                { question: "Quel fruit pousse sur un cactus ?", options: ["Figue de Barbarie", "Ananas", "Banane", "Mangue"], correct: 0, explanation: "La figue de Barbarie est le fruit du cactus opuntia.", hint: "Un fruit du désert." },
+                { question: "Quelle plante donne le café ?", options: ["Caféier", "Théier", "Cacaoyer", "Vanillier"], correct: 0, explanation: "Le caféier produit les cerises dont on extrait les grains de café.", hint: "Une boisson énergisante très consommée." },
+                { question: "Quel arbre est le plus grand du monde ?", options: ["Séquoia", "Eucalyptus", "Baobab", "Chêne"], correct: 0, explanation: "Les séquoias géants de Californie sont parmi les plus hauts arbres du monde.", hint: "Un arbre géant de Californie." },
+                { question: "Quelle céréale est principalement utilisée pour faire le pain ?", options: ["Blé", "Riz", "Maïs", "Orge"], correct: 0, explanation: "Le blé est la céréale de base pour la farine du pain.", hint: "La base de la farine." },
+                { question: "Quelle est la plus grande fleur du monde ?", options: ["Rafflesia", "Tournesol", "Lotus", "Magnolia"], correct: 0, explanation: "La rafflesia arnoldii peut mesurer jusqu'à un mètre de diamètre.", hint: "Elle pousse en Asie du Sud-Est et sent mauvais." },
+                { question: "Quelle plante ferme ses feuilles au toucher ?", options: ["Mimosa pudica", "Fougère", "Mousse", "Lichen"], correct: 0, explanation: "Le mimosa pudica (sensitive) replie ses feuilles lorsqu'on les touche.", hint: "Appelée aussi sensitive." },
+                { question: "Quel arbre produit le latex pour le caoutchouc ?", options: ["Hévéa", "Chêne-liège", "Pin", "Sapin"], correct: 0, explanation: "L'hévéa brasiliensis est la principale source de caoutchouc naturel.", hint: "Originaire d'Amazonie." }
+            ],
+            records: [
+                { question: "Quel athlète détient le record du monde du 100 mètres ?", options: ["Usain Bolt (9,58 s)", "Tyson Gay", "Asafa Powell", "Justin Gatlin"], correct: 0, explanation: "Usain Bolt a établi le record en 9,58 secondes aux championnats du monde 2009.", hint: "Un sprinteur jamaïcain." },
+                { question: "Quel est le plus haut gratte-ciel du monde ?", options: ["Burj Khalifa", "Shanghai Tower", "Abraj Al Bait", "Ping An Finance Centre"], correct: 0, explanation: "Le Burj Khalifa à Dubaï culmine à 828 mètres.", hint: "À Dubaï." },
+                { question: "Quel est le pays le plus peuplé du monde ?", options: ["Chine", "Inde", "États-Unis", "Indonésie"], correct: 1, explanation: "L'Inde est devenue le pays le plus peuplé du monde en 2023.", hint: "En Asie du Sud." },
+                { question: "Quel est le plus grand désert du monde ?", options: ["Sahara", "Antarctique", "Gobi", "Arabie"], correct: 1, explanation: "L'Antarctique est le plus grand désert (froid) de la planète.", hint: "C'est un désert de glace." },
+                { question: "Qui détient le record du plus grand nombre de médailles d'or olympiques ?", options: ["Michael Phelps", "Mark Spitz", "Usain Bolt", "Carl Lewis"], correct: 0, explanation: "Michael Phelps a remporté 23 médailles d'or olympiques.", hint: "Un nageur américain." },
+                { question: "Quel est le plus long pont du monde ?", options: ["Danyang–Kunshan Grand Bridge", "Pont de la Confédération", "Viaduc de Millau", "Golden Gate"], correct: 0, explanation: "Le Danyang–Kunshan Grand Bridge en Chine mesure plus de 164 km.", hint: "En Chine." },
+                { question: "Quel animal possède le plus grand cerveau ?", options: ["Cachalot", "Éléphant", "Humain", "Dauphin"], correct: 0, explanation: "Le cachalot a le plus grand cerveau du règne animal.", hint: "Un grand mammifère marin." },
+                { question: "Quelle est la vitesse maximale approximative d'un guépard ?", options: ["100-120 km/h", "60-80 km/h", "150 km/h", "40 km/h"], correct: 0, explanation: "Le guépard peut atteindre 110 à 120 km/h en pointe.", hint: "L'animal le plus rapide." },
+                { question: "Quel pays possède le plus grand nombre de fuseaux horaires ?", options: ["France", "Russie", "États-Unis", "Chine"], correct: 0, explanation: "Grâce à ses territoires d'outre-mer, la France en possède 12.", hint: "Grâce à ses DOM-TOM." },
+                { question: "Quel est l'un des plus vieux arbres connus ?", options: ["Pin Bristlecone", "Séquoia", "Olivier", "Baobab"], correct: 0, explanation: "Certains pins Bristlecone de Californie ont plus de 4 800 ans.", hint: "En Californie." }
+            ],
+            capitales: [
+                { question: "Quelle est la capitale de l'Australie ?", options: ["Sydney", "Melbourne", "Canberra", "Perth"], correct: 2, explanation: "Canberra a été choisie comme capitale pour éviter le rivalité entre Sydney et Melbourne.", hint: "Ni Sydney ni Melbourne." },
+                { question: "Quelle est la capitale du Canada ?", options: ["Toronto", "Montréal", "Ottawa", "Vancouver"], correct: 2, explanation: "Ottawa est la capitale politique du Canada depuis 1857.", hint: "Ni Toronto ni Montréal." },
+                { question: "Quelle est la capitale de la Turquie ?", options: ["Istanbul", "Ankara", "Izmir", "Antalya"], correct: 1, explanation: "Ankara est la capitale depuis 1923, Istanbul restant la plus grande ville.", hint: "Pas Istanbul." },
+                { question: "Quelle est la capitale du Brésil ?", options: ["Rio de Janeiro", "São Paulo", "Brasília", "Salvador"], correct: 2, explanation: "Brasília a été construite dans les années 1960 pour devenir la capitale.", hint: "Une ville construite au XXe siècle." },
+                { question: "Quelle est la capitale du Maroc ?", options: ["Casablanca", "Rabat", "Marrakech", "Fès"], correct: 1, explanation: "Rabat est la capitale administrative, Casablanca le principal centre économique.", hint: "Pas Casablanca." },
+                { question: "Quelle est la capitale de la Suisse ?", options: ["Zurich", "Genève", "Berne", "Bâle"], correct: 2, explanation: "Berne est le siège du gouvernement fédéral suisse.", hint: "Ni Zurich ni Genève." },
+                { question: "Quelle est la capitale administrative de l'Afrique du Sud ?", options: ["Johannesburg", "Le Cap", "Pretoria", "Durban"], correct: 2, explanation: "Pretoria est la capitale administrative, Le Cap législative, Bloemfontein judiciaire.", hint: "L'une des trois capitales." },
+                { question: "Quelle est la capitale de la Nouvelle-Zélande ?", options: ["Auckland", "Wellington", "Christchurch", "Hamilton"], correct: 1, explanation: "Wellington est la capitale politique de la Nouvelle-Zélande.", hint: "Pas Auckland." },
+                { question: "Quelle est la capitale du Nigeria ?", options: ["Lagos", "Abuja", "Kano", "Ibadan"], correct: 1, explanation: "Abuja a remplacé Lagos comme capitale en 1991.", hint: "Pas Lagos." },
+                { question: "Quelle est la capitale de la Corée du Sud ?", options: ["Busan", "Séoul", "Incheon", "Daegu"], correct: 1, explanation: "Séoul est la capitale et la plus grande ville de Corée du Sud.", hint: "Une grande métropole asiatique." }
+            ],
+            musique: [
+                { question: "Quel chanteur français ou chanteuse française est célèbre pour 'L'hymne à l'amour' ?", options: ["Charles Aznavour", "Sylvie Vartan", "Édith Piaf", "Johnny Hallyday"], correct: 2, hint: "La Môme." },
+                { question: "Quel groupe a chanté 'Bohemian Rhapsody' ?", options: ["The Beatles", "Queen", "Pink Floyd", "The Rolling Stones"], correct: 1, hint: "Un groupe britannique avec Freddie Mercury." },
+                { question: "Quel couple a fait scandale avec le tube des années 70: 'Je t'aime... moi non plus' ?", options: ["Dalida et Alain Delon", "Michel Berger et France Gall", "Serge Gainsbourg & Jane Birkin", "Françoise Hardy & Jacques Dutronc"], correct: 2, hint: "Un duo franco-britannique." },
+                { question: "De quel instrument Django Reinhardt jouait-il ?", options: ["Violon", "Guitare", "Accordéon", "Piano"], correct: 1, hint: "Un instrument à cordes pincées." },
+                { question: "Qui a chanté 'Mon fils ma bataille' en 1980 ?", options: ["France Gall", "Adamo", "Daniel Balavoine", "Alain Bashung"], correct: 2, hint: "Un chanteur engagé des années 80." },
+                { question: "Quelle comédie musicale a-t-elle été écrite par Michel Berger et Luc Plamondon ?", options: ["Le Roi Lion", "Notre Dame de Paris", "Hair", "Starmania"], correct: 3, hint: "Une comédie musicale rock française." },
+                { question: "Qui a chanté 'Ne me quitte pas' ?", options: ["Charles Trenet", "Jacques Brel", "Georges Brassens", "Leo Ferré"], correct: 1, hint: "Un chanteur belge." },
+                { question: "Quel artiste se 'voyait déjà en haut de l'affiche' ?", options: ["Claude François", "Frédéric François", "Johnny Hallyday","Charles Aznavour"], correct: 3, hint: "Un chanteur d'origine arménienne." },
+                { question: "Quelle est la chanson de Joe Dassin qui affirme que l'on peut s'aimer encore, même quand l'amour est mort ?", options: ["'Aux Champs-Élysées'", "'L'Été indien'", "'Dans les yeux d'Émilie'", "'L'Amérique'"], correct: 1, hint: "Une chanson sur l'automne." },
+                { question: "Sous quel nom de scène Claude Moine s'est-il fait connaître ?", options: ["Eddy Mitchell", "Dick Rivers","Johnny Hallyday", "Vince Taylor"], correct: 0, hint: "Un chanteur rock français." }
+            ],
+            perigord: [
+                { question: "Quel est le nom de la rivière qui traverse Périgueux ?", options: ["La Garonne", "La Dordogne", "La Gironde", "L'Isle"], correct: 3, hint: "Ce n'est pas la Dordogne." },
+                { question: "Quelle est la spécialité culinaire du Périgord à base de pommes de terre ?", options: ["La Truffade", "Les Pommes sarladaises", "La Tartiflette", "L'Aligot"], correct: 1, hint: "Cuisinées avec de la graisse de canard." },
+                { question: "Quel célèbre site préhistorique se trouve en Dordogne ?", options: ["Cosquer", "Niaux", "Lascaux", "Chauvet"], correct: 2, hint: "Découvert en 1940." },
+                { question: "Dans quelle ville périgourdine La Boétie habita-t-il ?", options: ["Nontron", "Mussidan", "Sarlat", "Périgueux"], correct: 2, hint: "Une ville touristique du Périgord noir." },
+                { question: "Périgueux est née de l'union du Puy-St-Front avec La Cité. En quelle année cela a-t-il eu lieu ?", options: ["940", "1240", "1540", "1840"], correct: 1, hint: "Au Moyen Âge." },
+                { question: "Lequel des produits suivants est-il d'A.O.P?", options: ["La Pomme de Mensignac", "Le Chabichou", "La Noix du Périgord", "L'ail violet de Ribérac"], correct: 2, hint: "Un fruit à coque." },
+                { question: "Quel architecte a dessiné les plans de Vesunna à Périgueux ?", options: ["Christian de Portzamparc", "Rudy Ricciotti", "Renzo Piano", "Jean Nouvel"], correct: 3, hint: "Un architecte contemporain français." },
+                { question: "Quel est le champignon emblématique du Périgord ?", options: ["Le cèpe rouge", "La truffe noire", "La girolle", "Le mousseron"], correct: 1, hint: "Un champignon rare et précieux." },
+                { question: "De quel peuple gaulois vient le nom de Périgord ?", options: ["Les Périceltes", "Les Pétrocores", "Les Bituriges", "Les Eburons"], correct: 1, hint: "Un peuple de la Gaule." },
+                { question: "Comment appelle-t-on les habitants de Saint-Astier ?", options: ["Les Asterix", "Les Saint-Astierins", "Les Astériens", "Les Astérois"], correct: 2, hint: "Un nom dérivé du nom de la ville." }
+            ],
+            cinema: [
+                { question: "Dans 'Le Corniaud', comment s'appelle 'le plus gros diamant du monde' ?", options: ["Le Cullinan", "Le Youkounkoun", "Le Koh-i-Noor", "Le Régent"], correct: 1, hint: "Un nom inventé dans le film." },
+                { question: "Qui joue le rôle de Don Camillo ?", options: ["Michel Galabru", "Raimu", "Bourvil", "Fernandel"], correct: 3, hint: "Un acteur marseillais célèbre." },
+                { question: "Qui a réalisé 'Les Parapluies de Cherbourg' ?", options: ["Jean-Luc Godard", "François Truffaut", "Jacques Demy", "Claude Chabrol"], correct: 2, hint: "Un réalisateur de la Nouvelle Vague." },
+                { question: "Quel acteur français est l'as des as ?", options: ["Gérard Depardieu", "Alain Delon", "Louis de Funès", "Jean-Paul Belmondo"], correct: 3, hint: "Un acteur d'action français." },
+                { question: "Qui est 'Le cinquième élément' dans le film éponyme ?", options: ["Korben Dallas - Bruce Willis", "Leeloo - Milla Jovovich", "Zorg - Gary Oldman", "Père Vito Cornélius - Ian Holm"], correct: 1, hint: "Le personnage principal féminin." },
+                { question: "Quel est le nom du personnage joué par Coluche dans 'L'Aile ou la Cuisse' ?", options: ["Jacques Tricatel", "Charles Duchemin", "Gérard Duchemin", "Fernand Naudin"], correct: 2, hint: "Le fils du critique gastronomique." },
+                { question: "Quel réalisateur américain a dirigé les films E.T. l'extra-terrestre, Jurassic Park et Les Dents de la mer ?", options: ["Christopher Nolan", "James Cameron", "Steven Spielberg", "George Lucas"], correct: 2, hint: "Un grand réalisateur de blockbusters." },
+                { question: "Quel est ce film célèbre de 1966, qui se termine par un 'duel' à trois ?", options: ["'Le Bon, la Brute et le Truand'", "'Il était une fois dans l'Ouest'", "'La Mort aux trousses'", "'Ben-Hur'"], correct: 0, hint: "Un western spaghetti." },
+                { question: "Quel acteur incarne Fantômas dans les années 60 ?", options: ["Louis de Funès", "Jean Marais", "Bourvil", "Yves Montand"], correct: 1, hint: "Un acteur qui a aussi joué dans La Belle et la Bête." },
+                { question: "Qui accompagne Pierre Richard dans 'la Chèvre' en 1981 ?", options: ["Victor Lanoux", "Jean-François Balmer", "Jean-Pierre Castaldi", "Gérard Depardieu"], correct: 3, hint: "Un grand acteur français." }
+            ],
+            pas_si_evident: [
+                { question: "Quel pays possède le plus grand nombre de fuseaux horaires ?", options: ["La Russie", "Les États-Unis", "La France", "La Chine"], correct: 2, hint: "Grâce à ses territoires d'outre-mer." },
+                { question: "Lequel de ces aliments peut se conserver naturellement pendant des années sans vraiment se périmer ?", options: ["Le miel", "Le riz", "Le chocolat", "Le fromage"], correct: 0, hint: "Produit par les abeilles." },
+                { question: "Quel est le plus grand organe du corps humain ?", options: ["Le foie", "La peau", "L’intestin grêle", "Le cerveau"], correct: 1, hint: "Il recouvre tout le corps." },
+                { question: "Parmi ces trois pays, lequel n’a jamais remporté la Coupe du monde de football ?", options: ["L’Angleterre", "L’Espagne", "Les Pays-Bas", "L’Allemagne"], correct: 2, hint: "Un pays d'Europe du Nord." },
+                { question: "Quel animal possède trois cœurs ?", options: ["Le poulpe", "Le requin", "L’hippocampe", "Le dauphin"], correct: 0, hint: "Un céphalopode." },
+                { question: "Quelle planète tourne sur elle-même dans le sens opposé à celui de la plupart des autres planètes ?", options: ["Mars", "Vénus", "Neptune", "Jupiter"], correct: 1, hint: "La planète la plus chaude du système solaire." },
+                { question: "Lequel de ces objets a été inventé en premier ?", options: ["Le téléphone", "Le réfrigérateur électrique", "La fermeture éclair", "Le lave-linge"], correct: 0, hint: "Inventé par Alexander Graham Bell." },
+                { question: "Quel pays consomme traditionnellement le plus de chocolat par habitant ?", options: ["La Belgique", "La Suisse", "La France", "L’Allemagne"], correct: 1, hint: "Un pays alpin." },
+                { question: "Que mesure réellement l’échelle de Richter ?", options: ["L'étendue des dégâts d’un séisme", "La magnitude d’un séisme", "La durée d’un séisme", "La profondeur d’un séisme"], correct: 1, hint: "Elle mesure l'énergie libérée." },
+                { question: "Parmi ces trois villes, laquelle est située le plus au nord ?", options: ["Paris", "Montréal", "Rome", "Madrid"], correct: 1, hint: "Une ville canadienne." }
+            ]
+        };
+
+        let currentTheme = null;
+        let currentQuestions = [];
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let selectedOption = null;
+        let answerSubmitted = false;
+        let advanceTimeout = null;
+        function selectTheme(theme) {
+            currentTheme = theme;
+            currentQuestions = [...quizzes[theme]].sort(() => Math.random() - 0.5);
+            currentQuestionIndex = 0;
+            score = 0;
+            selectedOption = null;
+            answerSubmitted = false;
+            document.getElementById('themeSelector').style.display = 'none';
+            document.getElementById('quizContainer').style.display = 'block';
+            document.getElementById('resultContainer').style.display = 'none';
+            document.getElementById('backButton').style.display = 'block';
+            displayQuestion();
+        }
+        function ouvrirModalQuiz() {
+            document.getElementById('quizModal').style.display = 'flex';
+            document.getElementById('customThemeInput').value = '';
+            document.getElementById('customThemeInput').focus();
+        }
+        function fermerModalQuiz() {
+            document.getElementById('quizModal').style.display = 'none';
+        }
+        function lancerCreationQuiz() {
+    const themeInput = document.getElementById('customThemeInput').value.trim();
+    const themeValue = themeInput ? themeInput : "un thème libre";
+    
+    const promptText = `Génère un quiz de 10 questions sur ${themeValue}. Points importants: préliminaire: on doit pouvoir ouvrir le quiz directement, ne pas proposer de code à copier-coller. 1. Une bonne réponse parmi 4 possibilités. 2. Niveau 4ème, 3ème ou seconde. 3. Un indice à découvrir si on le souhaite. 4. Une petite explication sur la bonne réponse et les autres réponses. 5. À la fin, un décompte des points, avec les points forts et les points faibles.`;
+    
+    navigator.clipboard.writeText(promptText).then(() => {
+        showCustomAlert(
+            "Le prompt a été copié dans votre presse-papier.<br>Vous pouvez le coller dans ChatGPT, Claude ou Grok."
+        );
+    }).catch(err => {
+        console.error("Erreur lors de la copie : ", err);
+        showCustomAlert(
+            "Voici votre prompt à copier manuellement :<br><br>" + promptText
+        );
+    });
+    
+    fermerModalQuiz();
+}
+
+function showCustomAlert(message, onOk) {
+    document.getElementById('customAlertMessage').innerHTML = message;
+    document.getElementById('customAlert').style.display = 'flex';
+    
+    // On stocke la fonction à exécuter au clic sur OK
+    window._customAlertCallback = onOk || null;
+}
+
+function fermerCustomAlert() {
+    document.getElementById('customAlert').style.display = 'none';
+    
+    // On exécute le callback (ouverture de Gemini) seulement maintenant
+    if (typeof window._customAlertCallback === 'function') {
+        window._customAlertCallback();
+        window._customAlertCallback = null;
+    }
+}
+        function displayQuestion() {
+            answerSubmitted = false;
+            selectedOption = null;
+            const question = currentQuestions[currentQuestionIndex];
+            document.getElementById('questionText').textContent = question.question;
+            document.getElementById('questionImage').style.display = 'none';
+            document.getElementById('optionsContainer').innerHTML = '';
+            document.getElementById('feedback').style.display = 'none';
+            document.getElementById('nextButton').disabled = true;
+            if (question.type === 'image') {
+                document.getElementById('questionImage').src = question.image;
+                document.getElementById('questionImage').style.display = 'block';
+            }
+            question.options.forEach((option, index) => {
+                const optionElement = document.createElement('div');
+                optionElement.className = 'option';
+                optionElement.textContent = option;
+                optionElement.onclick = () => selectOption(index, optionElement);
+                document.getElementById('optionsContainer').appendChild(optionElement);
+            });
+            document.getElementById('questionNumber').textContent = currentQuestionIndex + 1;
+            document.getElementById('totalQuestions').textContent = currentQuestions.length;
+            document.getElementById('currentScore').textContent = score;
+            document.getElementById('maxScore').textContent = currentQuestions.length;
+            const progress = ((currentQuestionIndex) / currentQuestions.length) * 100;
+            document.getElementById('progressBar').style.width = `${progress}%`;
+            // Hint
+            const hintBtn = document.getElementById('hintButton');
+            const hintDisp = document.getElementById('hintDisplay');
+            if (question.hint) {
+                hintBtn.style.display = 'inline-block';
+                hintBtn.disabled = false;
+                hintDisp.style.display = 'none';
+                hintDisp.textContent = '';
+            } else {
+                hintBtn.style.display = 'none';
+            }
+        }
+        function showHint() {
+            const question = currentQuestions[currentQuestionIndex];
+            const hintDisp = document.getElementById('hintDisplay');
+            hintDisp.textContent = "Indice : " + (question.hint || "");
+            hintDisp.style.display = 'block';
+            document.getElementById('hintButton').disabled = true;
+        }
+        function selectOption(index, element) {
+            if (answerSubmitted) return;
+            document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+            selectedOption = index;
+            element.classList.add('selected');
+            document.getElementById('nextButton').disabled = false;
+        }
+        function nextQuestion() {
+            if (answerSubmitted) {
+                // Déjà répondu : avancer immédiatement
+                clearTimeout(advanceTimeout);
+                advanceToNext();
+                return;
+            }
+            if (selectedOption === null) return;
+            answerSubmitted = true;
+            const question = currentQuestions[currentQuestionIndex];
+            const options = document.querySelectorAll('.option');
+            const feedback = document.getElementById('feedback');
+            if (selectedOption === question.correct) {
+                score++;
+                options[selectedOption].classList.add('correct');
+                feedback.innerHTML = "Bravo ! C'est la bonne réponse." + (question.explanation ? "<br><br><em>" + question.explanation + "</em>" : "");
+                feedback.className = "feedback correct";
+            } else {
+                options[selectedOption].classList.add('incorrect');
+                options[question.correct].classList.add('correct');
+                feedback.innerHTML = `Dommage ! La bonne réponse était : ${question.options[question.correct]}` + (question.explanation ? "<br><br><em>" + question.explanation + "</em>" : "");
+                feedback.className = "feedback incorrect";
+            }
+            feedback.style.display = 'block';
+            document.getElementById('currentScore').textContent = score;
+            // Activer le bouton pour passer plus tôt
+            document.getElementById('nextButton').disabled = false;
+            document.getElementById('nextButton').textContent = "Suivant → (ou attendre)";
+            // Timeout de 2 minutes
+            advanceTimeout = setTimeout(advanceToNext, 120000);
+        }
+        function advanceToNext() {
+            clearTimeout(advanceTimeout);
+            currentQuestionIndex++;
+            if (currentQuestionIndex < currentQuestions.length) {
+                displayQuestion();
+                document.getElementById('nextButton').textContent = "Suivant →";
+            } else {
+                showResults();
+            }
+        }
+        function showResults() {
+            document.getElementById('quizContainer').style.display = 'none';
+            document.getElementById('resultContainer').style.display = 'block';
+            const finalScore = document.getElementById('finalScore');
+            const resultFeedback = document.getElementById('resultFeedback');
+            finalScore.textContent = `${score}/${currentQuestions.length}`;
+            const percentage = (score / currentQuestions.length) * 100;
+            if (percentage === 100) {
+                resultFeedback.textContent = "Parfait ! Vous êtes un vrai expert !";
+            } else if (percentage >= 70) {
+                resultFeedback.textContent = "Excellent ! Vous connaissez très bien ce thème.";
+            } else if (percentage >= 50) {
+                resultFeedback.textContent = "Bien joué ! Vous avez de bonnes connaissances.";
+            } else {
+                resultFeedback.textContent = "Pas mal ! Vous pouvez retenter pour améliorer votre score.";
+            }
+        }
+        function restartQuiz() {
+            currentQuestionIndex = 0;
+            score = 0;
+            selectedOption = null;
+            answerSubmitted = false;
+            displayQuestion();
+            document.getElementById('quizContainer').style.display = 'block';
+            document.getElementById('resultContainer').style.display = 'none';
+        }
+        function backToThemes() {
+            document.getElementById('themeSelector').style.display = 'flex';
+            document.getElementById('quizContainer').style.display = 'none';
+            document.getElementById('resultContainer').style.display = 'none';
+            document.getElementById('backButton').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

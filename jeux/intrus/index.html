@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>L'intrus</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: Georgia, 'Times New Roman', serif;
+    background: #F5F0E8;
+    color: #2C2A22;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 0 40px;
+  }
+
+  header {
+    width: 100%;
+    background: #3B6D11;
+    color: #fff;
+    text-align: center;
+    padding: 18px 20px 14px;
+  }
+  header .surtitle {
+    font-size: 12px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    opacity: .75;
+    font-family: Arial, sans-serif;
+    margin-bottom: 4px;
+  }
+  header h1 {
+    font-size: 26px;
+    font-weight: normal;
+    letter-spacing: .01em;
+  }
+
+  .conteneur {
+    width: 100%;
+    max-width: 500px;
+    padding: 0 16px;
+  }
+
+  /* Score bar */
+  .score-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 0 10px;
+    border-bottom: 1px solid #D3CFC4;
+    margin-bottom: 18px;
+  }
+  .score-item {
+    text-align: center;
+  }
+  .score-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: #7A7468;
+    font-family: Arial, sans-serif;
+    display: block;
+    margin-bottom: 2px;
+  }
+  .score-val {
+    font-size: 22px;
+    color: #3B6D11;
+  }
+
+  /* Niveau */
+  .niveau-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+  .niveau-row label {
+    font-size: 15px;
+    color: #5F5C52;
+    font-family: Arial, sans-serif;
+    white-space: nowrap;
+  }
+  .niveau-row select {
+    flex: 1;
+    border: 1.5px solid #C8C3B6;
+    border-radius: 8px;
+    padding: 9px 12px;
+    font-size: 15px;
+    background: #fff;
+    color: #2C2A22;
+    font-family: Arial, sans-serif;
+    cursor: pointer;
+  }
+
+  /* Zone question */
+  .zone-question {
+    background: #fff;
+    border-radius: 12px;
+    border: 1.5px solid #D3CFC4;
+    padding: 16px 18px;
+    font-size: 17px;
+    line-height: 1.5;
+    margin-bottom: 16px;
+    min-height: 60px;
+    text-align: center;
+    color: #2C2A22;
+  }
+  .zone-question .theme-label {
+    display: block;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: #7A7468;
+    font-family: Arial, sans-serif;
+    margin-bottom: 6px;
+  }
+  .zone-question.attente {
+    color: #7A7468;
+    font-size: 15px;
+    font-family: Arial, sans-serif;
+    padding: 28px 18px;
+  }
+
+  /* Grille mots */
+  .grille-mots {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+
+  .btn-mot {
+    background: #fff;
+    border: 2px solid #C8C3B6;
+    border-radius: 12px;
+    padding: 18px 10px;
+    font-size: 19px;
+    font-family: Georgia, serif;
+    color: #2C2A22;
+    cursor: pointer;
+    text-align: center;
+    min-height: 62px;
+    transition: background .12s, border-color .12s, transform .08s;
+    width: 100%;
+    line-height: 1.2;
+  }
+  .btn-mot:hover:not(:disabled) { background: #F0EBE0; border-color: #A89F8E; }
+  .btn-mot:active:not(:disabled) { transform: scale(0.96); }
+  .btn-mot.choisi   { background: #E6F1FB; border-color: #378ADD; color: #0C447C; }
+  .btn-mot.correct  { background: #EAF3DE; border-color: #639922; color: #27500A; }
+  .btn-mot.erreur   { background: #FCEBEB; border-color: #E24B4A; color: #791F1F; }
+  .btn-mot.revele   { background: #EAF3DE; border-color: #639922; color: #27500A; }
+  .btn-mot:disabled { cursor: default; }
+
+  /* Feedback */
+  .zone-feedback {
+    border-radius: 10px;
+    padding: 14px 16px;
+    font-size: 16px;
+    line-height: 1.5;
+    font-family: Arial, sans-serif;
+    margin-bottom: 12px;
+    display: none;
+  }
+  .zone-feedback.ok  { background: #EAF3DE; color: #27500A; display: block; }
+  .zone-feedback.err { background: #FCEBEB; color: #791F1F; display: block; }
+
+  /* Boutons action */
+  .btn-valider {
+    background: #3B6D11;
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    padding: 18px;
+    font-size: 18px;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    width: 100%;
+    cursor: pointer;
+    margin-bottom: 10px;
+    transition: background .12s, opacity .12s, transform .08s;
+  }
+  .btn-valider:disabled { opacity: .35; cursor: default; }
+  .btn-valider:hover:not(:disabled) { background: #27500A; }
+  .btn-valider:active:not(:disabled) { transform: scale(0.98); }
+
+  .btn-nouveau {
+    background: transparent;
+    color: #5F5C52;
+    border: 1.5px solid #C8C3B6;
+    border-radius: 12px;
+    padding: 14px;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    width: 100%;
+    cursor: pointer;
+    transition: background .12s;
+  }
+  .btn-nouveau:hover { background: #EDE8DC; }
+
+  footer {
+    margin-top: 30px;
+    text-align: center;
+    font-size: 12px;
+    color: #A89F8E;
+    font-family: Arial, sans-serif;
+  }
+
+  /* Nouvelle organisation du jeu */
+  :root { --vert:#176b4d; --vert-fonce:#0e4f39; --corail:#ed6a4b; --orange:#f4a340; --bleu:#4f7cac; --creme:#fffaf2; --encre:#24332d; }
+  body { background:radial-gradient(circle at 10% 5%,rgba(244,163,64,.15),transparent 28rem),radial-gradient(circle at 90% 35%,rgba(79,124,172,.12),transparent 25rem),#f7f3eb; color:var(--encre); padding-bottom:24px; font-family:Arial,sans-serif; }
+  header { position:relative; min-height:92px; padding:26px 20px 20px; background:linear-gradient(135deg,var(--vert-fonce),var(--vert)); box-shadow:0 5px 20px rgba(14,79,57,.18); }
+  header h1 { font-family:Georgia,serif; font-size:clamp(28px,7vw,38px); font-weight:700; }
+  .conteneur { display:flex; flex-direction:column; max-width:620px; padding:24px 18px 0; }
+  .niveau-row { order:1; display:block; margin:0 0 20px; padding:18px; background:rgba(255,255,255,.82); border:1px solid #e3ddd1; border-radius:18px; box-shadow:0 8px 24px rgba(70,54,28,.06); }
+  .niveau-row label { display:block; margin-bottom:9px; color:#3d4e47; font-size:14px; font-weight:800; }
+  .niveau-row select { width:100%; min-height:50px; border:2px solid #d9d1c3; border-radius:12px; background:var(--creme); font-weight:700; }
+  .zone-question { order:2; min-height:0; margin:0 0 16px; padding:14px; border:1px solid #d6e1dc; border-radius:16px; background:#edf6f2; color:var(--vert-fonce); font-family:Arial,sans-serif; }
+  .zone-question.attente { padding:15px 18px; color:#59665f; font-size:15px; }
+  .btn-indice { display:inline-flex; align-items:center; justify-content:center; gap:8px; min-height:44px; padding:10px 16px; border:2px solid var(--bleu); border-radius:999px; background:#fff; color:#315f8c; font:800 15px Arial,sans-serif; cursor:pointer; }
+  .indice-contenu { margin-top:12px; padding-top:12px; border-top:1px solid #cbded6; font-weight:800; line-height:1.4; }
+  .grille-mots { order:3; gap:12px; margin-bottom:16px; }
+  .btn-mot { min-height:66px; padding:15px 10px; border:2px solid #d6cfc1; border-radius:15px; background:rgba(255,255,255,.94); color:var(--encre); box-shadow:0 4px 0 #d6cfc1; font-size:clamp(17px,4.5vw,20px); font-weight:700; }
+  .btn-mot:hover:not(:disabled) { background:#fff6e8; border-color:var(--orange); }
+  .btn-mot.choisi { background:#e7f0f9; border-color:var(--bleu); color:#234d75; box-shadow:0 4px 0 #9dbbd6; }
+  .btn-mot.correct,.btn-mot.revele { box-shadow:0 4px 0 #9dc276; }
+  .btn-mot.erreur { box-shadow:0 4px 0 #e9a09f; }
+  .zone-feedback { order:4; border-radius:16px; }
+  .btn-valider { order:5; min-height:58px; border-radius:15px; background:linear-gradient(135deg,var(--corail),#d94f35); box-shadow:0 5px 0 #a93d2a; }
+  .btn-valider:hover:not(:disabled) { background:#d94f35; }
+  .btn-nouveau { order:6; min-height:52px; border:2px solid var(--vert); color:var(--vert-fonce); background:#fff; font-weight:800; }
+  .score-bar { order:7; margin:28px 0 0; padding:17px 14px; border:0; border-radius:16px; background:#efe9de; }
+  .score-val { color:var(--vert); font-weight:800; }
+  @media (max-width:390px) { header{min-height:82px;padding-top:25px}.conteneur{padding:18px 12px 0}.niveau-row{padding:14px;margin-bottom:14px}.grille-mots{gap:9px}.btn-mot{min-height:58px;padding:12px 7px}.score-bar{margin-top:22px;padding-inline:8px} }
+  @media (max-width:320px) { .grille-mots{grid-template-columns:1fr} }
+  @media (prefers-reduced-motion:reduce) { *,*::before,*::after{transition:none!important} }
+
+  /* Organisation inspirée de la maquette */
+  header { background:#fff; color:#18a94d; box-shadow:none; min-height:58px; padding:15px 70px 8px; }
+  header h1 { font-family:Arial,sans-serif; font-size:25px; }
+  .conteneur { width:100%; max-width:520px; padding:0 14px 22px; }
+  .consigne { order:1; margin:0 4px 14px; color:#777; font-size:15px; font-weight:700; line-height:1.35; text-align:center; }
+  .niveau-row { order:2; display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin:0 0 20px; padding:0; background:transparent; border:0; box-shadow:none; }
+  .btn-niveau { min-height:52px; padding:8px 4px; border:0; border-radius:13px; color:#1d1d1d; font:800 14px/1.2 Arial,sans-serif; cursor:pointer; box-shadow:0 4px 0 rgba(0,0,0,.16); }
+  .btn-niveau[data-niveau="4"] { background:#ffe400; }
+  .btn-niveau[data-niveau="6"] { background:#ff922e; }
+  .btn-niveau[data-niveau="8"] { background:#ff3b3f; }
+  .btn-niveau.actif { outline:3px solid #2072a8; outline-offset:3px; }
+  .grille-mots { order:3; padding:8px; margin:0 0 14px; background:#eeeae1; gap:9px; }
+  .btn-mot { min-height:56px; padding:12px 7px; border:1.5px solid #c9c2b5; border-radius:10px; box-shadow:0 2px 0 #c9c2b5; font-family:Georgia,serif; font-weight:400; }
+  .zone-question { order:4; margin:0 0 9px; padding:8px; border:0; background:transparent; }
+  .zone-question.attente { display:none; }
+  .btn-indice { min-height:40px; border:0; background:transparent; color:#707070; font-size:15px; }
+  .indice-contenu { color:#8a5b42; text-transform:uppercase; letter-spacing:.12em; font-size:12px; }
+  .zone-feedback { order:5; }
+  .btn-valider { order:6; min-height:52px; margin-bottom:10px; background:#176b4d; box-shadow:0 4px 0 #0e4f39; }
+  .btn-nouveau { order:7; min-height:46px; }
+  .score-bar { order:8; width:100%; margin:28px 0 0; border-radius:0; }
+  footer { margin-top:14px; }
+  @media(max-width:390px) { header{padding-inline:67px}.conteneur{padding-inline:9px}.niveau-row{gap:7px}.btn-niveau{font-size:12px}.grille-mots{gap:7px}.btn-mot{min-height:52px;font-size:16px} }
+  @media(max-width:310px) { .niveau-row{grid-template-columns:1fr}.grille-mots{grid-template-columns:1fr} }
+
+  /* Typographie plus douce, sans dépendance à Internet */
+  body {
+    font-family:"Trebuchet MS","Segoe UI",Arial,sans-serif;
+  }
+  header h1 {
+    color:#132a46;
+    font-family:Comfortaa,"Arial Rounded MT Bold","Avenir Next Rounded","Trebuchet MS",sans-serif;
+    font-weight:700;
+    letter-spacing:-.025em;
+  }
+  .consigne,
+  .btn-niveau,
+  .btn-indice,
+  .btn-valider,
+  .btn-nouveau,
+  .score-label,
+  .score-val,
+  .zone-feedback,
+  footer {
+    font-family:"Trebuchet MS","Segoe UI",Arial,sans-serif;
+  }
+  .btn-mot {
+    font-family:"Arial Rounded MT Bold","Avenir Next Rounded","Trebuchet MS",sans-serif;
+    letter-spacing:.01em;
+  }
+</style>
+<script src="../../hors-connexion.js"></script>
+</head>
+<body>
+
+<header>
+  <div style="position: absolute; top: 2px; left: 5px">
+  <a href="../../" style="display: inline-block; padding: 6px 10px; background-color: #6BA3FF; color: white; text-decoration: none; border-radius: 50px; font-family: Arial, sans-serif; font-size: 10px; font-weight: normal; text-align: center; position: absolute; top: 5px; left: 10px;">
+    Retour à l'accueil
+  </a>
+  </div>
+  <h1>L'intrus</h1>
+</header>
+
+ <main class="conteneur">
+  <p class="consigne">Appuyez sur l’un des boutons ci-dessous pour générer une liste de mots où s’est glissé un intrus.</p>
+
+  <input id="niveau" type="hidden" value="6">
+  <div class="niveau-row" aria-label="Choisir la difficulté">
+    <button class="btn-niveau" data-niveau="4" onclick="choisirNiveau(4)">4 mots<br>(facile)</button>
+    <button class="btn-niveau actif" data-niveau="6" onclick="choisirNiveau(6)">6 mots<br>(moyen)</button>
+    <button class="btn-niveau" data-niveau="8" onclick="choisirNiveau(8)">8 mots<br>(difficile)</button>
+  </div>
+
+  <div class="grille-mots" id="grille-mots"></div>
+
+  <div class="zone-question attente" id="zone-question"></div>
+
+  <div class="zone-feedback" id="zone-feedback"></div>
+
+  <button class="btn-valider" id="btn-valider" disabled onclick="valider()">Valider ma réponse</button>
+  <button class="btn-nouveau" id="btn-nouveau" onclick="nouvelleQuestion()">Nouvelle question</button>
+
+  <div class="score-bar">
+    <div class="score-item">
+      <span class="score-label">Score</span>
+      <span class="score-val" id="score-val">0</span>
+    </div>
+    <div class="score-item">
+      <span class="score-label">Questions</span>
+      <span class="score-val" id="partie-val">0</span>
+    </div>
+    <div class="score-item">
+      <span class="score-label">Réussite</span>
+      <span class="score-val" id="pct-val">—</span>
+    </div>
+  </div>
+</main>
+
+<footer>Jeu sans besoin de connexion internet · Atelier Mémoire</footer>
+
+<script>
+const QUESTIONS = [
+  // --- ANIMAUX ---
+  {theme:"Animaux de la ferme", mots:["vache","mouton","cochon","aigle"], intrus:"aigle", explication:"L'aigle est un oiseau sauvage, pas un animal de la ferme."},
+  {theme:"Animaux de la ferme", mots:["cheval","poule","lapin","requin","chèvre","âne"], intrus:"requin", explication:"Le requin est un poisson des mers, pas un animal de la ferme."},
+  {theme:"Animaux de la ferme", mots:["vache","cochon","mouton","canard","dinde","lion","cheval","chèvre"], intrus:"lion", explication:"Le lion est un animal sauvage d'Afrique, pas de la ferme."},
+  {theme:"Animaux domestiques", mots:["chat","chien","lapin","crocodile"], intrus:"crocodile", explication:"Le crocodile est un reptile sauvage, pas un animal de compagnie."},
+  {theme:"Animaux domestiques", mots:["chat","chien","hamster","perroquet","tortue","loup"], intrus:"loup", explication:"Le loup est un animal sauvage des forêts."},
+  {theme:"Oiseaux", mots:["moineau","merle","pie","saumon"], intrus:"saumon", explication:"Le saumon est un poisson, pas un oiseau."},
+  {theme:"Oiseaux", mots:["cigogne","hibou","canari","aigle","faucon","grenouille"], intrus:"grenouille", explication:"La grenouille est un amphibien, pas un oiseau."},
+  {theme:"Animaux marins", mots:["dauphin","baleine","crabe","renard"], intrus:"renard", explication:"Le renard est un mammifère terrestre."},
+  {theme:"Animaux marins", mots:["méduse","pieuvre","thon","étoile de mer","crevette","chameau"], intrus:"chameau", explication:"Le chameau vit dans le désert, pas dans la mer."},
+  {theme:"Insectes", mots:["abeille","papillon","fourmi","chien"], intrus:"chien", explication:"Le chien est un mammifère, pas un insecte."},
+  {theme:"Insectes", mots:["coccinelle","libellule","moustique","ver de terre","criquet","mouche"], intrus:"ver de terre", explication:"Le ver de terre est un annélide, pas un insecte."},
+
+  // --- FRUITS ---
+  {theme:"Fruits", mots:["pomme","poire","banane","carotte"], intrus:"carotte", explication:"La carotte est un légume, pas un fruit."},
+  {theme:"Fruits rouges", mots:["fraise","cerise","framboise","kiwi"], intrus:"kiwi", explication:"Le kiwi est un fruit vert, pas un fruit rouge."},
+  {theme:"Agrumes", mots:["citron","orange","pamplemousse","citron vert","mandarine","banane"], intrus:"banane", explication:"La banane n'est pas un agrume."},
+  {theme:"Fruits exotiques", mots:["mangue","ananas","papaye","pomme","litchi","noix de coco"], intrus:"pomme", explication:"La pomme est un fruit tempéré, pas exotique."},
+  {theme:"Fruits à noyau", mots:["pêche","abricot","prune","cerise","datte","nectarine","mangue","kiwi"], intrus:"kiwi", explication:"Le kiwi n'a pas de noyau."},
+  {theme:"Fruits", mots:["melon","pastèque","figue","tomate"], intrus:"tomate", explication:"Botaniquement fruit mais culinairement légume — la tomate se mange en plat salé."},
+
+  // --- LÉGUMES ---
+  {theme:"Légumes", mots:["poireau","navet","betterave","abricot"], intrus:"abricot", explication:"L'abricot est un fruit, pas un légume."},
+  {theme:"Légumes verts", mots:["courgette","brocoli","épinard","poivron rouge"], intrus:"poivron rouge", explication:"Le poivron rouge n'est pas vert."},
+  {theme:"Légumes racines", mots:["carotte","navet","radis","pomme de terre","betterave","laitue","panais","céleri-rave"], intrus:"laitue", explication:"La laitue pousse en feuilles, pas sous terre."},
+  {theme:"Légumes", mots:["artichaut","asperge","fenouil","framboise"], intrus:"framboise", explication:"La framboise est un fruit."},
+
+  // --- FLEURS ---
+  {theme:"Fleurs", mots:["rose","tulipe","marguerite","chêne"], intrus:"chêne", explication:"Le chêne est un arbre, pas une fleur."},
+  {theme:"Fleurs de jardin", mots:["pivoine","dahlia","géranium","cactus","souci","muguet"], intrus:"cactus", explication:"Le cactus est une plante grasse, pas une fleur de jardin ordinaire."},
+  {theme:"Fleurs", mots:["orchidée","iris","lavande","jonquille","violette","romarin","anémone","lys"], intrus:"romarin", explication:"Le romarin est une herbe aromatique, pas une fleur d'ornement."},
+  {theme:"Fleurs de printemps", mots:["narcisse","jacinthe","tulipe","chrysanthème"], intrus:"chrysanthème", explication:"Le chrysanthème est une fleur d'automne."},
+
+  // --- ARBRES ---
+  {theme:"Arbres", mots:["chêne","pin","bouleau","rose"], intrus:"rose", explication:"La rose est un arbuste fleuri, pas un arbre."},
+  {theme:"Arbres fruitiers", mots:["pommier","poirier","cerisier","sapin","prunier","abricotier"], intrus:"sapin", explication:"Le sapin est un conifère, pas un arbre fruitier."},
+  {theme:"Arbres", mots:["hêtre","platane","tilleul","noyer","frêne","bambou","érable","orme"], intrus:"bambou", explication:"Le bambou est une graminée géante, pas un arbre à proprement parler."},
+
+  // --- COULEURS ---
+  {theme:"Couleurs", mots:["rouge","bleu","vert","chaise"], intrus:"chaise", explication:"La chaise est un meuble, pas une couleur."},
+  {theme:"Couleurs chaudes", mots:["rouge","orange","jaune","violet"], intrus:"violet", explication:"Le violet est une couleur froide, pas chaude."},
+  {theme:"Couleurs froides", mots:["bleu","vert","turquoise","rose vif","indigo","cyan"], intrus:"rose vif", explication:"Le rose vif est une couleur chaude."},
+  {theme:"Nuances de bleu", mots:["marine","azur","cobalt","pervenche","écarlate","turquoise"], intrus:"écarlate", explication:"L'écarlate est un rouge vif."},
+
+  // --- VILLES DE FRANCE ---
+  {theme:"Villes de France", mots:["Paris","Lyon","Marseille","Berlin"], intrus:"Berlin", explication:"Berlin est la capitale de l'Allemagne."},
+  {theme:"Villes de France", mots:["Bordeaux","Toulouse","Nantes","Nice","Dijon","Madrid","Strasbourg","Rennes"], intrus:"Madrid", explication:"Madrid est la capitale de l'Espagne."},
+  {theme:"Grandes villes françaises", mots:["Lille","Montpellier","Grenoble","Bruxelles","Rouen","Tours"], intrus:"Bruxelles", explication:"Bruxelles est la capitale de la Belgique."},
+  {theme:"Villes de Bourgogne", mots:["Dijon","Beaune","Mâcon","Troyes"], intrus:"Troyes", explication:"Troyes est en Champagne, pas en Bourgogne."},
+
+  // --- PAYS ---
+  {theme:"Pays d'Europe", mots:["France","Italie","Espagne","Japon"], intrus:"Japon", explication:"Le Japon est en Asie, pas en Europe."},
+  {theme:"Pays d'Afrique", mots:["Maroc","Sénégal","Kenya","Portugal","Tunisie","Égypte"], intrus:"Portugal", explication:"Le Portugal est en Europe."},
+  {theme:"Pays d'Asie", mots:["Chine","Inde","Thaïlande","Mexique","Vietnam","Corée"], intrus:"Mexique", explication:"Le Mexique est en Amérique centrale."},
+  {theme:"Pays d'Amérique du Sud", mots:["Brésil","Argentine","Chili","Colombie","Australie","Pérou","Uruguay","Bolivie"], intrus:"Australie", explication:"L'Australie est un continent-pays en Océanie."},
+
+  // --- MEUBLES ---
+  {theme:"Meubles", mots:["chaise","table","armoire","four"], intrus:"four", explication:"Le four est un appareil électroménager, pas un meuble."},
+  {theme:"Meubles du salon", mots:["canapé","fauteuil","bibliothèque","baignoire","table basse","buffet"], intrus:"baignoire", explication:"La baignoire appartient à la salle de bain."},
+  {theme:"Meubles de chambre", mots:["lit","commode","armoire","table de nuit","bureau","cuisinière","chevet","miroir"], intrus:"cuisinière", explication:"La cuisinière est dans la cuisine."},
+
+  // --- SPORTS ---
+  {theme:"Sports", mots:["football","tennis","natation","cuisine"], intrus:"cuisine", explication:"La cuisine est une activité culinaire, pas un sport."},
+  {theme:"Sports d'équipe", mots:["football","rugby","basketball","volleyball","tennis","handball"], intrus:"tennis", explication:"Le tennis se pratique seul ou en double, pas en équipe."},
+  {theme:"Sports nautiques", mots:["natation","plongée","voile","ski","aviron","surf"], intrus:"ski", explication:"Le ski se pratique sur la neige, pas sur l'eau."},
+  {theme:"Sports d'hiver", mots:["ski","luge","patinage","curling","biathlon","pétanque","ski de fond","bobsleigh"], intrus:"pétanque", explication:"La pétanque est un sport de boules, pratiqué en été."},
+  {theme:"Sports olympiques", mots:["judo","escrime","tir à l'arc","pêche"], intrus:"pêche", explication:"La pêche n'est pas un sport olympique."},
+
+  // --- INSTRUMENTS DE MUSIQUE ---
+  {theme:"Instruments de musique", mots:["piano","violon","flûte","marteau"], intrus:"marteau", explication:"Le marteau est un outil, pas un instrument de musique."},
+  {theme:"Instruments à cordes", mots:["guitare","harpe","violoncelle","trompette","mandoline","luth"], intrus:"trompette", explication:"La trompette est un instrument à vent, pas à cordes."},
+  {theme:"Instruments à vent", mots:["flûte","hautbois","clarinette","batterie","cor","tuba"], intrus:"batterie", explication:"La batterie est un instrument à percussion."},
+  {theme:"Instruments de musique", mots:["accordéon","trompette","tambour","xylophone","flûte","caisse claire","trombone","cymbale"], intrus:"accordéon", explication:"L'accordéon est un instrument à vent à anche libre, les autres sont des instruments de percussion ou à vent et sans anche."},
+
+  // --- MÉTIERS ---
+  {theme:"Métiers de la santé", mots:["médecin","infirmière","pharmacien","plombier"], intrus:"plombier", explication:"Le plombier est un artisan, pas un soignant."},
+  {theme:"Métiers de l'alimentation", mots:["boulanger","boucher","charcutier","électricien","pâtissier","fromager"], intrus:"électricien", explication:"L'électricien est un artisan du bâtiment."},
+  {theme:"Métiers artistiques", mots:["peintre","sculpteur","musicien","comptable","acteur","danseur"], intrus:"comptable", explication:"Le comptable est un métier des finances, pas un métier artistique."},
+  {theme:"Métiers de la mer", mots:["marin","pêcheur","capitaine","pilote de ligne","plongeur","amiral"], intrus:"pilote de ligne", explication:"Le pilote de ligne travaille dans les airs."},
+
+  // --- SAISONS & MÉTÉO ---
+  {theme:"Saisons", mots:["printemps","été","automne","lundi"], intrus:"lundi", explication:"Lundi est un jour de la semaine, pas une saison."},
+  {theme:"Phénomènes météo", mots:["pluie","neige","brouillard","soleil","grêle","marée"], intrus:"marée", explication:"La marée est un phénomène marin, pas météorologique."},
+  {theme:"Mois d'été", mots:["juin","juillet","août","novembre"], intrus:"novembre", explication:"Novembre est un mois d'automne."},
+  {theme:"Mois de l'année", mots:["janvier","mars","mai","septembre","novembre","samedi","juillet","octobre"], intrus:"samedi", explication:"Samedi est un jour de la semaine, pas un mois."},
+
+  // --- ALIMENTS & CUISINE ---
+  {theme:"Produits laitiers", mots:["fromage","beurre","yaourt","jambon"], intrus:"jambon", explication:"Le jambon est une charcuterie, pas un produit laitier."},
+  {theme:"Épices et herbes", mots:["poivre","thym","cumin","sel"], intrus:"sel", explication:"Le sel est un minéral, pas une épice ou herbe aromatique."},
+  {theme:"Boissons chaudes", mots:["café","thé","chocolat chaud","jus d'orange","tisane","chicorée"], intrus:"jus d'orange", explication:"Le jus d'orange est une boisson froide."},
+  {theme:"Pâtisseries françaises", mots:["éclair","madeleine","macaron","tarte Tatin","croissant","pizza","millefeuille","baba au rhum"], intrus:"pizza", explication:"La pizza est un plat salé d'origine italienne."},
+  {theme:"Céréales", mots:["blé","maïs","riz","seigle","avoine","lentille","orge","millet"], intrus:"lentille", explication:"La lentille est une légumineuse, pas une céréale."},
+  {theme:"Fromages français", mots:["camembert","brie","comté","roquefort","cheddar","reblochon"], intrus:"cheddar", explication:"Le cheddar est un fromage anglais."},
+
+  // --- TRANSPORTS ---
+  {theme:"Moyens de transport", mots:["voiture","train","avion","chaise"], intrus:"chaise", explication:"La chaise est un meuble, pas un moyen de transport."},
+  {theme:"Transports sur l'eau", mots:["bateau","ferry","péniche","voiture","kayak","sous-marin"], intrus:"voiture", explication:"La voiture circule sur la route."},
+  {theme:"Transports en commun", mots:["bus","métro","tramway","taxi","vélo personnel","train"], intrus:"vélo personnel", explication:"Le vélo personnel est un transport individuel."},
+  {theme:"Transports anciens", mots:["diligence","calèche","gondole","avion à réaction","galère","chaise à porteurs"], intrus:"avion à réaction", explication:"L'avion à réaction est un transport moderne."},
+
+  // --- CORPS HUMAIN ---
+  {theme:"Parties du corps", mots:["bras","jambe","oreille","nuage"], intrus:"nuage", explication:"Le nuage est un phénomène atmosphérique, pas une partie du corps."},
+  {theme:"Organes", mots:["cœur","foie","poumon","rein","cerveau","genou"], intrus:"genou", explication:"Le genou est une articulation, pas un organe interne."},
+  {theme:"Sens humains", mots:["vue","ouïe","odorat","goût","toucher","mémoire"], intrus:"mémoire", explication:"La mémoire est une fonction cognitive, pas un sens."},
+
+  // --- MAISON ---
+  {theme:"Pièces de la maison", mots:["cuisine","salon","chambre","jardin"], intrus:"jardin", explication:"Le jardin est un espace extérieur, pas une pièce de la maison."},
+  {theme:"Appareils électroménagers", mots:["lave-linge","réfrigérateur","aspirateur","piano"], intrus:"piano", explication:"Le piano est un instrument de musique."},
+  {theme:"Outils de jardinage", mots:["râteau","bêche","arrosoir","marteau","tondeuse","sécateur"], intrus:"marteau", explication:"Le marteau est un outil de bricolage, pas de jardinage."},
+  {theme:"Ustensiles de cuisine", mots:["casserole","poêle","fouet","scie","spatule","passoire"], intrus:"scie", explication:"La scie est un outil de bricolage."},
+
+  // --- VÊTEMENTS ---
+  {theme:"Vêtements", mots:["chemise","pantalon","robe","assiette"], intrus:"assiette", explication:"L'assiette est un objet de table, pas un vêtement."},
+  {theme:"Vêtements d'hiver", mots:["manteau","écharpe","bonnet","moufles","short","pull épais"], intrus:"short", explication:"Le short est un vêtement d'été."},
+  {theme:"Accessoires vestimentaires", mots:["ceinture","sac à main","montre","chapeau","chaussures","dictionnaire"], intrus:"dictionnaire", explication:"Le dictionnaire est un livre, pas un accessoire vestimentaire."},
+
+  // --- JEUX & LOISIRS ---
+  {theme:"Jeux de société", mots:["échecs","dames","dominos","football"], intrus:"football", explication:"Le football est un sport, pas un jeu de société."},
+  {theme:"Jeux de cartes", mots:["belote","rami","tarot","scrabble","poker","bridge"], intrus:"scrabble", explication:"Le scrabble est un jeu de lettres, pas un jeu de cartes."},
+  {theme:"Loisirs créatifs", mots:["tricot","peinture","broderie","jogging","poterie","origami"], intrus:"jogging", explication:"Le jogging est un sport, pas un loisir créatif."},
+
+  // --- NATURE ---
+  {theme:"Éléments naturels", mots:["montagne","rivière","forêt","autoroute"], intrus:"autoroute", explication:"L'autoroute est une construction humaine."},
+  {theme:"Minéraux et pierres", mots:["granit","marbre","quartz","calcaire","sable","tournesol"], intrus:"tournesol", explication:"Le tournesol est une plante, pas un minéral."},
+  {theme:"Planètes du système solaire", mots:["Mars","Vénus","Jupiter","Lune","Saturne","Neptune"], intrus:"Lune", explication:"La Lune est un satellite naturel, pas une planète."},
+  {theme:"Météores et astres", mots:["étoile","comète","météorite","nuage","astéroïde","nébuleuse"], intrus:"nuage", explication:"Le nuage est un phénomène atmosphérique terrestre."},
+
+  // --- RELIGION & CULTURE ---
+  {theme:"Fêtes françaises", mots:["Noël","Pâques","Toussaint","Halloween"], intrus:"Halloween", explication:"Halloween est une fête d'origine anglo-saxonne, pas une fête traditionnelle française."},
+  {theme:"Instruments de l'église", mots:["orgue","cloches","encensoir","trompette","harmonium","cierge"], intrus:"cierge", explication:"Le cierge est un objet liturgique, pas un instrument de musique."},
+
+  // --- DIVERS ---
+  {theme:"Chiffres pairs", mots:["2","4","6","7"], intrus:"7", explication:"7 est un chiffre impair."},
+  {theme:"Jours de la semaine", mots:["lundi","mercredi","vendredi","mars"], intrus:"mars", explication:"Mars est un mois de l'année, pas un jour de la semaine."},
+  {theme:"Matières scolaires", mots:["mathématiques","histoire","géographie","jardinage"], intrus:"jardinage", explication:"Le jardinage n'est pas une matière scolaire classique."},
+  {theme:"Monnaies européennes", mots:["euro","franc suisse","couronne danoise","dollar"], intrus:"dollar", explication:"Le dollar est la monnaie des États-Unis, pas d'Europe."},
+  {theme:"Langues romanes", mots:["français","espagnol","portugais","roumain","allemand","italien"], intrus:"allemand", explication:"L'allemand est une langue germanique, pas romane."},
+  {theme:"Monuments de Paris", mots:["Tour Eiffel","Louvre","Notre-Dame","Colisée"], intrus:"Colisée", explication:"Le Colisée est à Rome, en Italie."},
+];
+
+let score = 0;
+let parties = 0;
+let motChoisi = null;
+let intrusIndex = null;
+let mots = [];
+let enCours = false;
+let questionsUtilisees = [];
+let questionActive = null;
+const positionsRestantes = {};
+
+function melanger(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function choisirNiveau(nb) {
+  document.getElementById('niveau').value = nb;
+  document.querySelectorAll('.btn-niveau').forEach(btn => {
+    btn.classList.toggle('actif', Number(btn.dataset.niveau) === nb);
+  });
+  nouvelleQuestion();
+}
+
+function prochainePosition(nb) {
+  if (!positionsRestantes[nb] || positionsRestantes[nb].length === 0) {
+    positionsRestantes[nb] = melanger(Array.from({length:nb}, (_, i) => i));
+  }
+  return positionsRestantes[nb].pop();
+}
+
+function nouvelleQuestion() {
+  const nb = parseInt(document.getElementById('niveau').value);
+
+  // Pioche une question pas encore utilisée
+  let disponibles = QUESTIONS.filter((_, i) => !questionsUtilisees.includes(i));
+  if (disponibles.length === 0) {
+    questionsUtilisees = [];
+    disponibles = [...QUESTIONS];
+  }
+
+  // Filtre par nombre de mots compatible
+  const compatibles = disponibles.filter(q => q.mots.length === nb);
+  const pool = compatibles.length > 0 ? compatibles : QUESTIONS.filter(q => q.mots.length === nb);
+  const idx = QUESTIONS.indexOf(pool[Math.floor(Math.random() * pool.length)]);
+  questionsUtilisees.push(idx);
+  const q = QUESTIONS[idx];
+  questionActive = q;
+
+  // Sélectionne nb mots dont l'intrus
+  let motsBase = q.mots.filter(m => m !== q.intrus);
+  motsBase = melanger(motsBase).slice(0, nb - 1);
+  mots = melanger(motsBase);
+  intrusIndex = prochainePosition(nb);
+  mots.splice(intrusIndex, 0, q.intrus);
+
+  motChoisi = null;
+  enCours = true;
+
+  // Zone question
+  const zq = document.getElementById('zone-question');
+  zq.className = 'zone-question';
+  zq.innerHTML = `<button class="btn-indice" type="button" aria-expanded="false" onclick="afficherIndice(this)">💡 Voir un indice</button><div class="indice-contenu" hidden>Thème : ${q.theme}</div>`;
+
+  // Grille mots
+  const grille = document.getElementById('grille-mots');
+  grille.innerHTML = '';
+  mots.forEach((mot, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'btn-mot';
+    btn.textContent = mot;
+    btn.onclick = () => selectionner(i);
+    grille.appendChild(btn);
+  });
+
+  document.getElementById('zone-feedback').className = 'zone-feedback';
+  document.getElementById('btn-valider').disabled = true;
+  document.getElementById('btn-nouveau').textContent = '↺ Nouvelle question';
+}
+
+function afficherIndice(btn) {
+  const contenu = btn.nextElementSibling;
+  const ouvert = btn.getAttribute('aria-expanded') === 'true';
+  btn.setAttribute('aria-expanded', String(!ouvert));
+  contenu.hidden = ouvert;
+  btn.textContent = ouvert ? '💡 Voir un indice' : 'Masquer l’indice';
+}
+
+function selectionner(i) {
+  if (!enCours) return;
+  motChoisi = i;
+  document.querySelectorAll('.btn-mot').forEach((b, idx) => {
+    b.className = 'btn-mot' + (idx === i ? ' choisi' : '');
+  });
+  document.getElementById('btn-valider').disabled = false;
+}
+
+function valider() {
+  if (motChoisi === null || !enCours) return;
+  enCours = false;
+  parties++;
+  document.getElementById('partie-val').textContent = parties;
+
+  const btns = document.querySelectorAll('.btn-mot');
+  btns.forEach(b => b.disabled = true);
+
+  const fb = document.getElementById('zone-feedback');
+  const q = questionActive;
+
+  if (motChoisi === intrusIndex) {
+    score++;
+    btns[motChoisi].className = 'btn-mot correct';
+    fb.className = 'zone-feedback ok';
+    fb.innerHTML = `✔ Bravo ! <strong>${mots[intrusIndex]}</strong> est bien l'intrus.<br><em>${q ? q.explication : ''}</em>`;
+  } else {
+    btns[motChoisi].className = 'btn-mot erreur';
+    btns[intrusIndex].className = 'btn-mot revele';
+    fb.className = 'zone-feedback err';
+    fb.innerHTML = `✗ Pas tout à fait… L'intrus était <strong>${mots[intrusIndex]}</strong>.<br><em>${q ? q.explication : ''}</em>`;
+  }
+
+  document.getElementById('score-val').textContent = score;
+  const pct = Math.round((score / parties) * 100);
+  document.getElementById('pct-val').textContent = pct + '%';
+  document.getElementById('btn-valider').disabled = true;
+}
+</script>
+</body>
+</html>
